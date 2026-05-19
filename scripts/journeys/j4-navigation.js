@@ -1,3 +1,7 @@
+// Implements Journey 4 (Navigation & Page Health) from the Revibe Daily QA doc.
+// Source-of-truth for intent: https://docs.google.com/document/d/1IZbKwnGIuAgyVXM24bLeKS2HFtziUgt6Y9raC32yYbk/
+// Code = deterministic subset; qualitative items (visual/translation judgment) live in the doc only.
+
 import { measureLCP, findBrokenImages } from '../helpers.js';
 
 export default {
