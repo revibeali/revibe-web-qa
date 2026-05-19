@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Revibe QA Dashboard</title>
+<style>
+:root {
+  --teal: #0F6E56;
+  --cream: #FAFAF7;
+  --ink: #1A1A1A;
+  --muted: #6B6B6B;
+  --line: rgba(0,0,0,0.12);
+  --amber: #B5651D;
+  --rose: #A02738;
+  --grey: #888;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--cream); color: var(--ink); }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5; }
+main { max-width: 1100px; margin: 0 auto; padding: 32px 24px 80px; }
+h1, h2, h3, h4 { font-weight: 500; margin: 0; }
+h1 { font-size: 32px; letter-spacing: -0.02em; }
+h2 { font-size: 18px; margin: 36px 0 12px; }
+h3 { font-size: 16px; }
+h4 { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+header.top { border-bottom: 0.5px solid var(--line); padding-bottom: 20px; margin-bottom: 24px; }
+.kicker { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--teal); font-weight: 500; margin-bottom: 4px; }
+.meta { color: var(--muted); font-size: 12px; margin-top: 6px; }
+.pill { display: inline-flex; align-items: center; padding: 3px 10px; border: 0.5px solid var(--line); border-radius: 999px; font-size: 12px; font-weight: 500; color: var(--ink); background: transparent; }
+.pill.small { padding: 1px 8px; font-size: 11px; }
+.pill.pass { border-color: var(--teal); color: var(--teal); }
+.pill.warning { border-color: var(--amber); color: var(--amber); }
+.pill.fail { border-color: var(--rose); color: var(--rose); }
+.pill.skip { border-color: var(--line); color: var(--grey); }
+.health { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.health-card { border: 0.5px solid var(--line); border-radius: 4px; padding: 16px 18px; background: white; }
+.health-card .name { font-weight: 500; font-size: 15px; }
+.health-card .region { color: var(--muted); font-size: 12px; margin-top: 2px; }
+.health-card .pass-rate { font-size: 36px; font-weight: 500; color: var(--teal); letter-spacing: -0.02em; margin: 8px 0 2px; }
+.health-card .counts { color: var(--muted); font-size: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.health-card .status-row { margin-top: 10px; display: flex; align-items: center; justify-content: space-between; }
+.trend-row { display: grid; grid-template-columns: 160px 1fr auto; gap: 14px; align-items: center; padding: 8px 0; border-bottom: 0.5px solid var(--line); }
+.trend-row:last-child { border-bottom: none; }
+.trend-row .site { font-weight: 500; font-size: 13px; }
+.trend-row svg { display: block; }
+.trend-row svg rect { fill: var(--rose); }
+.trend-row svg rect.zero { fill: var(--line); }
+.trend-row .max { color: var(--muted); font-size: 11px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; white-space: nowrap; }
+.runs { width: 100%; border-collapse: collapse; font-size: 13px; }
+.runs th, .runs td { text-align: left; padding: 8px 10px; border-bottom: 0.5px solid var(--line); vertical-align: middle; }
+.runs th { font-weight: 500; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; user-select: none; }
+.runs th[data-sort-active] { color: var(--ink); }
+.runs tbody tr { cursor: pointer; }
+.runs tbody tr:hover { background: rgba(15, 110, 86, 0.04); }
+.runs .date { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.runs .site-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+.drill { background: rgba(15, 110, 86, 0.03); padding: 16px 18px; border-top: 0.5px solid var(--line); border-bottom: 0.5px solid var(--line); }
+.drill table { width: 100%; border-collapse: collapse; margin: 6px 0 8px; font-size: 12px; }
+.drill th, .drill td { text-align: left; padding: 4px 8px; border-bottom: 0.5px solid var(--line); vertical-align: top; }
+.drill th { font-weight: 500; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
+.drill .site-block { margin-bottom: 18px; }
+.drill .site-block:last-child { margin-bottom: 0; }
+.drill .site-block-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.drill .journey { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--teal); font-size: 11px; }
+.drill .check-id { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; white-space: nowrap; }
+.drill .details code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; color: var(--muted); word-break: break-all; }
+.empty { color: var(--muted); font-style: italic; padding: 8px 0; }
+footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line); color: var(--muted); font-size: 12px; }
+.loading { color: var(--muted); padding: 12px 0; }
+.error { color: var(--rose); padding: 12px 0; }
+</style>
+</head>
+<body>
+<main>
+  <header class="top">
+    <div class="kicker">Revibe</div>
+    <h1>QA Dashboard</h1>
+    <div class="meta" id="meta">Loading runs…</div>
+  </header>
+
+  <section class="health" id="health"><div class="loading">Loading site health…</div></section>
+
+  <h2>30-day failure trend</h2>
+  <section class="trends" id="trends"><div class="loading">Loading trend…</div></section>
+
+  <h2>Recent runs</h2>
+  <section>
+    <table class="runs">
+      <thead>
+        <tr>
+          <th data-sort="date" data-sort-active>Date</th>
+          <th data-sort="status">Site status</th>
+          <th data-sort="failCount">Open failures</th>
+          <th data-sort="passRate">Aggregate pass rate</th>
+        </tr>
+      </thead>
+      <tbody id="runs-body"><tr><td colspan="4" class="loading">Loading runs…</td></tr></tbody>
+    </table>
+  </section>
+
+  <footer>Static dashboard · data fetched at load · no build step</footer>
+</main>
+
+<script>
+(async () => {
+  const STATUS_RANK = { pass: 0, warning: 1, fail: 2 };
+  let runs = []; // [{ date, report }]
+  let sortField = 'date';
+  let sortDir = -1; // newest first
+
+  try {
+    const idx = await fetchJSON('reports/index.json');
+    const dates = (idx.dates || []).slice(-60); // cap fetches
+    const fetched = await Promise.all(dates.map(async (d) => {
+      try {
+        const r = await fetchJSON('reports/' + d + '.json');
+        return { date: d, report: r };
+      } catch (e) {
+        return null;
+      }
+    }));
+    runs = fetched.filter(Boolean).sort((a, b) => a.date.localeCompare(b.date));
+  } catch (e) {
+    document.getElementById('meta').textContent = '';
+    document.getElementById('health').innerHTML = '<div class="error">Failed to load reports/index.json — has a run completed yet?</div>';
+    document.getElementById('trends').innerHTML = '';
+    document.getElementById('runs-body').innerHTML = '<tr><td colspan="4" class="error">No data.</td></tr>';
+    return;
+  }
+
+  if (runs.length === 0) {
+    document.getElementById('meta').textContent = '0 runs found';
+    document.getElementById('health').innerHTML = '<div class="empty">No runs yet.</div>';
+    document.getElementById('trends').innerHTML = '<div class="empty">—</div>';
+    document.getElementById('runs-body').innerHTML = '<tr><td colspan="4" class="empty">Waiting on the first daily run.</td></tr>';
+    return;
+  }
+
+  document.getElementById('meta').textContent = runs.length + ' run' + (runs.length === 1 ? '' : 's') + ' · latest ' + runs[runs.length - 1].date;
+
+  renderHealth(runs[runs.length - 1].report);
+  renderTrends(runs);
+  bindSort();
+  renderRuns();
+
+  function renderHealth(latest) {
+    const cards = (latest.sites || []).map((s) => {
+      const sum = s.summary || {};
+      return `<div class="health-card">
+        <div class="status-row">
+          <div>
+            <div class="name">${esc(s.name)}</div>
+            <div class="region">${esc(s.region || '')}</div>
+          </div>
+          <span class="pill ${esc(sum.status || 'skip')}">${esc(sum.status || '—')}</span>
+        </div>
+        <div class="pass-rate">${sum.passRate ?? 0}%</div>
+        <div class="counts">${sum.pass || 0}p · ${sum.warning || 0}w · ${sum.fail || 0}f · ${sum.skip || 0}s</div>
+      </div>`;
+    }).join('');
+    document.getElementById('health').innerHTML = cards;
+  }
+
+  function renderTrends(runs) {
+    const last30 = runs.slice(-30);
+    const sites = (runs[runs.length - 1].report.sites || []).map((s) => s.id);
+    const rows = sites.map((siteId) => {
+      const values = last30.map((r) => {
+        const s = (r.report.sites || []).find((x) => x.id === siteId);
+        return s ? (s.summary.fail || 0) : 0;
+      });
+      const max = Math.max(1, ...values);
+      const name = (runs[runs.length - 1].report.sites.find((x) => x.id === siteId) || {}).name || siteId;
+      return `<div class="trend-row">
+        <div class="site">${esc(name)}</div>
+        ${trendSVG(values, max)}
+        <div class="max">max ${max} · last ${values[values.length - 1] || 0}</div>
+      </div>`;
+    }).join('');
+    document.getElementById('trends').innerHTML = rows || '<div class="empty">—</div>';
+  }
+
+  function trendSVG(values, max) {
+    const slots = 30;
+    const padded = values.length < slots ? new Array(slots - values.length).fill(0).concat(values) : values.slice(-slots);
+    const w = 360, h = 36, barW = w / slots;
+    const bars = padded.map((v, i) => {
+      const ratio = max > 0 ? v / max : 0;
+      const barH = v === 0 ? 2 : Math.max(2, ratio * (h - 4));
+      const cls = v === 0 ? 'zero' : '';
+      return `<rect class="${cls}" x="${(i*barW).toFixed(1)}" y="${(h - barH).toFixed(1)}" width="${(barW-1.5).toFixed(1)}" height="${barH.toFixed(1)}" rx="1" />`;
+    }).join('');
+    return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">${bars}</svg>`;
+  }
+
+  function bindSort() {
+    document.querySelectorAll('.runs th[data-sort]').forEach((th) => {
+      th.addEventListener('click', () => {
+        const field = th.dataset.sort;
+        if (sortField === field) sortDir = -sortDir;
+        else { sortField = field; sortDir = -1; }
+        document.querySelectorAll('.runs th').forEach((x) => x.removeAttribute('data-sort-active'));
+        th.setAttribute('data-sort-active', '');
+        renderRuns();
+      });
+    });
+  }
+
+  function renderRuns() {
+    const enriched = runs.map((r) => {
+      const sites = r.report.sites || [];
+      const totalPass = sites.reduce((a, s) => a + (s.summary.pass || 0), 0);
+      const totalScoreable = sites.reduce((a, s) => a + (s.summary.pass || 0) + (s.summary.warning || 0) + (s.summary.fail || 0), 0);
+      const failCount = sites.reduce((a, s) => a + (s.summary.fail || 0), 0);
+      const overallStatus = sites.some((s) => s.summary.status === 'fail') ? 'fail' : sites.some((s) => s.summary.status === 'warning') ? 'warning' : 'pass';
+      return {
+        date: r.date,
+        report: r.report,
+        sites,
+        failCount,
+        passRate: totalScoreable > 0 ? Math.round((totalPass / totalScoreable) * 100) : 0,
+        statusRank: STATUS_RANK[overallStatus],
+        overallStatus,
+      };
+    });
+    const sorted = enriched.sort((a, b) => {
+      let av, bv;
+      if (sortField === 'date') { av = a.date; bv = b.date; }
+      else if (sortField === 'status') { av = a.statusRank; bv = b.statusRank; }
+      else if (sortField === 'failCount') { av = a.failCount; bv = b.failCount; }
+      else if (sortField === 'passRate') { av = a.passRate; bv = b.passRate; }
+      if (av < bv) return -1 * sortDir;
+      if (av > bv) return 1 * sortDir;
+      return 0;
+    });
+    const tbody = document.getElementById('runs-body');
+    tbody.innerHTML = sorted.map((r) => `<tr data-date="${esc(r.date)}">
+      <td class="date">${esc(r.date)}</td>
+      <td><div class="site-pills">${r.sites.map((s) => `<span class="pill small ${esc(s.summary.status)}">${esc(shortName(s.name))} ${esc(s.summary.status)}</span>`).join('')}</div></td>
+      <td>${r.failCount}</td>
+      <td>${r.passRate}%</td>
+    </tr>`).join('');
+    tbody.querySelectorAll('tr[data-date]').forEach((tr) => {
+      tr.addEventListener('click', () => toggleDrill(tr));
+    });
+  }
+
+  function toggleDrill(tr) {
+    const existing = tr.nextElementSibling;
+    if (existing && existing.classList.contains('drill-row')) {
+      existing.remove();
+      return;
+    }
+    document.querySelectorAll('.drill-row').forEach((x) => x.remove());
+    const date = tr.dataset.date;
+    const run = runs.find((r) => r.date === date);
+    if (!run) return;
+    const cell = document.createElement('td');
+    cell.colSpan = 4;
+    cell.className = 'drill';
+    cell.innerHTML = renderDrill(run.report);
+    const newRow = document.createElement('tr');
+    newRow.className = 'drill-row';
+    newRow.appendChild(cell);
+    tr.after(newRow);
+  }
+
+  function renderDrill(report) {
+    const blocks = (report.sites || []).map((site) => {
+      const groups = groupByJourney(site.checks || []);
+      const blocks = Array.from(groups.entries()).map(([j, checks]) => {
+        const rows = checks.map((c) => `<tr>
+          <td><span class="pill small ${esc(c.status)}">${esc(c.status)}</span></td>
+          <td class="journey">${esc(c.journey || '')}</td>
+          <td class="check-id">${esc(c.id)}</td>
+          <td>${esc(c.description || '')}</td>
+          <td class="details"><code>${esc(truncate(JSON.stringify(c.details || {}, null, 0), 220))}</code></td>
+        </tr>`).join('');
+        return `<table><tbody>${rows}</tbody></table>`;
+      }).join('');
+      const sum = site.summary || {};
+      return `<div class="site-block">
+        <div class="site-block-header">
+          <strong>${esc(site.name)}</strong>
+          <span class="pill ${esc(sum.status || 'skip')}">${esc(sum.status || '—')}</span>
+          <span style="color: var(--muted); font-size: 12px;">${sum.pass || 0}p · ${sum.warning || 0}w · ${sum.fail || 0}f · ${sum.skip || 0}s</span>
+        </div>
+        ${blocks}
+      </div>`;
+    }).join('');
+    return blocks || '<div class="empty">No site data.</div>';
+  }
+
+  function groupByJourney(checks) {
+    const m = new Map();
+    for (const c of checks) {
+      const key = c.journey || 'meta';
+      if (!m.has(key)) m.set(key, []);
+      m.get(key).push(c);
+    }
+    return m;
+  }
+
+  function shortName(name) {
+    return (name || '').replace('revibe.', '').replace('.me', '').replace('.co.za', 'za') || name;
+  }
+
+  function truncate(s, n) {
+    s = String(s);
+    return s.length > n ? s.slice(0, n) + '…' : s;
+  }
+
+  async function fetchJSON(url) {
+    const res = await fetch(url, { cache: 'no-store' });
+    if (!res.ok) throw new Error(url + ' returned ' + res.status);
+    return await res.json();
+  }
+
+  function esc(v) {
+    if (v == null) return '';
+    return String(v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+})();
+</script>
+</body>
+</html>
