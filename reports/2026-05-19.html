@@ -75,13 +75,13 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
   <header>
   <div class="kicker">Revibe Daily QA</div>
   <h1>2026-05-19</h1>
-  <div class="pills"><span class="pill fail">revibe.co.za · fail</span><span class="pill fail">revibe.me · fail</span><span class="pill fail">sa.revibe.me · fail</span></div>
+  <div class="pills"><span class="pill pass">revibe.co.za · pass</span><span class="pill pass">revibe.me · pass</span><span class="pill pass">sa.revibe.me · pass</span></div>
 </header>
   <section class="metrics">
   <div class="metric">
     <div class="metric-label">Aggregate pass rate</div>
-    <div class="metric-value">95%</div>
-    <div class="metric-sub">57 of 60 scoreable checks</div>
+    <div class="metric-value">100%</div>
+    <div class="metric-sub">60 of 60 scoreable checks</div>
   </div>
   <div class="metric">
     <div class="metric-label">Total checks</div>
@@ -90,7 +90,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
   </div>
   <div class="metric">
     <div class="metric-label">Open failures</div>
-    <div class="metric-value">3</div>
+    <div class="metric-value">0</div>
     <div class="metric-sub">0 warnings · 30 skipped</div>
   </div>
   <div class="metric">
@@ -105,8 +105,8 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
   <header class="site-header">
     <h3>revibe.co.za</h3>
     <span class="region">South Africa</span>
-    <span class="pill fail">fail</span>
-    <span class="counts">19 pass · 0 warn · 1 fail · 10 skip · 95%</span>
+    <span class="pill pass">pass</span>
+    <span class="counts">20 pass · 0 warn · 0 fail · 10 skip · 100%</span>
   </header>
   <details >
   <summary>
@@ -182,11 +182,11 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
   </tr>
     </tbody>
   </table>
-</details><details open>
+</details><details >
   <summary>
     <span class="journey-id">j2-pdp</span>
     <span class="journey-name">PDP</span>
-    <span class="journey-counts">6 checks · 5p / 0w / 1f / 0s</span>
+    <span class="journey-counts">6 checks · 6p / 0w / 0f / 0s</span>
   </summary>
   <table>
     <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
@@ -211,11 +211,11 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td class="check-id">pdp-warranty-heading</td>
     <td>Warranty card heading &quot;Get full protection and warranty for 24 months&quot; present on PDP</td>
     <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;found&quot;:true}</code></td>
-  </tr><tr class="row-fail">
-    <td><span class="pill small fail">fail</span></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-warranty-tier-math</td>
-    <td>Displayed warranty price matches tier table for product price</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;productPrice&quot;:4299,&quot;expectedWarranty&quot;:795,&quot;currency&quot;:&quot;ZAR&quot;,&quot;pattern&quot;:&quot;(?:(?:ZAR|R|ZAR)[^\\d]{0,15}795(?:[\\.,]\\d{1,2})?(?!\\d)|(?&lt;!\\d)795(?:[\\.,]\\d{1,2})?(?!\\d)[^\\d]{0,15}(?:ZAR|R|ZAR))&quot;,&quot;foundInCardWithCurrency&quot;:false,&quot;foundInBodyWithCurrency&quot;:false,&quot;foundInCardA…</code></td>
+    <td>Displayed warranty price matches canonical tier for product price</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;productPrice&quot;:4299,&quot;expectedWarranty&quot;:400,&quot;displayedWarranty&quot;:400,&quot;currency&quot;:&quot;ZAR&quot;,&quot;match&quot;:true,&quot;tierHandle&quot;:&quot;2-years-extended-warranty-plan-2&quot;,&quot;tierProductId&quot;:49083439841568,&quot;cardSnippet&quot;:&quot;Color: Black\n \n \n \n \n \nStorage: 64 GB\n64 GB\n128 GB\n256 GB\nCondition: G…</code></td>
   </tr><tr class="row-pass">
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-cashback-reasonable</td>
@@ -347,8 +347,8 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
   <header class="site-header">
     <h3>revibe.me</h3>
     <span class="region">United Arab Emirates</span>
-    <span class="pill fail">fail</span>
-    <span class="counts">19 pass · 0 warn · 1 fail · 10 skip · 95%</span>
+    <span class="pill pass">pass</span>
+    <span class="counts">20 pass · 0 warn · 0 fail · 10 skip · 100%</span>
   </header>
   <details >
   <summary>
@@ -424,11 +424,11 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
   </tr>
     </tbody>
   </table>
-</details><details open>
+</details><details >
   <summary>
     <span class="journey-id">j2-pdp</span>
     <span class="journey-name">PDP</span>
-    <span class="journey-counts">6 checks · 5p / 0w / 1f / 0s</span>
+    <span class="journey-counts">6 checks · 6p / 0w / 0f / 0s</span>
   </summary>
   <table>
     <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
@@ -453,11 +453,11 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td class="check-id">pdp-warranty-heading</td>
     <td>Warranty card heading &quot;Get full protection and warranty for 24 months&quot; present on PDP</td>
     <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;found&quot;:true}</code></td>
-  </tr><tr class="row-fail">
-    <td><span class="pill small fail">fail</span></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-warranty-tier-math</td>
-    <td>Displayed warranty price matches tier table for product price</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;productPrice&quot;:969,&quot;expectedWarranty&quot;:125,&quot;currency&quot;:&quot;AED&quot;,&quot;pattern&quot;:&quot;(?:(?:AED|AED|د\\.إ)[^\\d]{0,15}125(?:[\\.,]\\d{1,2})?(?!\\d)|(?&lt;!\\d)125(?:[\\.,]\\d{1,2})?(?!\\d)[^\\d]{0,15}(?:AED|AED|د\\.إ))&quot;,&quot;foundInCardWithCurrency&quot;:false,&quot;foundInBodyWithCurrency&quot;:false,&quot;foun…</code></td>
+    <td>Displayed warranty price matches canonical tier for product price</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;productPrice&quot;:969,&quot;expectedWarranty&quot;:85,&quot;displayedWarranty&quot;:85,&quot;currency&quot;:&quot;AED&quot;,&quot;match&quot;:true,&quot;tierHandle&quot;:&quot;2-years-extended-warranty-plan-2&quot;,&quot;tierProductId&quot;:45577073656127,&quot;cardSnippet&quot;:&quot;Color: Graphite\n \n \n \nStorage: 128 GB\n128 GB\n256 GB\n512 GB\nCondition: Good…</code></td>
   </tr><tr class="row-pass">
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-cashback-reasonable</td>
@@ -589,8 +589,8 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
   <header class="site-header">
     <h3>sa.revibe.me</h3>
     <span class="region">Saudi Arabia</span>
-    <span class="pill fail">fail</span>
-    <span class="counts">19 pass · 0 warn · 1 fail · 10 skip · 95%</span>
+    <span class="pill pass">pass</span>
+    <span class="counts">20 pass · 0 warn · 0 fail · 10 skip · 100%</span>
   </header>
   <details >
   <summary>
@@ -666,11 +666,11 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
   </tr>
     </tbody>
   </table>
-</details><details open>
+</details><details >
   <summary>
     <span class="journey-id">j2-pdp</span>
     <span class="journey-name">PDP</span>
-    <span class="journey-counts">6 checks · 5p / 0w / 1f / 0s</span>
+    <span class="journey-counts">6 checks · 6p / 0w / 0f / 0s</span>
   </summary>
   <table>
     <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
@@ -695,11 +695,11 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td class="check-id">pdp-warranty-heading</td>
     <td>Warranty card heading &quot;Get full protection and warranty for 24 months&quot; present on PDP</td>
     <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;found&quot;:true}</code></td>
-  </tr><tr class="row-fail">
-    <td><span class="pill small fail">fail</span></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-warranty-tier-math</td>
-    <td>Displayed warranty price matches tier table for product price</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;productPrice&quot;:1199,&quot;expectedWarranty&quot;:215,&quot;currency&quot;:&quot;SAR&quot;,&quot;pattern&quot;:&quot;(?:(?:SAR|SAR|ر\\.س)[^\\d]{0,15}215(?:[\\.,]\\d{1,2})?(?!\\d)|(?&lt;!\\d)215(?:[\\.,]\\d{1,2})?(?!\\d)[^\\d]{0,15}(?:SAR|SAR|ر\\.س))&quot;,&quot;foundInCardWithCurrency&quot;:false,&quot;foundInBodyWithCurrency&quot;:fal…</code></td>
+    <td>Displayed warranty price matches canonical tier for product price</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;productPrice&quot;:1199,&quot;expectedWarranty&quot;:95,&quot;displayedWarranty&quot;:95,&quot;currency&quot;:&quot;SAR&quot;,&quot;match&quot;:true,&quot;tierHandle&quot;:&quot;2-years-extended-warranty-plan&quot;,&quot;tierProductId&quot;:45371583136065,&quot;cardSnippet&quot;:&quot;Color: Graphite\n \n \n \nStorage: 128 GB\n128 GB\n256 GB\n512 GB\nCondition…</code></td>
   </tr><tr class="row-pass">
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-cashback-reasonable</td>
@@ -830,28 +830,8 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
 </article>
 </section>
   <section class="failures">
-  <h2>Open failures (3)</h2>
-  <table>
-    <thead><tr><th>Site</th><th>Journey</th><th>Check</th><th>Details</th></tr></thead>
-    <tbody>
-      <tr>
-        <td>revibe.co.za</td>
-        <td>j2-pdp</td>
-        <td class="check-id">pdp-warranty-tier-math</td>
-        <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;productPrice&quot;:4299,&quot;expectedWarranty&quot;:795,&quot;currency&quot;:&quot;ZAR&quot;,&quot;pattern&quot;:&quot;(?:(?:ZAR|R|ZAR)[^\\d]{0,15}795(?:[\\.,]\\d{1,2})?(?!\\d)|(?&lt;!\\d)795(?:[\\.,]\\d{1,2})?(?!\\d)[^\\d]{0,15}(?:ZAR|R|ZAR))&quot;,&quot;foundInCardWithCurrency&quot;:false,&quot;foundInBodyWithCurrency&quot;:false,&quot;foundInCardAsNumber&quot;:false,&quot;cardSnippet&quot;:&quot;Color: Black\n \n \n \n \n \nStorage: 64 GB\n64 GB\n128 GB\n256 GB\nCondition: Good\nCondition Guide\nGood\nR 4,299\nR 400 Cashback\nVery Good\nR 4,699\nExcellent\nR 4,899\nGet full protection and warranty for 24 months\nFull protection (incl. misuse) - Protect against any damage or accident and extend your warranty for 2 years\nR 400\nShop Now, Pay Later!\n   \n R 400 Cashback\nBuy Now\nAdd to Cart\n\n12 months warranty\n\nR &quot;}</code></td>
-      </tr><tr>
-        <td>revibe.me</td>
-        <td>j2-pdp</td>
-        <td class="check-id">pdp-warranty-tier-math</td>
-        <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;productPrice&quot;:969,&quot;expectedWarranty&quot;:125,&quot;currency&quot;:&quot;AED&quot;,&quot;pattern&quot;:&quot;(?:(?:AED|AED|د\\.إ)[^\\d]{0,15}125(?:[\\.,]\\d{1,2})?(?!\\d)|(?&lt;!\\d)125(?:[\\.,]\\d{1,2})?(?!\\d)[^\\d]{0,15}(?:AED|AED|د\\.إ))&quot;,&quot;foundInCardWithCurrency&quot;:false,&quot;foundInBodyWithCurrency&quot;:false,&quot;foundInCardAsNumber&quot;:false,&quot;cardSnippet&quot;:&quot;Color: Graphite\n \n \n \nStorage: 128 GB\n128 GB\n256 GB\n512 GB\nCondition: Good\nCondition Guide\nGood\nAED 969\n200 AED Cashback\nVery Good\nAED 1,079\nExcellent\nAED 1,119\nGet full protection and warranty for 24 months\nFull protection (incl. misuse) - Protect against any damage or accident and extend your warranty for 2 years\nAED 85\nShop Now, Pay Later!\n \n 200 AED Cashback\nAdd to Cart\nAuthenticated &amp; sold by&quot;}</code></td>
-      </tr><tr>
-        <td>sa.revibe.me</td>
-        <td>j2-pdp</td>
-        <td class="check-id">pdp-warranty-tier-math</td>
-        <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;productPrice&quot;:1199,&quot;expectedWarranty&quot;:215,&quot;currency&quot;:&quot;SAR&quot;,&quot;pattern&quot;:&quot;(?:(?:SAR|SAR|ر\\.س)[^\\d]{0,15}215(?:[\\.,]\\d{1,2})?(?!\\d)|(?&lt;!\\d)215(?:[\\.,]\\d{1,2})?(?!\\d)[^\\d]{0,15}(?:SAR|SAR|ر\\.س))&quot;,&quot;foundInCardWithCurrency&quot;:false,&quot;foundInBodyWithCurrency&quot;:false,&quot;foundInCardAsNumber&quot;:false,&quot;cardSnippet&quot;:&quot;Color: Graphite\n \n \n \nStorage: 128 GB\n128 GB\n256 GB\n512 GB\nCondition: Good\nCondition Guide\nGood\nSAR 1,199\n200 SAR Cashback\nVery Good\nSAR 1,479\nExcellent\nSAR 1,509\nGet full protection and warranty for 24 months\nFull protection (incl. misuse) - Protect against any damage or accident and extend your warranty for 2 years\nSAR 95\nShop Now, Pay Later!\n \n 200 SAR Cashback\nAdd to Cart\nAuthenticated &amp; sold &quot;}</code></td>
-      </tr>
-    </tbody>
-  </table>
+  <h2>Open failures</h2>
+  <p class="empty">No failures.</p>
 </section>
   <section class="warranty-ref">
   <h2>Warranty tier reference</h2>

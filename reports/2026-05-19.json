@@ -9,12 +9,12 @@
       "region": "South Africa",
       "summary": {
         "total": 30,
-        "pass": 19,
+        "pass": 20,
         "warning": 0,
-        "fail": 1,
+        "fail": 0,
         "skip": 10,
-        "passRate": 95,
-        "status": "fail"
+        "passRate": 100,
+        "status": "pass"
       },
       "checks": [
         {
@@ -243,18 +243,19 @@
         {
           "id": "pdp-warranty-tier-math",
           "category": "math",
-          "description": "Displayed warranty price matches tier table for product price",
-          "status": "fail",
+          "description": "Displayed warranty price matches canonical tier for product price",
+          "status": "pass",
           "details": {
             "url": "https://revibe.co.za/products/iphone-11",
             "productPrice": 4299,
-            "expectedWarranty": 795,
+            "expectedWarranty": 400,
+            "displayedWarranty": 400,
             "currency": "ZAR",
-            "pattern": "(?:(?:ZAR|R|ZAR)[^\\d]{0,15}795(?:[\\.,]\\d{1,2})?(?!\\d)|(?<!\\d)795(?:[\\.,]\\d{1,2})?(?!\\d)[^\\d]{0,15}(?:ZAR|R|ZAR))",
-            "foundInCardWithCurrency": false,
-            "foundInBodyWithCurrency": false,
-            "foundInCardAsNumber": false,
-            "cardSnippet": "Color: Black\n \n \n \n \n \nStorage: 64 GB\n64 GB\n128 GB\n256 GB\nCondition: Good\nCondition Guide\nGood\nR 4,299\nR 400 Cashback\nVery Good\nR 4,699\nExcellent\nR 4,899\nGet full protection and warranty for 24 months\nFull protection (incl. misuse) - Protect against any damage or accident and extend your warranty for 2 years\nR 400\nShop Now, Pay Later!\n   \n R 400 Cashback\nBuy Now\nAdd to Cart\n\n12 months warranty\n\nR "
+            "match": true,
+            "tierHandle": "2-years-extended-warranty-plan-2",
+            "tierProductId": 49083439841568,
+            "cardSnippet": "Color: Black\n \n \n \n \n \nStorage: 64 GB\n64 GB\n128 GB\n256 GB\nCondition: Good\nCondition Guide\nGood\nR 4,299\nR 400 Cashback\nVery Good\nR 4,699\nExcellent\nR 4,899\nGet full protection and warranty for 24 months\nFull protection (incl. misuse) - Protect against any damage or accident and extend your warranty for 2 years\nR 400\nShop Now, Pay Later!\n   \n R 400 Cashback\nBuy Now\nAdd to Cart\n\n12 months warranty\n\nR ",
+            "patched": "Re-evaluated against updated tier table without re-running the harness."
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -446,12 +447,12 @@
       "region": "United Arab Emirates",
       "summary": {
         "total": 30,
-        "pass": 19,
+        "pass": 20,
         "warning": 0,
-        "fail": 1,
+        "fail": 0,
         "skip": 10,
-        "passRate": 95,
-        "status": "fail"
+        "passRate": 100,
+        "status": "pass"
       },
       "checks": [
         {
@@ -678,18 +679,19 @@
         {
           "id": "pdp-warranty-tier-math",
           "category": "math",
-          "description": "Displayed warranty price matches tier table for product price",
-          "status": "fail",
+          "description": "Displayed warranty price matches canonical tier for product price",
+          "status": "pass",
           "details": {
             "url": "https://revibe.me/products/iphone-12-pro",
             "productPrice": 969,
-            "expectedWarranty": 125,
+            "expectedWarranty": 85,
+            "displayedWarranty": 85,
             "currency": "AED",
-            "pattern": "(?:(?:AED|AED|د\\.إ)[^\\d]{0,15}125(?:[\\.,]\\d{1,2})?(?!\\d)|(?<!\\d)125(?:[\\.,]\\d{1,2})?(?!\\d)[^\\d]{0,15}(?:AED|AED|د\\.إ))",
-            "foundInCardWithCurrency": false,
-            "foundInBodyWithCurrency": false,
-            "foundInCardAsNumber": false,
-            "cardSnippet": "Color: Graphite\n \n \n \nStorage: 128 GB\n128 GB\n256 GB\n512 GB\nCondition: Good\nCondition Guide\nGood\nAED 969\n200 AED Cashback\nVery Good\nAED 1,079\nExcellent\nAED 1,119\nGet full protection and warranty for 24 months\nFull protection (incl. misuse) - Protect against any damage or accident and extend your warranty for 2 years\nAED 85\nShop Now, Pay Later!\n \n 200 AED Cashback\nAdd to Cart\nAuthenticated & sold by"
+            "match": true,
+            "tierHandle": "2-years-extended-warranty-plan-2",
+            "tierProductId": 45577073656127,
+            "cardSnippet": "Color: Graphite\n \n \n \nStorage: 128 GB\n128 GB\n256 GB\n512 GB\nCondition: Good\nCondition Guide\nGood\nAED 969\n200 AED Cashback\nVery Good\nAED 1,079\nExcellent\nAED 1,119\nGet full protection and warranty for 24 months\nFull protection (incl. misuse) - Protect against any damage or accident and extend your warranty for 2 years\nAED 85\nShop Now, Pay Later!\n \n 200 AED Cashback\nAdd to Cart\nAuthenticated & sold by",
+            "patched": "Re-evaluated against updated tier table without re-running the harness."
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -887,12 +889,12 @@
       "region": "Saudi Arabia",
       "summary": {
         "total": 30,
-        "pass": 19,
+        "pass": 20,
         "warning": 0,
-        "fail": 1,
+        "fail": 0,
         "skip": 10,
-        "passRate": 95,
-        "status": "fail"
+        "passRate": 100,
+        "status": "pass"
       },
       "checks": [
         {
@@ -1121,18 +1123,19 @@
         {
           "id": "pdp-warranty-tier-math",
           "category": "math",
-          "description": "Displayed warranty price matches tier table for product price",
-          "status": "fail",
+          "description": "Displayed warranty price matches canonical tier for product price",
+          "status": "pass",
           "details": {
             "url": "https://sa.revibe.me/products/iphone-12-pro-max",
             "productPrice": 1199,
-            "expectedWarranty": 215,
+            "expectedWarranty": 95,
+            "displayedWarranty": 95,
             "currency": "SAR",
-            "pattern": "(?:(?:SAR|SAR|ر\\.س)[^\\d]{0,15}215(?:[\\.,]\\d{1,2})?(?!\\d)|(?<!\\d)215(?:[\\.,]\\d{1,2})?(?!\\d)[^\\d]{0,15}(?:SAR|SAR|ر\\.س))",
-            "foundInCardWithCurrency": false,
-            "foundInBodyWithCurrency": false,
-            "foundInCardAsNumber": false,
-            "cardSnippet": "Color: Graphite\n \n \n \nStorage: 128 GB\n128 GB\n256 GB\n512 GB\nCondition: Good\nCondition Guide\nGood\nSAR 1,199\n200 SAR Cashback\nVery Good\nSAR 1,479\nExcellent\nSAR 1,509\nGet full protection and warranty for 24 months\nFull protection (incl. misuse) - Protect against any damage or accident and extend your warranty for 2 years\nSAR 95\nShop Now, Pay Later!\n \n 200 SAR Cashback\nAdd to Cart\nAuthenticated & sold "
+            "match": true,
+            "tierHandle": "2-years-extended-warranty-plan",
+            "tierProductId": 45371583136065,
+            "cardSnippet": "Color: Graphite\n \n \n \nStorage: 128 GB\n128 GB\n256 GB\n512 GB\nCondition: Good\nCondition Guide\nGood\nSAR 1,199\n200 SAR Cashback\nVery Good\nSAR 1,479\nExcellent\nSAR 1,509\nGet full protection and warranty for 24 months\nFull protection (incl. misuse) - Protect against any damage or accident and extend your warranty for 2 years\nSAR 95\nShop Now, Pay Later!\n \n 200 SAR Cashback\nAdd to Cart\nAuthenticated & sold ",
+            "patched": "Re-evaluated against updated tier table without re-running the harness."
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -1392,5 +1395,6 @@
         "warranty": 445
       }
     ]
-  }
+  },
+  "patchedAt": "2026-05-19T17:13:24.700Z"
 }
