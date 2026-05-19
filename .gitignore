@@ -1,0 +1,9 @@
+node_modules/
+.env
+.env.local
+*.log
+.DS_Store
+playwright-report/
+test-results/
+screenshots/
+*.zip

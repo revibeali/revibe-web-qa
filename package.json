@@ -1,0 +1,27 @@
+{
+  "name": "revibe-web-qa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "qa": "node scripts/run-qa.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/revibeali/revibe-web-qa.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/revibeali/revibe-web-qa/issues"
+  },
+  "homepage": "https://github.com/revibeali/revibe-web-qa#readme",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.97.0",
+    "dotenv": "^17.4.2",
+    "playwright": "^1.60.0"
+  }
+}

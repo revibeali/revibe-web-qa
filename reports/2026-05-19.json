@@ -1,0 +1,445 @@
+{
+  "date": "2026-05-19",
+  "timestamp": "2026-05-19T14:59:44.992Z",
+  "sites": [
+    {
+      "id": "za",
+      "name": "revibe.co.za",
+      "region": "South Africa",
+      "summary": {
+        "total": 10,
+        "pass": 9,
+        "warning": 0,
+        "fail": 1,
+        "passRate": 90,
+        "status": "fail"
+      },
+      "checks": [
+        {
+          "id": "homepage-loads",
+          "category": "functional",
+          "description": "Homepage loads with 2xx response",
+          "status": "pass",
+          "details": {
+            "status": 200
+          }
+        },
+        {
+          "id": "homepage-lcp",
+          "category": "performance",
+          "description": "Homepage LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
+          "status": "fail",
+          "details": {
+            "lcpMs": 9128,
+            "thresholds": {
+              "passUnderMs": 2500,
+              "warnUnderMs": 4000
+            }
+          }
+        },
+        {
+          "id": "currency-present",
+          "category": "localization",
+          "description": "Currency ZAR appears on homepage",
+          "status": "pass",
+          "details": {
+            "expectedSymbols": [
+              "R",
+              "ZAR"
+            ],
+            "foundSymbol": "R"
+          }
+        },
+        {
+          "id": "broken-images",
+          "category": "visual",
+          "description": "No broken images on homepage (naturalWidth === 0, ignoring data:/empty/base-url srcs, after lazy-load scroll)",
+          "status": "pass",
+          "details": {
+            "count": 0,
+            "sampleUrls": []
+          }
+        },
+        {
+          "id": "plp-banner-text",
+          "category": "content",
+          "description": "PLP banner sub-text \"Certified renewed devices - Inspected by Experts - Up to 70% cheaper than new\" present",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.co.za/collections/all",
+            "expectedPhrases": [
+              "certified renewed devices",
+              "inspected by experts",
+              "up to 70% cheaper than new"
+            ],
+            "missingPhrases": []
+          }
+        },
+        {
+          "id": "plp-bnpl-logos",
+          "category": "localization",
+          "description": "BNPL providers FLOAT, PAYFLEX, HAPPYPAY present on PLP",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.co.za/collections/all",
+            "expected": [
+              "FLOAT",
+              "PAYFLEX",
+              "HAPPYPAY"
+            ],
+            "found": [
+              "FLOAT",
+              "PAYFLEX",
+              "HAPPYPAY"
+            ],
+            "missing": []
+          }
+        },
+        {
+          "id": "plp-empty-state",
+          "category": "content",
+          "description": "Empty-state message \"No products found...\" appears on impossible filter combination",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.co.za/collections/all?filter.v.price.gte=999999999",
+            "expectedSubstring": "No products found",
+            "found": true
+          }
+        },
+        {
+          "id": "plp-search-samsung",
+          "category": "functional",
+          "description": "Search for \"Samsung\" returns at least one product card",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.co.za/search?q=Samsung",
+            "productCardCount": 20
+          }
+        },
+        {
+          "id": "plp-sort-price-asc",
+          "category": "functional",
+          "description": "Sort by price low-to-high changes product card order",
+          "status": "pass",
+          "details": {
+            "defaultCount": 8,
+            "sortedCount": 8,
+            "defaultFirst3": [
+              "/products/iphone-11",
+              "/products/iphone-12",
+              "/products/iphone-13"
+            ],
+            "sortedFirst3": [
+              "/products/iphone-13-pro-max",
+              "/products/samsung-s8-plus",
+              "/products/iphone-15-plus"
+            ],
+            "orderChanged": true
+          }
+        },
+        {
+          "id": "image-network-ok",
+          "category": "visual",
+          "description": "All image network requests returned 2xx/3xx across this session",
+          "status": "pass",
+          "details": {
+            "failedCount": 0,
+            "samples": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "ae",
+      "name": "revibe.me",
+      "region": "United Arab Emirates",
+      "summary": {
+        "total": 10,
+        "pass": 9,
+        "warning": 0,
+        "fail": 1,
+        "passRate": 90,
+        "status": "fail"
+      },
+      "checks": [
+        {
+          "id": "homepage-loads",
+          "category": "functional",
+          "description": "Homepage loads with 2xx response",
+          "status": "pass",
+          "details": {
+            "status": 200
+          }
+        },
+        {
+          "id": "homepage-lcp",
+          "category": "performance",
+          "description": "Homepage LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
+          "status": "fail",
+          "details": {
+            "lcpMs": 8936,
+            "thresholds": {
+              "passUnderMs": 2500,
+              "warnUnderMs": 4000
+            }
+          }
+        },
+        {
+          "id": "currency-present",
+          "category": "localization",
+          "description": "Currency AED appears on homepage",
+          "status": "pass",
+          "details": {
+            "expectedSymbols": [
+              "AED",
+              "د.إ"
+            ],
+            "foundSymbol": "AED"
+          }
+        },
+        {
+          "id": "broken-images",
+          "category": "visual",
+          "description": "No broken images on homepage (naturalWidth === 0, ignoring data:/empty/base-url srcs, after lazy-load scroll)",
+          "status": "pass",
+          "details": {
+            "count": 0,
+            "sampleUrls": []
+          }
+        },
+        {
+          "id": "plp-banner-text",
+          "category": "content",
+          "description": "PLP banner sub-text \"Certified renewed devices - Inspected by Experts - Up to 70% cheaper than new\" present",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.me/collections/all",
+            "expectedPhrases": [
+              "certified renewed devices",
+              "inspected by experts",
+              "up to 70% cheaper than new"
+            ],
+            "missingPhrases": []
+          }
+        },
+        {
+          "id": "plp-bnpl-logos",
+          "category": "localization",
+          "description": "BNPL providers Tabby, Tamara present on PLP",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.me/collections/all",
+            "expected": [
+              "Tabby",
+              "Tamara"
+            ],
+            "found": [
+              "Tabby",
+              "Tamara"
+            ],
+            "missing": []
+          }
+        },
+        {
+          "id": "plp-empty-state",
+          "category": "content",
+          "description": "Empty-state message \"No products found...\" appears on impossible filter combination",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.me/collections/all?filter.v.price.gte=999999999",
+            "expectedSubstring": "No products found",
+            "found": true
+          }
+        },
+        {
+          "id": "plp-search-samsung",
+          "category": "functional",
+          "description": "Search for \"Samsung\" returns at least one product card",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.me/search?q=Samsung",
+            "productCardCount": 20
+          }
+        },
+        {
+          "id": "plp-sort-price-asc",
+          "category": "functional",
+          "description": "Sort by price low-to-high changes product card order",
+          "status": "pass",
+          "details": {
+            "defaultCount": 8,
+            "sortedCount": 8,
+            "defaultFirst3": [
+              "/products/iphone-12-pro",
+              "/products/iphone-13-pro-max",
+              "/products/iphone-12-pro-max"
+            ],
+            "sortedFirst3": [
+              "/products/ipad-5th-gen-2017-wi-fi-cellular",
+              "/products/ipad-6th-gen-2018-wi-fi",
+              "/products/awei-h25-smartwatch"
+            ],
+            "orderChanged": true
+          }
+        },
+        {
+          "id": "image-network-ok",
+          "category": "visual",
+          "description": "All image network requests returned 2xx/3xx across this session",
+          "status": "pass",
+          "details": {
+            "failedCount": 0,
+            "samples": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "sa",
+      "name": "sa.revibe.me",
+      "region": "Saudi Arabia",
+      "summary": {
+        "total": 10,
+        "pass": 9,
+        "warning": 0,
+        "fail": 1,
+        "passRate": 90,
+        "status": "fail"
+      },
+      "checks": [
+        {
+          "id": "homepage-loads",
+          "category": "functional",
+          "description": "Homepage loads with 2xx response",
+          "status": "pass",
+          "details": {
+            "status": 200
+          }
+        },
+        {
+          "id": "homepage-lcp",
+          "category": "performance",
+          "description": "Homepage LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
+          "status": "fail",
+          "details": {
+            "lcpMs": 9632,
+            "thresholds": {
+              "passUnderMs": 2500,
+              "warnUnderMs": 4000
+            }
+          }
+        },
+        {
+          "id": "currency-present",
+          "category": "localization",
+          "description": "Currency SAR appears on homepage",
+          "status": "pass",
+          "details": {
+            "expectedSymbols": [
+              "SAR",
+              "ر.س"
+            ],
+            "foundSymbol": "SAR"
+          }
+        },
+        {
+          "id": "broken-images",
+          "category": "visual",
+          "description": "No broken images on homepage (naturalWidth === 0, ignoring data:/empty/base-url srcs, after lazy-load scroll)",
+          "status": "pass",
+          "details": {
+            "count": 0,
+            "sampleUrls": []
+          }
+        },
+        {
+          "id": "plp-banner-text",
+          "category": "content",
+          "description": "PLP banner sub-text \"Certified renewed devices - Inspected by Experts - Up to 70% cheaper than new\" present",
+          "status": "pass",
+          "details": {
+            "url": "https://sa.revibe.me/collections/all",
+            "expectedPhrases": [
+              "certified renewed devices",
+              "inspected by experts",
+              "up to 70% cheaper than new"
+            ],
+            "missingPhrases": []
+          }
+        },
+        {
+          "id": "plp-bnpl-logos",
+          "category": "localization",
+          "description": "BNPL providers Tabby, Tamara, Baseeta present on PLP",
+          "status": "pass",
+          "details": {
+            "url": "https://sa.revibe.me/collections/all",
+            "expected": [
+              "Tabby",
+              "Tamara",
+              "Baseeta"
+            ],
+            "found": [
+              "Tabby",
+              "Tamara",
+              "Baseeta"
+            ],
+            "missing": []
+          }
+        },
+        {
+          "id": "plp-empty-state",
+          "category": "content",
+          "description": "Empty-state message \"No products found...\" appears on impossible filter combination",
+          "status": "pass",
+          "details": {
+            "url": "https://sa.revibe.me/collections/all?filter.v.price.gte=999999999",
+            "expectedSubstring": "No products found",
+            "found": true
+          }
+        },
+        {
+          "id": "plp-search-samsung",
+          "category": "functional",
+          "description": "Search for \"Samsung\" returns at least one product card",
+          "status": "pass",
+          "details": {
+            "url": "https://sa.revibe.me/search?q=Samsung",
+            "productCardCount": 20
+          }
+        },
+        {
+          "id": "plp-sort-price-asc",
+          "category": "functional",
+          "description": "Sort by price low-to-high changes product card order",
+          "status": "pass",
+          "details": {
+            "defaultCount": 8,
+            "sortedCount": 8,
+            "defaultFirst3": [
+              "/products/iphone-12-pro-max",
+              "/products/iphone-12-pro",
+              "/products/iphone-11"
+            ],
+            "sortedFirst3": [
+              "/products/galaxy-note-20-ultra",
+              "/products/samsung-a32-5g",
+              "/products/samsung-galaxy-s24-1"
+            ],
+            "orderChanged": true
+          }
+        },
+        {
+          "id": "image-network-ok",
+          "category": "visual",
+          "description": "All image network requests returned 2xx/3xx across this session",
+          "status": "pass",
+          "details": {
+            "failedCount": 0,
+            "samples": []
+          }
+        }
+      ]
+    }
+  ]
+}
