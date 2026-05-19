@@ -76,17 +76,20 @@ async function main() {
   console.log(`Run time: ${(runTimeMs / 1000).toFixed(1)}s`);
 }
 
-// Mirrors reports/*.json into docs/reports/ and writes an index so the
-// static dashboard at /docs/index.html can enumerate runs at fetch time.
-// GitHub Pages serves from /docs, so reports must live inside that root.
+// Mirrors reports/*.{json,html} into docs/reports/ and writes an index so
+// the static dashboard at /docs/index.html can enumerate runs at fetch time,
+// and the HTML reports are reachable at the live Pages URL for direct sharing.
+// GitHub Pages serves from /docs, so anything we want public must live there.
 function syncDashboardData() {
   if (!existsSync('docs')) mkdirSync('docs');
   if (!existsSync('docs/reports')) mkdirSync('docs/reports');
-  const files = readdirSync('reports').filter((f) => /^\d{4}-\d{2}-\d{2}\.json$/.test(f));
-  for (const f of files) {
+  const allFiles = readdirSync('reports');
+  const jsonFiles = allFiles.filter((f) => /^\d{4}-\d{2}-\d{2}\.json$/.test(f));
+  const htmlFiles = allFiles.filter((f) => /^\d{4}-\d{2}-\d{2}\.html$/.test(f));
+  for (const f of [...jsonFiles, ...htmlFiles]) {
     copyFileSync(join('reports', f), join('docs/reports', f));
   }
-  const dates = files.map((f) => f.replace('.json', '')).sort();
+  const dates = jsonFiles.map((f) => f.replace('.json', '')).sort();
   writeFileSync(join('docs/reports', 'index.json'), JSON.stringify({ dates }, null, 2));
 }
 
