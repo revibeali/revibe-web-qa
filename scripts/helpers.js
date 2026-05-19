@@ -169,6 +169,35 @@ export function warrantyDisplayPattern(amount, currencyCode, currencySymbols) {
   );
 }
 
+// Extracts the first currency+amount (either order) that appears AFTER the
+// warranty heading inside the warranty card text. Returns the numeric amount
+// or null if nothing parseable is found.
+// Latin currency tokens (R/ZAR/AED/SAR) are wrapped in \b so they don't match
+// inside English words like "warranty" or "years". Non-ASCII tokens (د.إ, ر.س)
+// stay unbounded since \b doesn't behave usefully around non-\w characters.
+export function extractDisplayedWarranty(cardText, headingFragmentLower, currencyCode, currencySymbols) {
+  if (!cardText) return null;
+  const idx = cardText.toLowerCase().indexOf(headingFragmentLower);
+  if (idx < 0) return null;
+  const after = cardText.slice(idx + headingFragmentLower.length, idx + headingFragmentLower.length + 600);
+  const escape = (s) => String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const tokens = [currencyCode, ...currencySymbols].map((t) => {
+    const e = escape(t);
+    return /^[A-Za-z]+$/.test(t) ? `\\b${e}\\b` : e;
+  }).join('|');
+  const numPart = '(\\d{1,5}(?:[,\\s]\\d{3})*(?:\\.\\d{1,2})?)';
+  const re = new RegExp(
+    `(?:${tokens})[\\s\\u00A0]*${numPart}|(?<!\\d)${numPart}[\\s\\u00A0]*(?:${tokens})`,
+    'i'
+  );
+  const m = after.match(re);
+  if (!m) return null;
+  const raw = m[1] || m[2];
+  if (!raw) return null;
+  const n = parseFloat(raw.replace(/[,\s]/g, ''));
+  return Number.isFinite(n) ? n : null;
+}
+
 export async function getWarrantyCardText(page, headingFragmentLower) {
   return await page.evaluate((heading) => {
     // Find the smallest (most-specific) element whose textContent includes the heading,

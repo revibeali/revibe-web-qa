@@ -1,3 +1,7 @@
+// Warranty tier metadata is sourced from the Revibe-supplied canonical pricing
+// JSON. Each tier carries the Shopify product handle + id so a future iteration
+// can fetch the live warranty SKU price via /products/<handle>.js instead of
+// relying on the hardcoded `warranty` number.
 export const SITES = [
   {
     id: 'za',
@@ -10,11 +14,11 @@ export const SITES = [
     currency: { code: 'ZAR', symbols: ['R', 'ZAR'] },
     bnpl: ['FLOAT', 'PAYFLEX', 'HAPPYPAY'],
     warrantyTiers: [
-      { maxPrice: 2892,  warranty: 450 },
-      { maxPrice: 4821,  warranty: 795 },
-      { maxPrice: 9642,  warranty: 1420 },
-      { maxPrice: 14463, warranty: 2350 },
-      { maxPrice: Infinity, warranty: 2600 },
+      { maxPrice: 2892,  warranty: 325,  handle: '2-years-extended-warranty-plan-1', productId: 49083440562464 },
+      { maxPrice: 4821,  warranty: 575,  handle: '2-years-extended-warranty-plan-2', productId: 49083439841568 },
+      { maxPrice: 9642,  warranty: 975,  handle: '2-years-extended-warranty-plan',   productId: 49083451572512 },
+      { maxPrice: 14463, warranty: 1825, handle: '2-years-extended-warranty-plan-3', productId: 49083439874336 },
+      { maxPrice: Infinity, warranty: 1975, handle: '2-years-extended-warranty-plan-4', productId: 49083544895776 },
     ],
   },
   {
@@ -28,11 +32,11 @@ export const SITES = [
     currency: { code: 'AED', symbols: ['AED', 'د.إ'] },
     bnpl: ['Tabby', 'Tamara'],
     warrantyTiers: [
-      { maxPrice: 600,  warranty: 75 },
-      { maxPrice: 1000, warranty: 125 },
-      { maxPrice: 2000, warranty: 215 },
-      { maxPrice: 3000, warranty: 395 },
-      { maxPrice: Infinity, warranty: 445 },
+      { maxPrice: 600,  warranty: 75,  handle: '2-years-extended-warranty-plan-1', productId: 45577070281023 },
+      { maxPrice: 1000, warranty: 125, handle: '2-years-extended-warranty-plan-2', productId: 45577073656127 },
+      { maxPrice: 2000, warranty: 215, handle: '2-years-extended-warranty-plan',   productId: 44780777144639 },
+      { maxPrice: 3000, warranty: 395, handle: '2-years-extended-warranty-plan-3', productId: 45577074704703 },
+      { maxPrice: Infinity, warranty: 445, handle: '2-years-extended-warranty-plan-4', productId: 49624816582975 },
     ],
   },
   {
@@ -46,11 +50,11 @@ export const SITES = [
     currency: { code: 'SAR', symbols: ['SAR', 'ر.س'] },
     bnpl: ['Tabby', 'Tamara', 'Baseeta'],
     warrantyTiers: [
-      { maxPrice: 600,  warranty: 75 },
-      { maxPrice: 1000, warranty: 125 },
-      { maxPrice: 2000, warranty: 215 },
-      { maxPrice: 3000, warranty: 395 },
-      { maxPrice: Infinity, warranty: 445 },
+      { maxPrice: 600,  warranty: 75,  handle: '2-years-extended-warranty-plan-1', productId: 45539094659393 },
+      { maxPrice: 1000, warranty: 125, handle: '2-years-extended-warranty-plan-2', productId: 45539103506753 },
+      { maxPrice: 2000, warranty: 215, handle: '2-years-extended-warranty-plan',   productId: 45371583136065 },
+      { maxPrice: 3000, warranty: 395, handle: '2-years-extended-warranty-plan-3', productId: 45539107733825 },
+      { maxPrice: Infinity, warranty: 445, handle: '2-years-extended-warranty-plan-4', productId: 49223559151937 },
     ],
   },
 ];

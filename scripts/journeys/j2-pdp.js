@@ -7,8 +7,8 @@ import {
   lcpStatus,
   expectedWarranty,
   fetchShopifyProductJson,
-  warrantyDisplayPattern,
   getWarrantyCardText,
+  extractDisplayedWarranty,
 } from '../helpers.js';
 
 const WARRANTY_HEADING = 'get full protection and warranty for 24 months';
@@ -127,37 +127,42 @@ export default {
       details: { url: pdpUrl, found: headingFound },
     });
 
-    const expected = expectedWarranty(price, site.warrantyTiers);
+    const tier = site.warrantyTiers.find((t) => price <= t.maxPrice) || null;
+    const expected = tier?.warranty ?? expectedWarranty(price, site.warrantyTiers);
     if (expected == null) {
       checks.push({
         id: 'pdp-warranty-tier-math',
         category: 'math',
-        description: 'Displayed warranty price matches tier table for product price',
+        description: 'Displayed warranty price matches canonical tier for product price',
         status: 'skip',
         details: { todo: 'No tier matched', productPrice: price },
       });
     } else {
-      const re = warrantyDisplayPattern(expected, site.currency.code, site.currency.symbols);
-      const numberRe = new RegExp(`(?<!\\d)${expected}(?!\\d)`);
       const warrantyArea = await getWarrantyCardText(page, WARRANTY_HEADING);
-      const foundInCardWithCurrency = re.test(warrantyArea);
-      const foundInBodyWithCurrency = re.test(bodyText);
-      const foundInCardAsNumber = numberRe.test(warrantyArea);
-      const found = foundInCardWithCurrency || foundInBodyWithCurrency || foundInCardAsNumber;
+      const displayed = extractDisplayedWarranty(
+        warrantyArea,
+        WARRANTY_HEADING,
+        site.currency.code,
+        site.currency.symbols
+      );
+      let status;
+      if (displayed == null) status = 'fail';
+      else if (displayed === expected) status = 'pass';
+      else status = 'fail';
       checks.push({
         id: 'pdp-warranty-tier-math',
         category: 'math',
-        description: 'Displayed warranty price matches tier table for product price',
-        status: found ? 'pass' : 'fail',
+        description: 'Displayed warranty price matches canonical tier for product price',
+        status,
         details: {
           url: pdpUrl,
           productPrice: price,
           expectedWarranty: expected,
+          displayedWarranty: displayed,
           currency: site.currency.code,
-          pattern: re.source,
-          foundInCardWithCurrency,
-          foundInBodyWithCurrency,
-          foundInCardAsNumber,
+          match: displayed === expected,
+          tierHandle: tier?.handle ?? null,
+          tierProductId: tier?.productId ?? null,
           cardSnippet: warrantyArea.slice(0, 400),
         },
       });
