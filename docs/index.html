@@ -53,6 +53,8 @@ header.top { border-bottom: 0.5px solid var(--line); padding-bottom: 20px; margi
 .runs th[data-sort-active] { color: var(--ink); }
 .runs tbody tr { cursor: pointer; }
 .runs tbody tr:hover { background: rgba(15, 110, 86, 0.04); }
+.report-link, .latest-link { color: var(--teal); text-decoration: none; font-weight: 500; font-size: 12px; }
+.report-link:hover, .latest-link:hover { text-decoration: underline; }
 .runs .date { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
 .runs .site-pills { display: flex; gap: 6px; flex-wrap: wrap; }
 .drill { background: rgba(15, 110, 86, 0.03); padding: 16px 18px; border-top: 0.5px solid var(--line); border-bottom: 0.5px solid var(--line); }
@@ -93,9 +95,10 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
           <th data-sort="status">Site status</th>
           <th data-sort="failCount">Open failures</th>
           <th data-sort="passRate">Aggregate pass rate</th>
+          <th>Report</th>
         </tr>
       </thead>
-      <tbody id="runs-body"><tr><td colspan="4" class="loading">Loading runs…</td></tr></tbody>
+      <tbody id="runs-body"><tr><td colspan="5" class="loading">Loading runs…</td></tr></tbody>
     </table>
   </section>
 
@@ -125,7 +128,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     document.getElementById('meta').textContent = '';
     document.getElementById('health').innerHTML = '<div class="error">Failed to load reports/index.json — has a run completed yet?</div>';
     document.getElementById('trends').innerHTML = '';
-    document.getElementById('runs-body').innerHTML = '<tr><td colspan="4" class="error">No data.</td></tr>';
+    document.getElementById('runs-body').innerHTML = '<tr><td colspan="5" class="error">No data.</td></tr>';
     return;
   }
 
@@ -133,7 +136,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     document.getElementById('meta').textContent = '0 runs found';
     document.getElementById('health').innerHTML = '<div class="empty">No runs yet.</div>';
     document.getElementById('trends').innerHTML = '<div class="empty">—</div>';
-    document.getElementById('runs-body').innerHTML = '<tr><td colspan="4" class="empty">Waiting on the first daily run.</td></tr>';
+    document.getElementById('runs-body').innerHTML = '<tr><td colspan="5" class="empty">Waiting on the first daily run.</td></tr>';
     return;
   }
 
@@ -145,6 +148,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
   renderRuns();
 
   function renderHealth(latest) {
+    const latestDate = latest.date;
     const cards = (latest.sites || []).map((s) => {
       const sum = s.summary || {};
       return `<div class="health-card">
@@ -157,6 +161,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
         </div>
         <div class="pass-rate">${sum.passRate ?? 0}%</div>
         <div class="counts">${sum.pass || 0}p · ${sum.warning || 0}w · ${sum.fail || 0}f · ${sum.skip || 0}s</div>
+        <div style="margin-top: 8px;"><a class="latest-link" href="reports/${esc(latestDate)}.html" target="_blank" rel="noopener">View latest report ↗</a></div>
       </div>`;
     }).join('');
     document.getElementById('health').innerHTML = cards;
@@ -240,9 +245,13 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
       <td><div class="site-pills">${r.sites.map((s) => `<span class="pill small ${esc(s.summary.status)}">${esc(shortName(s.name))} ${esc(s.summary.status)}</span>`).join('')}</div></td>
       <td>${r.failCount}</td>
       <td>${r.passRate}%</td>
+      <td><a class="report-link" href="reports/${esc(r.date)}.html" target="_blank" rel="noopener">View ↗</a></td>
     </tr>`).join('');
     tbody.querySelectorAll('tr[data-date]').forEach((tr) => {
-      tr.addEventListener('click', () => toggleDrill(tr));
+      tr.addEventListener('click', (e) => {
+        if (e.target.closest('a')) return; // clicks on the report link shouldn't toggle drill
+        toggleDrill(tr);
+      });
     });
   }
 
