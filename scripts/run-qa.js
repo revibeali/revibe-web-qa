@@ -7,6 +7,7 @@ import j3 from './journeys/j3-cart.js';
 import j4 from './journeys/j4-navigation.js';
 import j5 from './journeys/j5-speed.js';
 import j6 from './journeys/j6-localization.js';
+import { renderHTML } from './render-html.js';
 
 // Execution order is dependency-driven, not numeric:
 // j4 (homepage init) → j1 (PLP, captures first product handle)
@@ -62,9 +63,12 @@ async function main() {
   };
 
   if (!existsSync('reports')) mkdirSync('reports');
-  const filepath = `reports/${RUN_DATE}.json`;
-  writeFileSync(filepath, JSON.stringify(report, null, 2));
-  console.log(`\nJSON  → ${filepath}`);
+  const jsonPath = `reports/${RUN_DATE}.json`;
+  const htmlPath = `reports/${RUN_DATE}.html`;
+  writeFileSync(jsonPath, JSON.stringify(report, null, 2));
+  writeFileSync(htmlPath, renderHTML(report));
+  console.log(`\nJSON  → ${jsonPath}`);
+  console.log(`HTML  → ${htmlPath}`);
   console.log(`Run time: ${(runTimeMs / 1000).toFixed(1)}s`);
 }
 

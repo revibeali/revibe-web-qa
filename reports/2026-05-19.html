@@ -1,0 +1,899 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Revibe QA — 2026-05-19</title>
+<style>
+:root {
+  --teal: #0F6E56;
+  --cream: #FAFAF7;
+  --ink: #1A1A1A;
+  --muted: #6B6B6B;
+  --line: rgba(0,0,0,0.12);
+  --amber: #B5651D;
+  --rose: #A02738;
+  --grey: #888;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--cream); color: var(--ink); }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5; }
+main { max-width: 1100px; margin: 0 auto; padding: 32px 24px 80px; }
+h1, h2, h3, h4 { font-weight: 500; margin: 0; }
+h1 { font-size: 32px; letter-spacing: -0.02em; }
+h2 { font-size: 18px; margin: 32px 0 12px; }
+h3 { font-size: 16px; }
+h4 { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+header { border-bottom: 0.5px solid var(--line); padding-bottom: 20px; margin-bottom: 24px; }
+.kicker { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--teal); font-weight: 500; margin-bottom: 4px; }
+.pills { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+.pill { display: inline-flex; align-items: center; padding: 3px 10px; border: 0.5px solid var(--line); border-radius: 999px; font-size: 12px; font-weight: 500; color: var(--ink); background: transparent; }
+.pill.small { padding: 1px 8px; font-size: 11px; }
+.pill.pass { border-color: var(--teal); color: var(--teal); }
+.pill.warning { border-color: var(--amber); color: var(--amber); }
+.pill.fail { border-color: var(--rose); color: var(--rose); }
+.pill.skip { border-color: var(--line); color: var(--grey); }
+.metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-top: 8px; }
+.metric { border: 0.5px solid var(--line); border-radius: 4px; padding: 14px 16px; background: white; }
+.metric-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.metric-value { font-size: 28px; font-weight: 500; margin: 4px 0 2px; letter-spacing: -0.02em; color: var(--teal); }
+.metric-sub { font-size: 12px; color: var(--muted); }
+.site { border: 0.5px solid var(--line); border-radius: 4px; padding: 16px 18px; background: white; margin-bottom: 14px; }
+.site-header { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+.site-header h3 { margin-right: auto; }
+.region { color: var(--muted); font-size: 13px; }
+.counts { color: var(--muted); font-size: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+details { border-top: 0.5px solid var(--line); margin-top: 8px; padding-top: 8px; }
+details:first-of-type { border-top: none; margin-top: 0; padding-top: 0; }
+summary { cursor: pointer; padding: 6px 0; display: flex; gap: 12px; align-items: center; user-select: none; }
+.journey-id { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--teal); font-weight: 500; }
+.journey-name { font-weight: 500; }
+.journey-counts { color: var(--muted); font-size: 12px; margin-left: auto; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+table { width: 100%; border-collapse: collapse; margin: 6px 0 8px; font-size: 13px; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 0.5px solid var(--line); vertical-align: top; }
+th { font-weight: 500; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
+.check-id { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; white-space: nowrap; }
+.details code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; color: var(--muted); word-break: break-all; }
+.row-fail .check-id { color: var(--rose); }
+.empty { color: var(--muted); font-style: italic; }
+.tier-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.tier-table { border: 0.5px solid var(--line); border-radius: 4px; padding: 12px 14px; background: white; }
+.tier-table table { margin: 0; }
+.tier-table th, .tier-table td { padding: 4px 6px; }
+footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line); color: var(--muted); font-size: 12px; display: flex; justify-content: space-between; }
+@media print {
+  body { background: white; }
+  main { max-width: none; padding: 16px; }
+  .site, .metric, .tier-table { page-break-inside: avoid; }
+  details { open: true; }
+  details > summary { list-style: none; }
+}
+</style>
+</head>
+<body>
+<main>
+  <header>
+  <div class="kicker">Revibe Daily QA</div>
+  <h1>2026-05-19</h1>
+  <div class="pills"><span class="pill fail">revibe.co.za · fail</span><span class="pill fail">revibe.me · fail</span><span class="pill fail">sa.revibe.me · fail</span></div>
+</header>
+  <section class="metrics">
+  <div class="metric">
+    <div class="metric-label">Aggregate pass rate</div>
+    <div class="metric-value">90%</div>
+    <div class="metric-sub">54 of 60 scoreable checks</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Total checks</div>
+    <div class="metric-value">90</div>
+    <div class="metric-sub">across 3 sites</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Open failures</div>
+    <div class="metric-value">6</div>
+    <div class="metric-sub">0 warnings · 30 skipped</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Run time</div>
+    <div class="metric-value">5m 26s</div>
+    <div class="metric-sub"></div>
+  </div>
+</section>
+  <section class="sites">
+  <h2>Per-site breakdown</h2>
+  <article class="site">
+  <header class="site-header">
+    <h3>revibe.co.za</h3>
+    <span class="region">South Africa</span>
+    <span class="pill fail">fail</span>
+    <span class="counts">18 pass · 0 warn · 2 fail · 10 skip · 90%</span>
+  </header>
+  <details >
+  <summary>
+    <span class="journey-id">j4-navigation</span>
+    <span class="journey-name">Navigation &amp; Page Health</span>
+    <span class="journey-counts">5 checks · 5p / 0w / 0f / 0s</span>
+  </summary>
+  <table>
+    <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">homepage-loads</td>
+    <td>Homepage loads with 2xx response</td>
+    <td class="details"><code>{&quot;status&quot;:200}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">currency-present</td>
+    <td>Currency ZAR appears on homepage</td>
+    <td class="details"><code>{&quot;expectedSymbols&quot;:[&quot;R&quot;,&quot;ZAR&quot;],&quot;foundSymbol&quot;:&quot;R&quot;}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">homepage-broken-images</td>
+    <td>No broken images on homepage (post-lazy-load scroll)</td>
+    <td class="details"><code>{&quot;count&quot;:0,&quot;sampleUrls&quot;:[]}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">internal-links-no-4xx</td>
+    <td>Sample of internal links from homepage return 2xx/3xx</td>
+    <td class="details"><code>{&quot;sampled&quot;:5,&quot;badCount&quot;:0,&quot;results&quot;:[{&quot;url&quot;:&quot;https://revibe.co.za/pages/my-account&quot;,&quot;status&quot;:200},{&quot;url&quot;:&quot;https://revibe.co.za/pages/wishlist&quot;,&quot;status&quot;:200},{&quot;url&quot;:&quot;https://revibe.co.za/cart&quot;,&quot;status&quot;:200},{&quot;url&quot;:&quot;https://revibe.co.za/collections/hot-deals&quot;,&quot;status&quot;:200},{&quot;url&quot;:&quot;https://revibe.co.za/collections/refurbi…</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">header-nav-multi-items</td>
+    <td>Header/nav contains multiple links (≥3 distinct hrefs)</td>
+    <td class="details"><code>{&quot;count&quot;:51}</code></td>
+  </tr>
+    </tbody>
+  </table>
+</details><details >
+  <summary>
+    <span class="journey-id">j1-plp</span>
+    <span class="journey-name">PLP</span>
+    <span class="journey-counts">5 checks · 5p / 0w / 0f / 0s</span>
+  </summary>
+  <table>
+    <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">plp-banner-text</td>
+    <td>PLP banner sub-text &quot;Certified renewed devices - Inspected by Experts - Up to 70% cheaper than new&quot; present</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/collections/all&quot;,&quot;expectedPhrases&quot;:[&quot;certified renewed devices&quot;,&quot;inspected by experts&quot;,&quot;up to 70% cheaper than new&quot;],&quot;missingPhrases&quot;:[]}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">plp-bnpl-logos</td>
+    <td>BNPL providers FLOAT, PAYFLEX, HAPPYPAY present on PLP</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/collections/all&quot;,&quot;expected&quot;:[&quot;FLOAT&quot;,&quot;PAYFLEX&quot;,&quot;HAPPYPAY&quot;],&quot;found&quot;:[&quot;FLOAT&quot;,&quot;PAYFLEX&quot;,&quot;HAPPYPAY&quot;],&quot;missing&quot;:[]}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">plp-empty-state</td>
+    <td>Empty-state message &quot;No products found...&quot; appears on impossible filter combination</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/collections/all?filter.v.price.gte=999999999&quot;,&quot;expectedSubstring&quot;:&quot;No products found&quot;,&quot;found&quot;:true}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">plp-search-samsung</td>
+    <td>Search &quot;Samsung&quot; returns &gt;=1 product card AND heading mentions &quot;Samsung&quot;</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/search?q=Samsung&quot;,&quot;productCardCount&quot;:20,&quot;h1&quot;:&quot;Search results for Samsung&quot;,&quot;headingMentionsQuery&quot;:true}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">plp-sort-price-asc</td>
+    <td>Sort by price low-to-high changes product card order</td>
+    <td class="details"><code>{&quot;defaultCount&quot;:8,&quot;sortedCount&quot;:8,&quot;defaultFirst3&quot;:[&quot;/products/iphone-11&quot;,&quot;/products/iphone-12&quot;,&quot;/products/iphone-13&quot;],&quot;sortedFirst3&quot;:[&quot;/products/iphone-13-pro-max&quot;,&quot;/products/samsung-s8-plus&quot;,&quot;/products/iphone-15-plus&quot;],&quot;orderChanged&quot;:true}</code></td>
+  </tr>
+    </tbody>
+  </table>
+</details><details open>
+  <summary>
+    <span class="journey-id">j2-pdp</span>
+    <span class="journey-name">PDP</span>
+    <span class="journey-counts">6 checks · 5p / 0w / 1f / 0s</span>
+  </summary>
+  <table>
+    <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">pdp-loads</td>
+    <td>PDP loads with 2xx response</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;status&quot;:200}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">pdp-lcp</td>
+    <td>PDP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;lcpMs&quot;:464}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">pdp-compare-gt-price</td>
+    <td>PDP compare-at price is greater than actual price</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;title&quot;:&quot;iPhone 11&quot;,&quot;price&quot;:4299,&quot;compare&quot;:8200,&quot;currency&quot;:&quot;ZAR&quot;}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">pdp-warranty-heading</td>
+    <td>Warranty card heading &quot;Get full protection and warranty for 24 months&quot; present on PDP</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;found&quot;:true}</code></td>
+  </tr><tr class="row-fail">
+    <td><span class="pill small fail">fail</span></td>
+    <td class="check-id">pdp-warranty-tier-math</td>
+    <td>Displayed warranty price matches tier table for product price</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;productPrice&quot;:4299,&quot;expectedWarranty&quot;:795,&quot;currency&quot;:&quot;ZAR&quot;,&quot;pattern&quot;:&quot;(?:(?:ZAR|R|ZAR)[^\\d]{0,15}795(?:[\\.,]\\d{1,2})?(?!\\d)|(?&lt;!\\d)795(?:[\\.,]\\d{1,2})?(?!\\d)[^\\d]{0,15}(?:ZAR|R|ZAR))&quot;,&quot;foundInCardWithCurrency&quot;:false,&quot;foundInBodyWithCurrency&quot;:false,&quot;foundInCardA…</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">pdp-cashback-reasonable</td>
+    <td>Cashback widget present AND amount &gt; 0 (skipped while feature On Hold per QA doc)</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;todo&quot;:null,&quot;present&quot;:true,&quot;amount&quot;:4.29,&quot;snippet&quot;:&quot;Good\nCondition Guide\nGood\nR 4,299\nR 400 Cashback\nVery Good\nR 4,699\nExcellent\nR 4,899\nGet full protection and warranty for 24 months\nFull pro&quot;}</code></td>
+  </tr>
+    </tbody>
+  </table>
+</details><details >
+  <summary>
+    <span class="journey-id">j3-cart</span>
+    <span class="journey-name">Cart</span>
+    <span class="journey-counts">5 checks · 0p / 0w / 0f / 5s</span>
+  </summary>
+  <table>
+    <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">cart-add-via-api</td>
+    <td>Cart populated via Shopify /cart/add.js (variant from j2 PDP)</td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;Variant ID unavailable or add failed&quot;,&quot;addResult&quot;:{&quot;ok&quot;:false,&quot;status&quot;:403,&quot;bodyPreview&quot;:&quot;&lt;!DOCTYPE html&gt;\n&lt;html lang=\&quot;en\&quot;&gt;\n&lt;head&gt;\n    &lt;meta charset=\&quot;utf-8\&quot; /&gt;\n    &lt;meta name=\&quot;viewport\&quot; content=\&quot;width=device-width, initial-scale=1.0\&quot; /&gt;\n    &lt;title&gt;Ver&quot;}}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">cart-shows-added-product</td>
+    <td>Cart contains the variant added via API</td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;No product was added to cart&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">cart-loads</td>
+    <td>Cart page loads with 2xx response</td>
+    <td class="details"><code>{&quot;status&quot;:403,&quot;todo&quot;:&quot;HTTP 403 on /cart — likely Cloudflare/Shopify anti-bot block. Skipped; investigate stealth mode or whitelisted UA later.&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">cart-bnpl-logos</td>
+    <td>BNPL providers FLOAT, PAYFLEX, HAPPYPAY present on cart page</td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;Cart page blocked (403); BNPL check skipped&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">checkout-loads</td>
+    <td>Checkout page loads with populated cart</td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;Cart was not populated; cannot test checkout&quot;}</code></td>
+  </tr>
+    </tbody>
+  </table>
+</details><details open>
+  <summary>
+    <span class="journey-id">j5-speed</span>
+    <span class="journey-name">Page Speed (LCP across journeys)</span>
+    <span class="journey-counts">5 checks · 2p / 0w / 1f / 2s</span>
+  </summary>
+  <table>
+    <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr class="row-fail">
+    <td><span class="pill small fail">fail</span></td>
+    <td class="check-id">homepage-lcp</td>
+    <td>Homepage LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
+    <td class="details"><code>{&quot;lcpMs&quot;:7852,&quot;source&quot;:&quot;reused from j4-navigation&quot;}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">plp-lcp</td>
+    <td>PLP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
+    <td class="details"><code>{&quot;lcpMs&quot;:131,&quot;url&quot;:&quot;https://revibe.co.za/collections/all&quot;}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">pdp-lcp</td>
+    <td>PDP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
+    <td class="details"><code>{&quot;lcpMs&quot;:464,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">cart-lcp</td>
+    <td>Cart LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;cart-lcp not captured by earlier journey&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">checkout-lcp</td>
+    <td>Checkout LCP under thresholds</td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;Checkout LCP not captured (cart unpopulated or external redirect)&quot;}</code></td>
+  </tr>
+    </tbody>
+  </table>
+</details><details >
+  <summary>
+    <span class="journey-id">j6-localization</span>
+    <span class="journey-name">Localization (Arabic + BNPL consistency)</span>
+    <span class="journey-counts">3 checks · 0p / 0w / 0f / 3s</span>
+  </summary>
+  <table>
+    <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">arabic-page-loads</td>
+    <td>arabic-page-loads (not applicable to ZA — English-only per QA doc)</td>
+    <td class="details"><code>{&quot;reason&quot;:&quot;revibe.co.za is English-only per QA doc&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">arabic-contains-rtl-text</td>
+    <td>arabic-contains-rtl-text (not applicable to ZA — English-only per QA doc)</td>
+    <td class="details"><code>{&quot;reason&quot;:&quot;revibe.co.za is English-only per QA doc&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">arabic-no-english-leak-in-h1</td>
+    <td>arabic-no-english-leak-in-h1 (not applicable to ZA — English-only per QA doc)</td>
+    <td class="details"><code>{&quot;reason&quot;:&quot;revibe.co.za is English-only per QA doc&quot;}</code></td>
+  </tr>
+    </tbody>
+  </table>
+</details><details >
+  <summary>
+    <span class="journey-id">meta</span>
+    <span class="journey-name">Cross-journey</span>
+    <span class="journey-counts">1 checks · 1p / 0w / 0f / 0s</span>
+  </summary>
+  <table>
+    <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">image-network-ok</td>
+    <td>All image network requests returned 2xx/3xx across this session</td>
+    <td class="details"><code>{&quot;failedCount&quot;:0,&quot;samples&quot;:[]}</code></td>
+  </tr>
+    </tbody>
+  </table>
+</details>
+</article><article class="site">
+  <header class="site-header">
+    <h3>revibe.me</h3>
+    <span class="region">United Arab Emirates</span>
+    <span class="pill fail">fail</span>
+    <span class="counts">18 pass · 0 warn · 2 fail · 10 skip · 90%</span>
+  </header>
+  <details >
+  <summary>
+    <span class="journey-id">j4-navigation</span>
+    <span class="journey-name">Navigation &amp; Page Health</span>
+    <span class="journey-counts">5 checks · 5p / 0w / 0f / 0s</span>
+  </summary>
+  <table>
+    <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">homepage-loads</td>
+    <td>Homepage loads with 2xx response</td>
+    <td class="details"><code>{&quot;status&quot;:200}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">currency-present</td>
+    <td>Currency AED appears on homepage</td>
+    <td class="details"><code>{&quot;expectedSymbols&quot;:[&quot;AED&quot;,&quot;د.إ&quot;],&quot;foundSymbol&quot;:&quot;AED&quot;}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">homepage-broken-images</td>
+    <td>No broken images on homepage (post-lazy-load scroll)</td>
+    <td class="details"><code>{&quot;count&quot;:0,&quot;sampleUrls&quot;:[]}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">internal-links-no-4xx</td>
+    <td>Sample of internal links from homepage return 2xx/3xx</td>
+    <td class="details"><code>{&quot;sampled&quot;:5,&quot;badCount&quot;:0,&quot;results&quot;:[{&quot;url&quot;:&quot;https://revibe.me/pages/order-tracking&quot;,&quot;status&quot;:200},{&quot;url&quot;:&quot;https://revibe.me/pages/my-account&quot;,&quot;status&quot;:200},{&quot;url&quot;:&quot;https://revibe.me/pages/wishlist&quot;,&quot;status&quot;:200},{&quot;url&quot;:&quot;https://revibe.me/cart&quot;,&quot;status&quot;:200},{&quot;url&quot;:&quot;https://revibe.me/collections/eid-deals&quot;,&quot;status&quot;:200…</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">header-nav-multi-items</td>
+    <td>Header/nav contains multiple links (≥3 distinct hrefs)</td>
+    <td class="details"><code>{&quot;count&quot;:63}</code></td>
+  </tr>
+    </tbody>
+  </table>
+</details><details >
+  <summary>
+    <span class="journey-id">j1-plp</span>
+    <span class="journey-name">PLP</span>
+    <span class="journey-counts">5 checks · 5p / 0w / 0f / 0s</span>
+  </summary>
+  <table>
+    <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">plp-banner-text</td>
+    <td>PLP banner sub-text &quot;Certified renewed devices - Inspected by Experts - Up to 70% cheaper than new&quot; present</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/collections/all&quot;,&quot;expectedPhrases&quot;:[&quot;certified renewed devices&quot;,&quot;inspected by experts&quot;,&quot;up to 70% cheaper than new&quot;],&quot;missingPhrases&quot;:[]}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">plp-bnpl-logos</td>
+    <td>BNPL providers Tabby, Tamara present on PLP</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/collections/all&quot;,&quot;expected&quot;:[&quot;Tabby&quot;,&quot;Tamara&quot;],&quot;found&quot;:[&quot;Tabby&quot;,&quot;Tamara&quot;],&quot;missing&quot;:[]}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">plp-empty-state</td>
+    <td>Empty-state message &quot;No products found...&quot; appears on impossible filter combination</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/collections/all?filter.v.price.gte=999999999&quot;,&quot;expectedSubstring&quot;:&quot;No products found&quot;,&quot;found&quot;:true}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">plp-search-samsung</td>
+    <td>Search &quot;Samsung&quot; returns &gt;=1 product card AND heading mentions &quot;Samsung&quot;</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/search?q=Samsung&quot;,&quot;productCardCount&quot;:20,&quot;h1&quot;:&quot;Search results for Samsung&quot;,&quot;headingMentionsQuery&quot;:true}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">plp-sort-price-asc</td>
+    <td>Sort by price low-to-high changes product card order</td>
+    <td class="details"><code>{&quot;defaultCount&quot;:8,&quot;sortedCount&quot;:8,&quot;defaultFirst3&quot;:[&quot;/products/iphone-12-pro&quot;,&quot;/products/iphone-13-pro-max&quot;,&quot;/products/iphone-12-pro-max&quot;],&quot;sortedFirst3&quot;:[&quot;/products/ipad-5th-gen-2017-wi-fi-cellular&quot;,&quot;/products/ipad-6th-gen-2018-wi-fi&quot;,&quot;/products/awei-h25-smartwatch&quot;],&quot;orderChanged&quot;:true}</code></td>
+  </tr>
+    </tbody>
+  </table>
+</details><details open>
+  <summary>
+    <span class="journey-id">j2-pdp</span>
+    <span class="journey-name">PDP</span>
+    <span class="journey-counts">6 checks · 5p / 0w / 1f / 0s</span>
+  </summary>
+  <table>
+    <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">pdp-loads</td>
+    <td>PDP loads with 2xx response</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;status&quot;:200}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">pdp-lcp</td>
+    <td>PDP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;lcpMs&quot;:344}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">pdp-compare-gt-price</td>
+    <td>PDP compare-at price is greater than actual price</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;title&quot;:&quot;iPhone 12 Pro&quot;,&quot;price&quot;:969,&quot;compare&quot;:1540,&quot;currency&quot;:&quot;AED&quot;}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">pdp-warranty-heading</td>
+    <td>Warranty card heading &quot;Get full protection and warranty for 24 months&quot; present on PDP</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;found&quot;:true}</code></td>
+  </tr><tr class="row-fail">
+    <td><span class="pill small fail">fail</span></td>
+    <td class="check-id">pdp-warranty-tier-math</td>
+    <td>Displayed warranty price matches tier table for product price</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;productPrice&quot;:969,&quot;expectedWarranty&quot;:125,&quot;currency&quot;:&quot;AED&quot;,&quot;pattern&quot;:&quot;(?:(?:AED|AED|د\\.إ)[^\\d]{0,15}125(?:[\\.,]\\d{1,2})?(?!\\d)|(?&lt;!\\d)125(?:[\\.,]\\d{1,2})?(?!\\d)[^\\d]{0,15}(?:AED|AED|د\\.إ))&quot;,&quot;foundInCardWithCurrency&quot;:false,&quot;foundInBodyWithCurrency&quot;:false,&quot;foun…</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">pdp-cashback-reasonable</td>
+    <td>Cashback widget present AND amount &gt; 0 (skipped while feature On Hold per QA doc)</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;todo&quot;:null,&quot;present&quot;:true,&quot;amount&quot;:200,&quot;snippet&quot;:&quot;DER WITH CODE EIDGIFT AND ENJOY 200 AED CASHBACK AT CHECKOUT!\n150,000+ Customers\nExcellent\niPhone 12 Pro\nAdd to wishlist\nRenewed\n-37% vs new&quot;}</code></td>
+  </tr>
+    </tbody>
+  </table>
+</details><details >
+  <summary>
+    <span class="journey-id">j3-cart</span>
+    <span class="journey-name">Cart</span>
+    <span class="journey-counts">5 checks · 0p / 0w / 0f / 5s</span>
+  </summary>
+  <table>
+    <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">cart-add-via-api</td>
+    <td>Cart populated via Shopify /cart/add.js (variant from j2 PDP)</td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;Variant ID unavailable or add failed&quot;,&quot;addResult&quot;:{&quot;ok&quot;:false,&quot;status&quot;:403,&quot;bodyPreview&quot;:&quot;&lt;!DOCTYPE html&gt;\n&lt;html lang=\&quot;en\&quot;&gt;\n&lt;head&gt;\n    &lt;meta charset=\&quot;utf-8\&quot; /&gt;\n    &lt;meta name=\&quot;viewport\&quot; content=\&quot;width=device-width, initial-scale=1.0\&quot; /&gt;\n    &lt;title&gt;Ver&quot;}}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">cart-shows-added-product</td>
+    <td>Cart contains the variant added via API</td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;No product was added to cart&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">cart-loads</td>
+    <td>Cart page loads with 2xx response</td>
+    <td class="details"><code>{&quot;status&quot;:403,&quot;todo&quot;:&quot;HTTP 403 on /cart — likely Cloudflare/Shopify anti-bot block. Skipped; investigate stealth mode or whitelisted UA later.&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">cart-bnpl-logos</td>
+    <td>BNPL providers Tabby, Tamara present on cart page</td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;Cart page blocked (403); BNPL check skipped&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">checkout-loads</td>
+    <td>Checkout page loads with populated cart</td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;Cart was not populated; cannot test checkout&quot;}</code></td>
+  </tr>
+    </tbody>
+  </table>
+</details><details open>
+  <summary>
+    <span class="journey-id">j5-speed</span>
+    <span class="journey-name">Page Speed (LCP across journeys)</span>
+    <span class="journey-counts">5 checks · 2p / 0w / 1f / 2s</span>
+  </summary>
+  <table>
+    <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr class="row-fail">
+    <td><span class="pill small fail">fail</span></td>
+    <td class="check-id">homepage-lcp</td>
+    <td>Homepage LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
+    <td class="details"><code>{&quot;lcpMs&quot;:8184,&quot;source&quot;:&quot;reused from j4-navigation&quot;}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">plp-lcp</td>
+    <td>PLP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
+    <td class="details"><code>{&quot;lcpMs&quot;:138,&quot;url&quot;:&quot;https://revibe.me/collections/all&quot;}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">pdp-lcp</td>
+    <td>PDP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
+    <td class="details"><code>{&quot;lcpMs&quot;:344,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">cart-lcp</td>
+    <td>Cart LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;cart-lcp not captured by earlier journey&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">checkout-lcp</td>
+    <td>Checkout LCP under thresholds</td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;Checkout LCP not captured (cart unpopulated or external redirect)&quot;}</code></td>
+  </tr>
+    </tbody>
+  </table>
+</details><details >
+  <summary>
+    <span class="journey-id">j6-localization</span>
+    <span class="journey-name">Localization (Arabic + BNPL consistency)</span>
+    <span class="journey-counts">3 checks · 0p / 0w / 0f / 3s</span>
+  </summary>
+  <table>
+    <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">arabic-page-loads</td>
+    <td>arabic-page-loads — Arabic locale CDN-blocked</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/?locale=ar&quot;,&quot;status&quot;:403,&quot;todo&quot;:&quot;HTTP 403 on /?locale=ar — Cloudflare anti-bot challenge. Investigate stealth mode or whitelisted UA later.&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">arabic-contains-rtl-text</td>
+    <td>arabic-contains-rtl-text — Arabic locale CDN-blocked</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/?locale=ar&quot;,&quot;status&quot;:403,&quot;todo&quot;:&quot;HTTP 403 on /?locale=ar — Cloudflare anti-bot challenge. Investigate stealth mode or whitelisted UA later.&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">arabic-no-english-leak-in-h1</td>
+    <td>arabic-no-english-leak-in-h1 — Arabic locale CDN-blocked</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/?locale=ar&quot;,&quot;status&quot;:403,&quot;todo&quot;:&quot;HTTP 403 on /?locale=ar — Cloudflare anti-bot challenge. Investigate stealth mode or whitelisted UA later.&quot;}</code></td>
+  </tr>
+    </tbody>
+  </table>
+</details><details >
+  <summary>
+    <span class="journey-id">meta</span>
+    <span class="journey-name">Cross-journey</span>
+    <span class="journey-counts">1 checks · 1p / 0w / 0f / 0s</span>
+  </summary>
+  <table>
+    <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">image-network-ok</td>
+    <td>All image network requests returned 2xx/3xx across this session</td>
+    <td class="details"><code>{&quot;failedCount&quot;:0,&quot;samples&quot;:[]}</code></td>
+  </tr>
+    </tbody>
+  </table>
+</details>
+</article><article class="site">
+  <header class="site-header">
+    <h3>sa.revibe.me</h3>
+    <span class="region">Saudi Arabia</span>
+    <span class="pill fail">fail</span>
+    <span class="counts">18 pass · 0 warn · 2 fail · 10 skip · 90%</span>
+  </header>
+  <details >
+  <summary>
+    <span class="journey-id">j4-navigation</span>
+    <span class="journey-name">Navigation &amp; Page Health</span>
+    <span class="journey-counts">5 checks · 5p / 0w / 0f / 0s</span>
+  </summary>
+  <table>
+    <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">homepage-loads</td>
+    <td>Homepage loads with 2xx response</td>
+    <td class="details"><code>{&quot;status&quot;:200}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">currency-present</td>
+    <td>Currency SAR appears on homepage</td>
+    <td class="details"><code>{&quot;expectedSymbols&quot;:[&quot;SAR&quot;,&quot;ر.س&quot;],&quot;foundSymbol&quot;:&quot;SAR&quot;}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">homepage-broken-images</td>
+    <td>No broken images on homepage (post-lazy-load scroll)</td>
+    <td class="details"><code>{&quot;count&quot;:0,&quot;sampleUrls&quot;:[]}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">internal-links-no-4xx</td>
+    <td>Sample of internal links from homepage return 2xx/3xx</td>
+    <td class="details"><code>{&quot;sampled&quot;:5,&quot;badCount&quot;:0,&quot;results&quot;:[{&quot;url&quot;:&quot;https://sa.revibe.me/pages/my-account&quot;,&quot;status&quot;:200},{&quot;url&quot;:&quot;https://sa.revibe.me/pages/wishlist&quot;,&quot;status&quot;:200},{&quot;url&quot;:&quot;https://sa.revibe.me/cart&quot;,&quot;status&quot;:200},{&quot;url&quot;:&quot;https://sa.revibe.me/collections/eid-deals&quot;,&quot;status&quot;:200},{&quot;url&quot;:&quot;https://sa.revibe.me/collections/refurbi…</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">header-nav-multi-items</td>
+    <td>Header/nav contains multiple links (≥3 distinct hrefs)</td>
+    <td class="details"><code>{&quot;count&quot;:58}</code></td>
+  </tr>
+    </tbody>
+  </table>
+</details><details >
+  <summary>
+    <span class="journey-id">j1-plp</span>
+    <span class="journey-name">PLP</span>
+    <span class="journey-counts">5 checks · 5p / 0w / 0f / 0s</span>
+  </summary>
+  <table>
+    <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">plp-banner-text</td>
+    <td>PLP banner sub-text &quot;Certified renewed devices - Inspected by Experts - Up to 70% cheaper than new&quot; present</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/collections/all&quot;,&quot;expectedPhrases&quot;:[&quot;certified renewed devices&quot;,&quot;inspected by experts&quot;,&quot;up to 70% cheaper than new&quot;],&quot;missingPhrases&quot;:[]}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">plp-bnpl-logos</td>
+    <td>BNPL providers Tabby, Tamara, Baseeta present on PLP</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/collections/all&quot;,&quot;expected&quot;:[&quot;Tabby&quot;,&quot;Tamara&quot;,&quot;Baseeta&quot;],&quot;found&quot;:[&quot;Tabby&quot;,&quot;Tamara&quot;,&quot;Baseeta&quot;],&quot;missing&quot;:[]}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">plp-empty-state</td>
+    <td>Empty-state message &quot;No products found...&quot; appears on impossible filter combination</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/collections/all?filter.v.price.gte=999999999&quot;,&quot;expectedSubstring&quot;:&quot;No products found&quot;,&quot;found&quot;:true}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">plp-search-samsung</td>
+    <td>Search &quot;Samsung&quot; returns &gt;=1 product card AND heading mentions &quot;Samsung&quot;</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/search?q=Samsung&quot;,&quot;productCardCount&quot;:20,&quot;h1&quot;:&quot;Search results for Samsung&quot;,&quot;headingMentionsQuery&quot;:true}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">plp-sort-price-asc</td>
+    <td>Sort by price low-to-high changes product card order</td>
+    <td class="details"><code>{&quot;defaultCount&quot;:8,&quot;sortedCount&quot;:8,&quot;defaultFirst3&quot;:[&quot;/products/iphone-12-pro-max&quot;,&quot;/products/iphone-12-pro&quot;,&quot;/products/iphone-11&quot;],&quot;sortedFirst3&quot;:[&quot;/products/galaxy-note-20-ultra&quot;,&quot;/products/samsung-a32-5g&quot;,&quot;/products/samsung-galaxy-s24-1&quot;],&quot;orderChanged&quot;:true}</code></td>
+  </tr>
+    </tbody>
+  </table>
+</details><details open>
+  <summary>
+    <span class="journey-id">j2-pdp</span>
+    <span class="journey-name">PDP</span>
+    <span class="journey-counts">6 checks · 5p / 0w / 1f / 0s</span>
+  </summary>
+  <table>
+    <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">pdp-loads</td>
+    <td>PDP loads with 2xx response</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;status&quot;:200}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">pdp-lcp</td>
+    <td>PDP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;lcpMs&quot;:556}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">pdp-compare-gt-price</td>
+    <td>PDP compare-at price is greater than actual price</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;title&quot;:&quot;iPhone 12 Pro Max&quot;,&quot;price&quot;:1199,&quot;compare&quot;:2475,&quot;currency&quot;:&quot;SAR&quot;}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">pdp-warranty-heading</td>
+    <td>Warranty card heading &quot;Get full protection and warranty for 24 months&quot; present on PDP</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;found&quot;:true}</code></td>
+  </tr><tr class="row-fail">
+    <td><span class="pill small fail">fail</span></td>
+    <td class="check-id">pdp-warranty-tier-math</td>
+    <td>Displayed warranty price matches tier table for product price</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;productPrice&quot;:1199,&quot;expectedWarranty&quot;:215,&quot;currency&quot;:&quot;SAR&quot;,&quot;pattern&quot;:&quot;(?:(?:SAR|SAR|ر\\.س)[^\\d]{0,15}215(?:[\\.,]\\d{1,2})?(?!\\d)|(?&lt;!\\d)215(?:[\\.,]\\d{1,2})?(?!\\d)[^\\d]{0,15}(?:SAR|SAR|ر\\.س))&quot;,&quot;foundInCardWithCurrency&quot;:false,&quot;foundInBodyWithCurrency&quot;:fal…</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">pdp-cashback-reasonable</td>
+    <td>Cashback widget present AND amount &gt; 0 (skipped while feature On Hold per QA doc)</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;todo&quot;:null,&quot;present&quot;:true,&quot;amount&quot;:200,&quot;snippet&quot;:&quot;DER WITH CODE EIDGIFT AND ENJOY 200 SAR CASHBACK AT CHECKOUT!\n150,000+ Customers\nExcellent\niPhone 12 Pro Max\nAdd to wishlist\nRenewed\n-52% vs&quot;}</code></td>
+  </tr>
+    </tbody>
+  </table>
+</details><details >
+  <summary>
+    <span class="journey-id">j3-cart</span>
+    <span class="journey-name">Cart</span>
+    <span class="journey-counts">5 checks · 0p / 0w / 0f / 5s</span>
+  </summary>
+  <table>
+    <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">cart-add-via-api</td>
+    <td>Cart populated via Shopify /cart/add.js (variant from j2 PDP)</td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;Variant ID unavailable or add failed&quot;,&quot;addResult&quot;:{&quot;ok&quot;:false,&quot;status&quot;:403,&quot;bodyPreview&quot;:&quot;&lt;!DOCTYPE html&gt;\n&lt;html lang=\&quot;en\&quot;&gt;\n&lt;head&gt;\n    &lt;meta charset=\&quot;utf-8\&quot; /&gt;\n    &lt;meta name=\&quot;viewport\&quot; content=\&quot;width=device-width, initial-scale=1.0\&quot; /&gt;\n    &lt;title&gt;Ver&quot;}}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">cart-shows-added-product</td>
+    <td>Cart contains the variant added via API</td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;No product was added to cart&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">cart-loads</td>
+    <td>Cart page loads with 2xx response</td>
+    <td class="details"><code>{&quot;status&quot;:403,&quot;todo&quot;:&quot;HTTP 403 on /cart — likely Cloudflare/Shopify anti-bot block. Skipped; investigate stealth mode or whitelisted UA later.&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">cart-bnpl-logos</td>
+    <td>BNPL providers Tabby, Tamara, Baseeta present on cart page</td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;Cart page blocked (403); BNPL check skipped&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">checkout-loads</td>
+    <td>Checkout page loads with populated cart</td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;Cart was not populated; cannot test checkout&quot;}</code></td>
+  </tr>
+    </tbody>
+  </table>
+</details><details open>
+  <summary>
+    <span class="journey-id">j5-speed</span>
+    <span class="journey-name">Page Speed (LCP across journeys)</span>
+    <span class="journey-counts">5 checks · 2p / 0w / 1f / 2s</span>
+  </summary>
+  <table>
+    <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr class="row-fail">
+    <td><span class="pill small fail">fail</span></td>
+    <td class="check-id">homepage-lcp</td>
+    <td>Homepage LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
+    <td class="details"><code>{&quot;lcpMs&quot;:9572,&quot;source&quot;:&quot;reused from j4-navigation&quot;}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">plp-lcp</td>
+    <td>PLP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
+    <td class="details"><code>{&quot;lcpMs&quot;:170,&quot;url&quot;:&quot;https://sa.revibe.me/collections/all&quot;}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">pdp-lcp</td>
+    <td>PDP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
+    <td class="details"><code>{&quot;lcpMs&quot;:556,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">cart-lcp</td>
+    <td>Cart LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;cart-lcp not captured by earlier journey&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">checkout-lcp</td>
+    <td>Checkout LCP under thresholds</td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;Checkout LCP not captured (cart unpopulated or external redirect)&quot;}</code></td>
+  </tr>
+    </tbody>
+  </table>
+</details><details >
+  <summary>
+    <span class="journey-id">j6-localization</span>
+    <span class="journey-name">Localization (Arabic + BNPL consistency)</span>
+    <span class="journey-counts">3 checks · 0p / 0w / 0f / 3s</span>
+  </summary>
+  <table>
+    <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">arabic-page-loads</td>
+    <td>arabic-page-loads — Arabic locale CDN-blocked</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/?locale=ar&quot;,&quot;status&quot;:403,&quot;todo&quot;:&quot;HTTP 403 on /?locale=ar — Cloudflare anti-bot challenge. Investigate stealth mode or whitelisted UA later.&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">arabic-contains-rtl-text</td>
+    <td>arabic-contains-rtl-text — Arabic locale CDN-blocked</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/?locale=ar&quot;,&quot;status&quot;:403,&quot;todo&quot;:&quot;HTTP 403 on /?locale=ar — Cloudflare anti-bot challenge. Investigate stealth mode or whitelisted UA later.&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">arabic-no-english-leak-in-h1</td>
+    <td>arabic-no-english-leak-in-h1 — Arabic locale CDN-blocked</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/?locale=ar&quot;,&quot;status&quot;:403,&quot;todo&quot;:&quot;HTTP 403 on /?locale=ar — Cloudflare anti-bot challenge. Investigate stealth mode or whitelisted UA later.&quot;}</code></td>
+  </tr>
+    </tbody>
+  </table>
+</details><details >
+  <summary>
+    <span class="journey-id">meta</span>
+    <span class="journey-name">Cross-journey</span>
+    <span class="journey-counts">1 checks · 1p / 0w / 0f / 0s</span>
+  </summary>
+  <table>
+    <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">image-network-ok</td>
+    <td>All image network requests returned 2xx/3xx across this session</td>
+    <td class="details"><code>{&quot;failedCount&quot;:0,&quot;samples&quot;:[]}</code></td>
+  </tr>
+    </tbody>
+  </table>
+</details>
+</article>
+</section>
+  <section class="failures">
+  <h2>Open failures (6)</h2>
+  <table>
+    <thead><tr><th>Site</th><th>Journey</th><th>Check</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>revibe.co.za</td>
+        <td>j2-pdp</td>
+        <td class="check-id">pdp-warranty-tier-math</td>
+        <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;productPrice&quot;:4299,&quot;expectedWarranty&quot;:795,&quot;currency&quot;:&quot;ZAR&quot;,&quot;pattern&quot;:&quot;(?:(?:ZAR|R|ZAR)[^\\d]{0,15}795(?:[\\.,]\\d{1,2})?(?!\\d)|(?&lt;!\\d)795(?:[\\.,]\\d{1,2})?(?!\\d)[^\\d]{0,15}(?:ZAR|R|ZAR))&quot;,&quot;foundInCardWithCurrency&quot;:false,&quot;foundInBodyWithCurrency&quot;:false,&quot;foundInCardAsNumber&quot;:false,&quot;cardSnippet&quot;:&quot;Color: Black\n \n \n \n \n \nStorage: 64 GB\n64 GB\n128 GB\n256 GB\nCondition: Good\nCondition Guide\nGood\nR 4,299\nR 400 Cashback\nVery Good\nR 4,699\nExcellent\nR 4,899\nGet full protection and warranty for 24 months\nFull protection (incl. misuse) - Protect against any damage or accident and extend your warranty for 2 years\nR 400\nShop Now, Pay Later!\n   \n R 400 Cashback\nBuy Now\nAdd to Cart\n\n12 months warranty\n\nR &quot;}</code></td>
+      </tr><tr>
+        <td>revibe.co.za</td>
+        <td>j5-speed</td>
+        <td class="check-id">homepage-lcp</td>
+        <td class="details"><code>{&quot;lcpMs&quot;:7852,&quot;source&quot;:&quot;reused from j4-navigation&quot;}</code></td>
+      </tr><tr>
+        <td>revibe.me</td>
+        <td>j2-pdp</td>
+        <td class="check-id">pdp-warranty-tier-math</td>
+        <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;productPrice&quot;:969,&quot;expectedWarranty&quot;:125,&quot;currency&quot;:&quot;AED&quot;,&quot;pattern&quot;:&quot;(?:(?:AED|AED|د\\.إ)[^\\d]{0,15}125(?:[\\.,]\\d{1,2})?(?!\\d)|(?&lt;!\\d)125(?:[\\.,]\\d{1,2})?(?!\\d)[^\\d]{0,15}(?:AED|AED|د\\.إ))&quot;,&quot;foundInCardWithCurrency&quot;:false,&quot;foundInBodyWithCurrency&quot;:false,&quot;foundInCardAsNumber&quot;:false,&quot;cardSnippet&quot;:&quot;Color: Graphite\n \n \n \nStorage: 128 GB\n128 GB\n256 GB\n512 GB\nCondition: Good\nCondition Guide\nGood\nAED 969\n200 AED Cashback\nVery Good\nAED 1,079\nExcellent\nAED 1,119\nGet full protection and warranty for 24 months\nFull protection (incl. misuse) - Protect against any damage or accident and extend your warranty for 2 years\nAED 85\nShop Now, Pay Later!\n \n 200 AED Cashback\nAdd to Cart\nAuthenticated &amp; sold by&quot;}</code></td>
+      </tr><tr>
+        <td>revibe.me</td>
+        <td>j5-speed</td>
+        <td class="check-id">homepage-lcp</td>
+        <td class="details"><code>{&quot;lcpMs&quot;:8184,&quot;source&quot;:&quot;reused from j4-navigation&quot;}</code></td>
+      </tr><tr>
+        <td>sa.revibe.me</td>
+        <td>j2-pdp</td>
+        <td class="check-id">pdp-warranty-tier-math</td>
+        <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;productPrice&quot;:1199,&quot;expectedWarranty&quot;:215,&quot;currency&quot;:&quot;SAR&quot;,&quot;pattern&quot;:&quot;(?:(?:SAR|SAR|ر\\.س)[^\\d]{0,15}215(?:[\\.,]\\d{1,2})?(?!\\d)|(?&lt;!\\d)215(?:[\\.,]\\d{1,2})?(?!\\d)[^\\d]{0,15}(?:SAR|SAR|ر\\.س))&quot;,&quot;foundInCardWithCurrency&quot;:false,&quot;foundInBodyWithCurrency&quot;:false,&quot;foundInCardAsNumber&quot;:false,&quot;cardSnippet&quot;:&quot;Color: Graphite\n \n \n \nStorage: 128 GB\n128 GB\n256 GB\n512 GB\nCondition: Good\nCondition Guide\nGood\nSAR 1,199\n200 SAR Cashback\nVery Good\nSAR 1,479\nExcellent\nSAR 1,509\nGet full protection and warranty for 24 months\nFull protection (incl. misuse) - Protect against any damage or accident and extend your warranty for 2 years\nSAR 95\nShop Now, Pay Later!\n \n 200 SAR Cashback\nAdd to Cart\nAuthenticated &amp; sold &quot;}</code></td>
+      </tr><tr>
+        <td>sa.revibe.me</td>
+        <td>j5-speed</td>
+        <td class="check-id">homepage-lcp</td>
+        <td class="details"><code>{&quot;lcpMs&quot;:9572,&quot;source&quot;:&quot;reused from j4-navigation&quot;}</code></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+  <section class="warranty-ref">
+  <h2>Warranty tier reference</h2>
+  <div class="tier-grid"><div class="tier-table">
+      <h4>ZA</h4>
+      <table>
+        <thead><tr><th>Product price ≤</th><th>Warranty</th></tr></thead>
+        <tbody><tr><td>2892</td><td>450</td></tr><tr><td>4821</td><td>795</td></tr><tr><td>9642</td><td>1420</td></tr><tr><td>14463</td><td>2350</td></tr><tr><td>∞</td><td>2600</td></tr></tbody>
+      </table>
+    </div><div class="tier-table">
+      <h4>AE</h4>
+      <table>
+        <thead><tr><th>Product price ≤</th><th>Warranty</th></tr></thead>
+        <tbody><tr><td>600</td><td>75</td></tr><tr><td>1000</td><td>125</td></tr><tr><td>2000</td><td>215</td></tr><tr><td>3000</td><td>395</td></tr><tr><td>∞</td><td>445</td></tr></tbody>
+      </table>
+    </div><div class="tier-table">
+      <h4>SA</h4>
+      <table>
+        <thead><tr><th>Product price ≤</th><th>Warranty</th></tr></thead>
+        <tbody><tr><td>600</td><td>75</td></tr><tr><td>1000</td><td>125</td></tr><tr><td>2000</td><td>215</td></tr><tr><td>3000</td><td>395</td></tr><tr><td>∞</td><td>445</td></tr></tbody>
+      </table>
+    </div></div>
+</section>
+  <footer>
+    <span>Generated 2026-05-19T15:56:34.791Z</span>
+    <span>Run time 5m 26s</span>
+  </footer>
+</main>
+</body>
+</html>
