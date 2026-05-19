@@ -1,7 +1,7 @@
 {
   "date": "2026-05-19",
-  "timestamp": "2026-05-19T15:56:34.791Z",
-  "runTimeMs": 325948,
+  "timestamp": "2026-05-19T16:14:00.145Z",
+  "runTimeMs": 276834,
   "sites": [
     {
       "id": "za",
@@ -9,11 +9,11 @@
       "region": "South Africa",
       "summary": {
         "total": 30,
-        "pass": 18,
+        "pass": 19,
         "warning": 0,
-        "fail": 2,
+        "fail": 1,
         "skip": 10,
-        "passRate": 90,
+        "passRate": 95,
         "status": "fail"
       },
       "checks": [
@@ -208,7 +208,7 @@
           "status": "pass",
           "details": {
             "url": "https://revibe.co.za/products/iphone-11",
-            "lcpMs": 464
+            "lcpMs": 912
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -339,9 +339,9 @@
           "id": "homepage-lcp",
           "category": "performance",
           "description": "Homepage LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
-          "status": "fail",
+          "status": "pass",
           "details": {
-            "lcpMs": 7852,
+            "lcpMs": 2256,
             "source": "reused from j4-navigation"
           },
           "journey": "j5-speed",
@@ -353,7 +353,7 @@
           "description": "PLP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 131,
+            "lcpMs": 41,
             "url": "https://revibe.co.za/collections/all"
           },
           "journey": "j5-speed",
@@ -365,7 +365,7 @@
           "description": "PDP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 464,
+            "lcpMs": 912,
             "source": "reused from j2-pdp"
           },
           "journey": "j5-speed",
@@ -446,11 +446,11 @@
       "region": "United Arab Emirates",
       "summary": {
         "total": 30,
-        "pass": 18,
+        "pass": 19,
         "warning": 0,
-        "fail": 2,
+        "fail": 1,
         "skip": 10,
-        "passRate": 90,
+        "passRate": 95,
         "status": "fail"
       },
       "checks": [
@@ -643,7 +643,7 @@
           "status": "pass",
           "details": {
             "url": "https://revibe.me/products/iphone-12-pro",
-            "lcpMs": 344
+            "lcpMs": 1232
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -774,9 +774,9 @@
           "id": "homepage-lcp",
           "category": "performance",
           "description": "Homepage LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
-          "status": "fail",
+          "status": "pass",
           "details": {
-            "lcpMs": 8184,
+            "lcpMs": 1440,
             "source": "reused from j4-navigation"
           },
           "journey": "j5-speed",
@@ -788,7 +788,7 @@
           "description": "PLP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 138,
+            "lcpMs": 33,
             "url": "https://revibe.me/collections/all"
           },
           "journey": "j5-speed",
@@ -800,7 +800,7 @@
           "description": "PDP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 344,
+            "lcpMs": 1232,
             "source": "reused from j2-pdp"
           },
           "journey": "j5-speed",
@@ -887,11 +887,11 @@
       "region": "Saudi Arabia",
       "summary": {
         "total": 30,
-        "pass": 18,
+        "pass": 19,
         "warning": 0,
-        "fail": 2,
+        "fail": 1,
         "skip": 10,
-        "passRate": 90,
+        "passRate": 95,
         "status": "fail"
       },
       "checks": [
@@ -1086,7 +1086,7 @@
           "status": "pass",
           "details": {
             "url": "https://sa.revibe.me/products/iphone-12-pro-max",
-            "lcpMs": 556
+            "lcpMs": 812
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -1217,9 +1217,9 @@
           "id": "homepage-lcp",
           "category": "performance",
           "description": "Homepage LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
-          "status": "fail",
+          "status": "pass",
           "details": {
-            "lcpMs": 9572,
+            "lcpMs": 1744,
             "source": "reused from j4-navigation"
           },
           "journey": "j5-speed",
@@ -1231,7 +1231,7 @@
           "description": "PLP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 170,
+            "lcpMs": 33,
             "url": "https://sa.revibe.me/collections/all"
           },
           "journey": "j5-speed",
@@ -1243,7 +1243,7 @@
           "description": "PDP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 556,
+            "lcpMs": 812,
             "source": "reused from j2-pdp"
           },
           "journey": "j5-speed",
