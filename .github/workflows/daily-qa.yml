@@ -65,7 +65,7 @@ jobs:
           RUN_NUMBER: ${{ github.run_number }}
         run: |
           if [ -z "$SLACK_WEBHOOK_URL" ]; then
-            echo "SLACK_WEBHOOK_URL not set"
+            echo "SLACK_WEBHOOK_URL not set; skipping."
             exit 0
           fi
           DATE=$(date -u +%F)
@@ -77,13 +77,13 @@ jobs:
             if [ "$OVERALL" = ":white_check_mark:" ]; then
               if echo "$SUMMARY" | grep -q ":warning:"; then OVERALL=":warning:"; fi
             fi
-            TEXT="*Daily QA - ${DATE} - ${OVERALL}*
-${SUMMARY}
-<https://revibeali.github.io/revibe-web-qa/|Dashboard> - <${RUN_URL}|Run #${RUN_NUMBER}>"
+            HEADER="*Daily QA - ${DATE} - ${OVERALL}*"
+            FOOTER="<https://revibeali.github.io/revibe-web-qa/|Dashboard> - <${RUN_URL}|Run #${RUN_NUMBER}>"
+            TEXT=$(printf '%s\n%s\n%s' "$HEADER" "$SUMMARY" "$FOOTER")
           else
-            TEXT="*Daily QA - ${DATE} - :x:*
-QA failed before reports were written.
-<${RUN_URL}|See run logs>"
+            HEADER="*Daily QA - ${DATE} - :x:*"
+            FOOTER="<${RUN_URL}|See run logs>"
+            TEXT=$(printf '%s\n%s\n%s' "$HEADER" "QA failed before reports were written." "$FOOTER")
           fi
           jq -n --arg t "$TEXT" '{text:$t}' | curl -s -X POST -H 'Content-Type: application/json' --data @- "$SLACK_WEBHOOK_URL"
-          echo "Posted."
+          echo "Posted to Slack."
