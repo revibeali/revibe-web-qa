@@ -80,22 +80,22 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
   <section class="metrics">
   <div class="metric">
     <div class="metric-label">Aggregate pass rate</div>
-    <div class="metric-value">83%</div>
-    <div class="metric-sub">72 of 87 scoreable checks</div>
+    <div class="metric-value">88%</div>
+    <div class="metric-sub">87 of 99 scoreable checks</div>
   </div>
   <div class="metric">
     <div class="metric-label">Total checks</div>
-    <div class="metric-value">132</div>
+    <div class="metric-value">141</div>
     <div class="metric-sub">across 3 sites</div>
   </div>
   <div class="metric">
     <div class="metric-label">Open failures</div>
-    <div class="metric-value">15</div>
-    <div class="metric-sub">0 warnings · 45 skipped</div>
+    <div class="metric-value">9</div>
+    <div class="metric-sub">3 warnings · 42 skipped</div>
   </div>
   <div class="metric">
     <div class="metric-label">Run time</div>
-    <div class="metric-value">4m 48s</div>
+    <div class="metric-value">4m 36s</div>
     <div class="metric-sub"></div>
   </div>
 </section>
@@ -106,7 +106,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <h3>revibe.co.za</h3>
     <span class="region">South Africa</span>
     <span class="pill fail">fail</span>
-    <span class="counts">24 pass · 0 warn · 5 fail · 15 skip · 83%</span>
+    <span class="counts">28 pass · 1 warn · 3 fail · 15 skip · 88%</span>
   </header>
   <details >
   <summary>
@@ -196,7 +196,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
   <summary>
     <span class="journey-id">j2-pdp</span>
     <span class="journey-name">PDP</span>
-    <span class="journey-counts">12 checks · 7p / 0w / 3f / 2s</span>
+    <span class="journey-counts">15 checks · 11p / 1w / 1f / 2s</span>
   </summary>
   <table>
     <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
@@ -210,7 +210,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-lcp</td>
     <td>PDP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;lcpMs&quot;:628}</code></td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;lcpMs&quot;:372}</code></td>
   </tr><tr class="row-pass">
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-compare-gt-price</td>
@@ -231,36 +231,51 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td class="check-id">pdp-cashback-reasonable</td>
     <td>Cashback widget present AND amount &gt; 0 (skipped while feature On Hold per QA doc)</td>
     <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;todo&quot;:null,&quot;present&quot;:true,&quot;amount&quot;:4.29,&quot;snippet&quot;:&quot;Good\nCondition Guide\nGood\nR 4,299\nR 400 Cashback\nVery Good\nR 4,699\nExcellent\nR 4,899\nGet full protection and warranty for 24 months\nFull pro&quot;}</code></td>
-  </tr><tr class="row-skip">
-    <td><span class="pill small skip">skip</span></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-trustpilot-present</td>
     <td>Trustpilot widget rendered with non-zero review count</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;hasHeading&quot;:false,&quot;count&quot;:0,&quot;todo&quot;:&quot;Trustpilot widget not on this PDP&quot;}</code></td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;hasHeading&quot;:true,&quot;hasText&quot;:true,&quot;widgetUrl&quot;:false,&quot;count&quot;:1,&quot;todo&quot;:null}</code></td>
   </tr><tr class="row-fail">
     <td><span class="pill small fail">fail</span></td>
     <td class="check-id">pdp-related-products-count</td>
-    <td>Recommended/Related section has ≥3 product cards</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;count&quot;:0}</code></td>
+    <td>Recommended/Related section has ≥3 product cards (or PDP shows ≥3 other product links)</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;source&quot;:&quot;heading&quot;,&quot;count&quot;:0,&quot;totalOther&quot;:0}</code></td>
   </tr><tr class="row-skip">
     <td><span class="pill small skip">skip</span></td>
     <td class="check-id">pdp-whats-included-smartphone</td>
     <td>&quot;What&#39;s Included&quot; lists Charger AND Mobile/Phone for smartphone PDPs</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;sectionPresent&quot;:false,&quot;hasCharger&quot;:false,&quot;hasMobile&quot;:true,&quot;todo&quot;:&quot;&#39;What&#39;s Included&#39; section not found&quot;}</code></td>
-  </tr><tr class="row-fail">
-    <td><span class="pill small fail">fail</span></td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;sectionPresent&quot;:false,&quot;hasCharger&quot;:true,&quot;hasMobile&quot;:true,&quot;todo&quot;:&quot;&#39;What&#39;s Included&#39; section not found&quot;}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-tech-spec-present</td>
     <td>Technical Specification section present and non-empty</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;present&quot;:false,&quot;length&quot;:0}</code></td>
-  </tr><tr class="row-fail">
-    <td><span class="pill small fail">fail</span></td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;present&quot;:true,&quot;length&quot;:2000,&quot;headingText&quot;:&quot;Technical Specifications&quot;}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-usp-icons-all-four</td>
     <td>PDP USP strip mentions Certified · Unlocked · 12 Months Warranty · Free Delivery (≥3 of 4)</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;items&quot;:{&quot;certified&quot;:false,&quot;unlocked&quot;:false,&quot;warranty12&quot;:true,&quot;freeDelivery&quot;:true},&quot;count&quot;:2}</code></td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;items&quot;:{&quot;certified&quot;:true,&quot;unlocked&quot;:true,&quot;warranty12&quot;:true,&quot;freeDelivery&quot;:true},&quot;count&quot;:4}</code></td>
   </tr><tr class="row-pass">
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-variant-url-changes-price</td>
     <td>Navigating ?variant=&lt;id&gt; shows that variant&#39;s price</td>
     <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11?variant=49083456225568&quot;,&quot;v1Price&quot;:4299,&quot;v2Price&quot;:4699,&quot;v2Shown&quot;:true,&quot;v1NoLongerInTopOfPage&quot;:true,&quot;todo&quot;:null}</code></td>
+  </tr><tr class="row-warning">
+    <td><span class="pill small warning">warn</span></td>
+    <td class="check-id">pdp-warranty-info-modal-content</td>
+    <td>Clicking the warranty (i) icon reveals Revibe Care+ content (Full Protection / Accidental Damage / Express Replacement / 24/7 Support / Revibe Care+)</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;keywordHits&quot;:1,&quot;keywords&quot;:[&quot;fullProtection&quot;],&quot;textGrewBy&quot;:261}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">pdp-supplier-click-resolves</td>
+    <td>Supplier widget present and clicking it opens a real page</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;todo&quot;:&quot;No supplier widget detected on PDP&quot;}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">pdp-cashback-visible</td>
+    <td>Cashback element is actually rendered (not display:none / zero-sized)</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;todo&quot;:null,&quot;nodeCount&quot;:55,&quot;visible&quot;:true,&quot;smallestVisibleArea&quot;:3024}</code></td>
   </tr>
     </tbody>
   </table>
@@ -334,17 +349,17 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">homepage-lcp</td>
     <td>Homepage LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;lcpMs&quot;:704,&quot;source&quot;:&quot;reused from j4-navigation&quot;}</code></td>
+    <td class="details"><code>{&quot;lcpMs&quot;:948,&quot;source&quot;:&quot;reused from j4-navigation&quot;}</code></td>
   </tr><tr class="row-pass">
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">plp-lcp</td>
     <td>PLP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;lcpMs&quot;:40,&quot;url&quot;:&quot;https://revibe.co.za/collections/all&quot;}</code></td>
+    <td class="details"><code>{&quot;lcpMs&quot;:36,&quot;url&quot;:&quot;https://revibe.co.za/collections/all&quot;}</code></td>
   </tr><tr class="row-pass">
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-lcp</td>
     <td>PDP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;lcpMs&quot;:628,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
+    <td class="details"><code>{&quot;lcpMs&quot;:372,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
   </tr><tr class="row-skip">
     <td><span class="pill small skip">skip</span></td>
     <td class="check-id">cart-lcp</td>
@@ -364,7 +379,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td><span class="pill small fail">fail</span></td>
     <td class="check-id">pdp-cls</td>
     <td>PDP CLS under thresholds (pass &lt;0.1, warn 0.1-0.25, fail &gt;0.25)</td>
-    <td class="details"><code>{&quot;cls&quot;:0.85,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
+    <td class="details"><code>{&quot;cls&quot;:0.76,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
   </tr>
     </tbody>
   </table>
@@ -418,7 +433,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <h3>revibe.me</h3>
     <span class="region">United Arab Emirates</span>
     <span class="pill fail">fail</span>
-    <span class="counts">24 pass · 0 warn · 5 fail · 15 skip · 83%</span>
+    <span class="counts">30 pass · 1 warn · 3 fail · 13 skip · 88%</span>
   </header>
   <details >
   <summary>
@@ -508,7 +523,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
   <summary>
     <span class="journey-id">j2-pdp</span>
     <span class="journey-name">PDP</span>
-    <span class="journey-counts">12 checks · 7p / 0w / 3f / 2s</span>
+    <span class="journey-counts">15 checks · 13p / 1w / 1f / 0s</span>
   </summary>
   <table>
     <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
@@ -522,7 +537,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-lcp</td>
     <td>PDP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;lcpMs&quot;:288}</code></td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;lcpMs&quot;:336}</code></td>
   </tr><tr class="row-pass">
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-compare-gt-price</td>
@@ -543,36 +558,51 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td class="check-id">pdp-cashback-reasonable</td>
     <td>Cashback widget present AND amount &gt; 0 (skipped while feature On Hold per QA doc)</td>
     <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;todo&quot;:null,&quot;present&quot;:true,&quot;amount&quot;:200,&quot;snippet&quot;:&quot;DER WITH CODE EIDGIFT AND ENJOY 200 AED CASHBACK AT CHECKOUT!\n150,000+ Customers\nExcellent\niPhone 12 Pro\nAdd to wishlist\nRenewed\n-38% vs new&quot;}</code></td>
-  </tr><tr class="row-skip">
-    <td><span class="pill small skip">skip</span></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-trustpilot-present</td>
     <td>Trustpilot widget rendered with non-zero review count</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;hasHeading&quot;:false,&quot;count&quot;:0,&quot;todo&quot;:&quot;Trustpilot widget not on this PDP&quot;}</code></td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;hasHeading&quot;:true,&quot;hasText&quot;:true,&quot;widgetUrl&quot;:false,&quot;count&quot;:1,&quot;todo&quot;:null}</code></td>
   </tr><tr class="row-fail">
     <td><span class="pill small fail">fail</span></td>
     <td class="check-id">pdp-related-products-count</td>
-    <td>Recommended/Related section has ≥3 product cards</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;count&quot;:0}</code></td>
-  </tr><tr class="row-skip">
-    <td><span class="pill small skip">skip</span></td>
+    <td>Recommended/Related section has ≥3 product cards (or PDP shows ≥3 other product links)</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;source&quot;:&quot;heading&quot;,&quot;count&quot;:0,&quot;totalOther&quot;:0}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-whats-included-smartphone</td>
     <td>&quot;What&#39;s Included&quot; lists Charger AND Mobile/Phone for smartphone PDPs</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;sectionPresent&quot;:false,&quot;hasCharger&quot;:false,&quot;hasMobile&quot;:true,&quot;todo&quot;:&quot;&#39;What&#39;s Included&#39; section not found&quot;}</code></td>
-  </tr><tr class="row-fail">
-    <td><span class="pill small fail">fail</span></td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;sectionPresent&quot;:true,&quot;hasCharger&quot;:true,&quot;hasMobile&quot;:true,&quot;todo&quot;:null}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-tech-spec-present</td>
     <td>Technical Specification section present and non-empty</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;present&quot;:false,&quot;length&quot;:0}</code></td>
-  </tr><tr class="row-fail">
-    <td><span class="pill small fail">fail</span></td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;present&quot;:true,&quot;length&quot;:2000,&quot;headingText&quot;:&quot;Technical specifications&quot;}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-usp-icons-all-four</td>
     <td>PDP USP strip mentions Certified · Unlocked · 12 Months Warranty · Free Delivery (≥3 of 4)</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;items&quot;:{&quot;certified&quot;:false,&quot;unlocked&quot;:false,&quot;warranty12&quot;:true,&quot;freeDelivery&quot;:true},&quot;count&quot;:2}</code></td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;items&quot;:{&quot;certified&quot;:true,&quot;unlocked&quot;:true,&quot;warranty12&quot;:true,&quot;freeDelivery&quot;:true},&quot;count&quot;:4}</code></td>
   </tr><tr class="row-pass">
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-variant-url-changes-price</td>
     <td>Navigating ?variant=&lt;id&gt; shows that variant&#39;s price</td>
     <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro?variant=45726108516671&quot;,&quot;v1Price&quot;:959,&quot;v2Price&quot;:1069,&quot;v2Shown&quot;:true,&quot;v1NoLongerInTopOfPage&quot;:true,&quot;todo&quot;:null}</code></td>
+  </tr><tr class="row-warning">
+    <td><span class="pill small warning">warn</span></td>
+    <td class="check-id">pdp-warranty-info-modal-content</td>
+    <td>Clicking the warranty (i) icon reveals Revibe Care+ content (Full Protection / Accidental Damage / Express Replacement / 24/7 Support / Revibe Care+)</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;keywordHits&quot;:1,&quot;keywords&quot;:[&quot;fullProtection&quot;],&quot;textGrewBy&quot;:261}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">pdp-supplier-click-resolves</td>
+    <td>Supplier widget present and the supplier link resolves to 2xx/3xx</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;supplier&quot;:{&quot;name&quot;:&quot;Skip To Content&quot;,&quot;href&quot;:&quot;#MainContent&quot;,&quot;absHref&quot;:&quot;https://revibe.me/products/iphone-12-pro?variant=45726108516671#MainContent&quot;},&quot;linkStatus&quot;:200,&quot;error&quot;:null}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">pdp-cashback-visible</td>
+    <td>Cashback element is actually rendered (not display:none / zero-sized)</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;todo&quot;:null,&quot;nodeCount&quot;:59,&quot;visible&quot;:true,&quot;smallestVisibleArea&quot;:5366}</code></td>
   </tr>
     </tbody>
   </table>
@@ -646,7 +676,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">homepage-lcp</td>
     <td>Homepage LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;lcpMs&quot;:1444,&quot;source&quot;:&quot;reused from j4-navigation&quot;}</code></td>
+    <td class="details"><code>{&quot;lcpMs&quot;:1492,&quot;source&quot;:&quot;reused from j4-navigation&quot;}</code></td>
   </tr><tr class="row-pass">
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">plp-lcp</td>
@@ -656,7 +686,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-lcp</td>
     <td>PDP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;lcpMs&quot;:288,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
+    <td class="details"><code>{&quot;lcpMs&quot;:336,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
   </tr><tr class="row-skip">
     <td><span class="pill small skip">skip</span></td>
     <td class="check-id">cart-lcp</td>
@@ -671,7 +701,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">homepage-cls</td>
     <td>Homepage CLS under thresholds (pass &lt;0.1, warn 0.1-0.25, fail &gt;0.25)</td>
-    <td class="details"><code>{&quot;cls&quot;:0.052,&quot;source&quot;:&quot;reused from j4-navigation&quot;}</code></td>
+    <td class="details"><code>{&quot;cls&quot;:0,&quot;source&quot;:&quot;reused from j4-navigation&quot;}</code></td>
   </tr><tr class="row-fail">
     <td><span class="pill small fail">fail</span></td>
     <td class="check-id">pdp-cls</td>
@@ -730,7 +760,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <h3>sa.revibe.me</h3>
     <span class="region">Saudi Arabia</span>
     <span class="pill fail">fail</span>
-    <span class="counts">24 pass · 0 warn · 5 fail · 15 skip · 83%</span>
+    <span class="counts">29 pass · 1 warn · 3 fail · 14 skip · 88%</span>
   </header>
   <details >
   <summary>
@@ -820,7 +850,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
   <summary>
     <span class="journey-id">j2-pdp</span>
     <span class="journey-name">PDP</span>
-    <span class="journey-counts">12 checks · 7p / 0w / 3f / 2s</span>
+    <span class="journey-counts">15 checks · 12p / 1w / 1f / 1s</span>
   </summary>
   <table>
     <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
@@ -834,7 +864,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-lcp</td>
     <td>PDP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;lcpMs&quot;:480}</code></td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;lcpMs&quot;:940}</code></td>
   </tr><tr class="row-pass">
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-compare-gt-price</td>
@@ -855,36 +885,51 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td class="check-id">pdp-cashback-reasonable</td>
     <td>Cashback widget present AND amount &gt; 0 (skipped while feature On Hold per QA doc)</td>
     <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;todo&quot;:null,&quot;present&quot;:true,&quot;amount&quot;:200,&quot;snippet&quot;:&quot;DER WITH CODE EIDGIFT AND ENJOY 200 SAR CASHBACK AT CHECKOUT!\n150,000+ Customers\nExcellent\niPhone 12 Pro Max\nAdd to wishlist\nRenewed\n-52% vs&quot;}</code></td>
-  </tr><tr class="row-skip">
-    <td><span class="pill small skip">skip</span></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-trustpilot-present</td>
     <td>Trustpilot widget rendered with non-zero review count</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;hasHeading&quot;:false,&quot;count&quot;:0,&quot;todo&quot;:&quot;Trustpilot widget not on this PDP&quot;}</code></td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;hasHeading&quot;:true,&quot;hasText&quot;:true,&quot;widgetUrl&quot;:false,&quot;count&quot;:1,&quot;todo&quot;:null}</code></td>
   </tr><tr class="row-fail">
     <td><span class="pill small fail">fail</span></td>
     <td class="check-id">pdp-related-products-count</td>
-    <td>Recommended/Related section has ≥3 product cards</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;count&quot;:0}</code></td>
+    <td>Recommended/Related section has ≥3 product cards (or PDP shows ≥3 other product links)</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;source&quot;:&quot;heading&quot;,&quot;count&quot;:0,&quot;totalOther&quot;:0}</code></td>
   </tr><tr class="row-skip">
     <td><span class="pill small skip">skip</span></td>
     <td class="check-id">pdp-whats-included-smartphone</td>
     <td>&quot;What&#39;s Included&quot; lists Charger AND Mobile/Phone for smartphone PDPs</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;sectionPresent&quot;:false,&quot;hasCharger&quot;:false,&quot;hasMobile&quot;:true,&quot;todo&quot;:&quot;&#39;What&#39;s Included&#39; section not found&quot;}</code></td>
-  </tr><tr class="row-fail">
-    <td><span class="pill small fail">fail</span></td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;sectionPresent&quot;:false,&quot;hasCharger&quot;:true,&quot;hasMobile&quot;:true,&quot;todo&quot;:&quot;&#39;What&#39;s Included&#39; section not found&quot;}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-tech-spec-present</td>
     <td>Technical Specification section present and non-empty</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;present&quot;:false,&quot;length&quot;:0}</code></td>
-  </tr><tr class="row-fail">
-    <td><span class="pill small fail">fail</span></td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;present&quot;:true,&quot;length&quot;:2000,&quot;headingText&quot;:&quot;Technical Specifications&quot;}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-usp-icons-all-four</td>
     <td>PDP USP strip mentions Certified · Unlocked · 12 Months Warranty · Free Delivery (≥3 of 4)</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;items&quot;:{&quot;certified&quot;:false,&quot;unlocked&quot;:false,&quot;warranty12&quot;:true,&quot;freeDelivery&quot;:true},&quot;count&quot;:2}</code></td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;items&quot;:{&quot;certified&quot;:true,&quot;unlocked&quot;:true,&quot;warranty12&quot;:true,&quot;freeDelivery&quot;:true},&quot;count&quot;:4}</code></td>
   </tr><tr class="row-pass">
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-variant-url-changes-price</td>
     <td>Navigating ?variant=&lt;id&gt; shows that variant&#39;s price</td>
     <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max?variant=45685160640833&quot;,&quot;v1Price&quot;:1199,&quot;v2Price&quot;:1479,&quot;v2Shown&quot;:true,&quot;v1NoLongerInTopOfPage&quot;:true,&quot;todo&quot;:null}</code></td>
+  </tr><tr class="row-warning">
+    <td><span class="pill small warning">warn</span></td>
+    <td class="check-id">pdp-warranty-info-modal-content</td>
+    <td>Clicking the warranty (i) icon reveals Revibe Care+ content (Full Protection / Accidental Damage / Express Replacement / 24/7 Support / Revibe Care+)</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;keywordHits&quot;:1,&quot;keywords&quot;:[&quot;fullProtection&quot;],&quot;textGrewBy&quot;:261}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">pdp-supplier-click-resolves</td>
+    <td>Supplier widget present and the supplier link resolves to 2xx/3xx</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;supplier&quot;:{&quot;name&quot;:&quot;Skip To Content&quot;,&quot;href&quot;:&quot;#MainContent&quot;,&quot;absHref&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max?variant=45685160640833#MainContent&quot;},&quot;linkStatus&quot;:200,&quot;error&quot;:null}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">pdp-cashback-visible</td>
+    <td>Cashback element is actually rendered (not display:none / zero-sized)</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;todo&quot;:null,&quot;nodeCount&quot;:56,&quot;visible&quot;:true,&quot;smallestVisibleArea&quot;:5366}</code></td>
   </tr>
     </tbody>
   </table>
@@ -958,17 +1003,17 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">homepage-lcp</td>
     <td>Homepage LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;lcpMs&quot;:1948,&quot;source&quot;:&quot;reused from j4-navigation&quot;}</code></td>
+    <td class="details"><code>{&quot;lcpMs&quot;:2064,&quot;source&quot;:&quot;reused from j4-navigation&quot;}</code></td>
   </tr><tr class="row-pass">
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">plp-lcp</td>
     <td>PLP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;lcpMs&quot;:53,&quot;url&quot;:&quot;https://sa.revibe.me/collections/all&quot;}</code></td>
+    <td class="details"><code>{&quot;lcpMs&quot;:31,&quot;url&quot;:&quot;https://sa.revibe.me/collections/all&quot;}</code></td>
   </tr><tr class="row-pass">
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-lcp</td>
     <td>PDP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;lcpMs&quot;:480,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
+    <td class="details"><code>{&quot;lcpMs&quot;:940,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
   </tr><tr class="row-skip">
     <td><span class="pill small skip">skip</span></td>
     <td class="check-id">cart-lcp</td>
@@ -988,7 +1033,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td><span class="pill small fail">fail</span></td>
     <td class="check-id">pdp-cls</td>
     <td>PDP CLS under thresholds (pass &lt;0.1, warn 0.1-0.25, fail &gt;0.25)</td>
-    <td class="details"><code>{&quot;cls&quot;:0.732,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
+    <td class="details"><code>{&quot;cls&quot;:0.682,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
   </tr>
     </tbody>
   </table>
@@ -1040,7 +1085,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
 </article>
 </section>
   <section class="failures">
-  <h2>Open failures (15)</h2>
+  <h2>Open failures (9)</h2>
   <table>
     <thead><tr><th>Site</th><th>Journey</th><th>Check</th><th>Details</th></tr></thead>
     <tbody>
@@ -1048,17 +1093,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
         <td>revibe.co.za</td>
         <td>j2-pdp</td>
         <td class="check-id">pdp-related-products-count</td>
-        <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;count&quot;:0}</code></td>
-      </tr><tr>
-        <td>revibe.co.za</td>
-        <td>j2-pdp</td>
-        <td class="check-id">pdp-tech-spec-present</td>
-        <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;present&quot;:false,&quot;length&quot;:0}</code></td>
-      </tr><tr>
-        <td>revibe.co.za</td>
-        <td>j2-pdp</td>
-        <td class="check-id">pdp-usp-icons-all-four</td>
-        <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;items&quot;:{&quot;certified&quot;:false,&quot;unlocked&quot;:false,&quot;warranty12&quot;:true,&quot;freeDelivery&quot;:true},&quot;count&quot;:2}</code></td>
+        <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;source&quot;:&quot;heading&quot;,&quot;count&quot;:0,&quot;totalOther&quot;:0}</code></td>
       </tr><tr>
         <td>revibe.co.za</td>
         <td>j3-cart</td>
@@ -1068,22 +1103,12 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
         <td>revibe.co.za</td>
         <td>j5-speed</td>
         <td class="check-id">pdp-cls</td>
-        <td class="details"><code>{&quot;cls&quot;:0.85,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
+        <td class="details"><code>{&quot;cls&quot;:0.76,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
       </tr><tr>
         <td>revibe.me</td>
         <td>j2-pdp</td>
         <td class="check-id">pdp-related-products-count</td>
-        <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;count&quot;:0}</code></td>
-      </tr><tr>
-        <td>revibe.me</td>
-        <td>j2-pdp</td>
-        <td class="check-id">pdp-tech-spec-present</td>
-        <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;present&quot;:false,&quot;length&quot;:0}</code></td>
-      </tr><tr>
-        <td>revibe.me</td>
-        <td>j2-pdp</td>
-        <td class="check-id">pdp-usp-icons-all-four</td>
-        <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;items&quot;:{&quot;certified&quot;:false,&quot;unlocked&quot;:false,&quot;warranty12&quot;:true,&quot;freeDelivery&quot;:true},&quot;count&quot;:2}</code></td>
+        <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;source&quot;:&quot;heading&quot;,&quot;count&quot;:0,&quot;totalOther&quot;:0}</code></td>
       </tr><tr>
         <td>revibe.me</td>
         <td>j3-cart</td>
@@ -1098,17 +1123,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
         <td>sa.revibe.me</td>
         <td>j2-pdp</td>
         <td class="check-id">pdp-related-products-count</td>
-        <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;count&quot;:0}</code></td>
-      </tr><tr>
-        <td>sa.revibe.me</td>
-        <td>j2-pdp</td>
-        <td class="check-id">pdp-tech-spec-present</td>
-        <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;present&quot;:false,&quot;length&quot;:0}</code></td>
-      </tr><tr>
-        <td>sa.revibe.me</td>
-        <td>j2-pdp</td>
-        <td class="check-id">pdp-usp-icons-all-four</td>
-        <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;items&quot;:{&quot;certified&quot;:false,&quot;unlocked&quot;:false,&quot;warranty12&quot;:true,&quot;freeDelivery&quot;:true},&quot;count&quot;:2}</code></td>
+        <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;source&quot;:&quot;heading&quot;,&quot;count&quot;:0,&quot;totalOther&quot;:0}</code></td>
       </tr><tr>
         <td>sa.revibe.me</td>
         <td>j3-cart</td>
@@ -1118,7 +1133,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
         <td>sa.revibe.me</td>
         <td>j5-speed</td>
         <td class="check-id">pdp-cls</td>
-        <td class="details"><code>{&quot;cls&quot;:0.732,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
+        <td class="details"><code>{&quot;cls&quot;:0.682,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
       </tr>
     </tbody>
   </table>
@@ -1146,8 +1161,8 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     </div></div>
 </section>
   <footer>
-    <span>Generated 2026-05-20T10:27:39.550Z</span>
-    <span>Run time 4m 48s</span>
+    <span>Generated 2026-05-20T10:39:21.519Z</span>
+    <span>Run time 4m 36s</span>
   </footer>
 </main>
 </body>

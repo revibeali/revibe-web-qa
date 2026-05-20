@@ -1,19 +1,19 @@
 {
   "date": "2026-05-20",
-  "timestamp": "2026-05-20T10:27:39.550Z",
-  "runTimeMs": 288221,
+  "timestamp": "2026-05-20T10:39:21.519Z",
+  "runTimeMs": 276392,
   "sites": [
     {
       "id": "za",
       "name": "revibe.co.za",
       "region": "South Africa",
       "summary": {
-        "total": 44,
-        "pass": 24,
-        "warning": 0,
-        "fail": 5,
+        "total": 47,
+        "pass": 28,
+        "warning": 1,
+        "fail": 3,
         "skip": 15,
-        "passRate": 83,
+        "passRate": 88,
         "status": "fail"
       },
       "checks": [
@@ -255,7 +255,7 @@
           "status": "pass",
           "details": {
             "url": "https://revibe.co.za/products/iphone-11",
-            "lcpMs": 628
+            "lcpMs": 372
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -325,12 +325,14 @@
           "id": "pdp-trustpilot-present",
           "category": "content",
           "description": "Trustpilot widget rendered with non-zero review count",
-          "status": "skip",
+          "status": "pass",
           "details": {
             "url": "https://revibe.co.za/products/iphone-11",
-            "hasHeading": false,
-            "count": 0,
-            "todo": "Trustpilot widget not on this PDP"
+            "hasHeading": true,
+            "hasText": true,
+            "widgetUrl": false,
+            "count": 1,
+            "todo": null
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -338,11 +340,13 @@
         {
           "id": "pdp-related-products-count",
           "category": "content",
-          "description": "Recommended/Related section has ≥3 product cards",
+          "description": "Recommended/Related section has ≥3 product cards (or PDP shows ≥3 other product links)",
           "status": "fail",
           "details": {
             "url": "https://revibe.co.za/products/iphone-11",
-            "count": 0
+            "source": "heading",
+            "count": 0,
+            "totalOther": 0
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -355,7 +359,7 @@
           "details": {
             "url": "https://revibe.co.za/products/iphone-11",
             "sectionPresent": false,
-            "hasCharger": false,
+            "hasCharger": true,
             "hasMobile": true,
             "todo": "'What's Included' section not found"
           },
@@ -366,11 +370,12 @@
           "id": "pdp-tech-spec-present",
           "category": "content",
           "description": "Technical Specification section present and non-empty",
-          "status": "fail",
+          "status": "pass",
           "details": {
             "url": "https://revibe.co.za/products/iphone-11",
-            "present": false,
-            "length": 0
+            "present": true,
+            "length": 2000,
+            "headingText": "Technical Specifications"
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -379,16 +384,16 @@
           "id": "pdp-usp-icons-all-four",
           "category": "content",
           "description": "PDP USP strip mentions Certified · Unlocked · 12 Months Warranty · Free Delivery (≥3 of 4)",
-          "status": "fail",
+          "status": "pass",
           "details": {
             "url": "https://revibe.co.za/products/iphone-11",
             "items": {
-              "certified": false,
-              "unlocked": false,
+              "certified": true,
+              "unlocked": true,
               "warranty12": true,
               "freeDelivery": true
             },
-            "count": 2
+            "count": 4
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -405,6 +410,49 @@
             "v2Shown": true,
             "v1NoLongerInTopOfPage": true,
             "todo": null
+          },
+          "journey": "j2-pdp",
+          "journeyName": "PDP"
+        },
+        {
+          "id": "pdp-warranty-info-modal-content",
+          "category": "functional",
+          "description": "Clicking the warranty (i) icon reveals Revibe Care+ content (Full Protection / Accidental Damage / Express Replacement / 24/7 Support / Revibe Care+)",
+          "status": "warning",
+          "details": {
+            "url": "https://revibe.co.za/products/iphone-11",
+            "keywordHits": 1,
+            "keywords": [
+              "fullProtection"
+            ],
+            "textGrewBy": 261
+          },
+          "journey": "j2-pdp",
+          "journeyName": "PDP"
+        },
+        {
+          "id": "pdp-supplier-click-resolves",
+          "category": "functional",
+          "description": "Supplier widget present and clicking it opens a real page",
+          "status": "skip",
+          "details": {
+            "url": "https://revibe.co.za/products/iphone-11",
+            "todo": "No supplier widget detected on PDP"
+          },
+          "journey": "j2-pdp",
+          "journeyName": "PDP"
+        },
+        {
+          "id": "pdp-cashback-visible",
+          "category": "visual",
+          "description": "Cashback element is actually rendered (not display:none / zero-sized)",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.co.za/products/iphone-11",
+            "todo": null,
+            "nodeCount": 55,
+            "visible": true,
+            "smallestVisibleArea": 3024
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -524,7 +572,7 @@
           "description": "Homepage LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 704,
+            "lcpMs": 948,
             "source": "reused from j4-navigation"
           },
           "journey": "j5-speed",
@@ -536,7 +584,7 @@
           "description": "PLP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 40,
+            "lcpMs": 36,
             "url": "https://revibe.co.za/collections/all"
           },
           "journey": "j5-speed",
@@ -548,7 +596,7 @@
           "description": "PDP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 628,
+            "lcpMs": 372,
             "source": "reused from j2-pdp"
           },
           "journey": "j5-speed",
@@ -594,7 +642,7 @@
           "description": "PDP CLS under thresholds (pass <0.1, warn 0.1-0.25, fail >0.25)",
           "status": "fail",
           "details": {
-            "cls": 0.85,
+            "cls": 0.76,
             "source": "reused from j2-pdp"
           },
           "journey": "j5-speed",
@@ -652,12 +700,12 @@
       "name": "revibe.me",
       "region": "United Arab Emirates",
       "summary": {
-        "total": 44,
-        "pass": 24,
-        "warning": 0,
-        "fail": 5,
-        "skip": 15,
-        "passRate": 83,
+        "total": 47,
+        "pass": 30,
+        "warning": 1,
+        "fail": 3,
+        "skip": 13,
+        "passRate": 88,
         "status": "fail"
       },
       "checks": [
@@ -897,7 +945,7 @@
           "status": "pass",
           "details": {
             "url": "https://revibe.me/products/iphone-12-pro",
-            "lcpMs": 288
+            "lcpMs": 336
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -967,12 +1015,14 @@
           "id": "pdp-trustpilot-present",
           "category": "content",
           "description": "Trustpilot widget rendered with non-zero review count",
-          "status": "skip",
+          "status": "pass",
           "details": {
             "url": "https://revibe.me/products/iphone-12-pro",
-            "hasHeading": false,
-            "count": 0,
-            "todo": "Trustpilot widget not on this PDP"
+            "hasHeading": true,
+            "hasText": true,
+            "widgetUrl": false,
+            "count": 1,
+            "todo": null
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -980,11 +1030,13 @@
         {
           "id": "pdp-related-products-count",
           "category": "content",
-          "description": "Recommended/Related section has ≥3 product cards",
+          "description": "Recommended/Related section has ≥3 product cards (or PDP shows ≥3 other product links)",
           "status": "fail",
           "details": {
             "url": "https://revibe.me/products/iphone-12-pro",
-            "count": 0
+            "source": "heading",
+            "count": 0,
+            "totalOther": 0
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -993,13 +1045,13 @@
           "id": "pdp-whats-included-smartphone",
           "category": "content",
           "description": "\"What's Included\" lists Charger AND Mobile/Phone for smartphone PDPs",
-          "status": "skip",
+          "status": "pass",
           "details": {
             "url": "https://revibe.me/products/iphone-12-pro",
-            "sectionPresent": false,
-            "hasCharger": false,
+            "sectionPresent": true,
+            "hasCharger": true,
             "hasMobile": true,
-            "todo": "'What's Included' section not found"
+            "todo": null
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -1008,11 +1060,12 @@
           "id": "pdp-tech-spec-present",
           "category": "content",
           "description": "Technical Specification section present and non-empty",
-          "status": "fail",
+          "status": "pass",
           "details": {
             "url": "https://revibe.me/products/iphone-12-pro",
-            "present": false,
-            "length": 0
+            "present": true,
+            "length": 2000,
+            "headingText": "Technical specifications"
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -1021,16 +1074,16 @@
           "id": "pdp-usp-icons-all-four",
           "category": "content",
           "description": "PDP USP strip mentions Certified · Unlocked · 12 Months Warranty · Free Delivery (≥3 of 4)",
-          "status": "fail",
+          "status": "pass",
           "details": {
             "url": "https://revibe.me/products/iphone-12-pro",
             "items": {
-              "certified": false,
-              "unlocked": false,
+              "certified": true,
+              "unlocked": true,
               "warranty12": true,
               "freeDelivery": true
             },
-            "count": 2
+            "count": 4
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -1047,6 +1100,55 @@
             "v2Shown": true,
             "v1NoLongerInTopOfPage": true,
             "todo": null
+          },
+          "journey": "j2-pdp",
+          "journeyName": "PDP"
+        },
+        {
+          "id": "pdp-warranty-info-modal-content",
+          "category": "functional",
+          "description": "Clicking the warranty (i) icon reveals Revibe Care+ content (Full Protection / Accidental Damage / Express Replacement / 24/7 Support / Revibe Care+)",
+          "status": "warning",
+          "details": {
+            "url": "https://revibe.me/products/iphone-12-pro",
+            "keywordHits": 1,
+            "keywords": [
+              "fullProtection"
+            ],
+            "textGrewBy": 261
+          },
+          "journey": "j2-pdp",
+          "journeyName": "PDP"
+        },
+        {
+          "id": "pdp-supplier-click-resolves",
+          "category": "functional",
+          "description": "Supplier widget present and the supplier link resolves to 2xx/3xx",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.me/products/iphone-12-pro",
+            "supplier": {
+              "name": "Skip To Content",
+              "href": "#MainContent",
+              "absHref": "https://revibe.me/products/iphone-12-pro?variant=45726108516671#MainContent"
+            },
+            "linkStatus": 200,
+            "error": null
+          },
+          "journey": "j2-pdp",
+          "journeyName": "PDP"
+        },
+        {
+          "id": "pdp-cashback-visible",
+          "category": "visual",
+          "description": "Cashback element is actually rendered (not display:none / zero-sized)",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.me/products/iphone-12-pro",
+            "todo": null,
+            "nodeCount": 59,
+            "visible": true,
+            "smallestVisibleArea": 5366
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -1166,7 +1268,7 @@
           "description": "Homepage LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 1444,
+            "lcpMs": 1492,
             "source": "reused from j4-navigation"
           },
           "journey": "j5-speed",
@@ -1190,7 +1292,7 @@
           "description": "PDP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 288,
+            "lcpMs": 336,
             "source": "reused from j2-pdp"
           },
           "journey": "j5-speed",
@@ -1224,7 +1326,7 @@
           "description": "Homepage CLS under thresholds (pass <0.1, warn 0.1-0.25, fail >0.25)",
           "status": "pass",
           "details": {
-            "cls": 0.052,
+            "cls": 0,
             "source": "reused from j4-navigation"
           },
           "journey": "j5-speed",
@@ -1300,12 +1402,12 @@
       "name": "sa.revibe.me",
       "region": "Saudi Arabia",
       "summary": {
-        "total": 44,
-        "pass": 24,
-        "warning": 0,
-        "fail": 5,
-        "skip": 15,
-        "passRate": 83,
+        "total": 47,
+        "pass": 29,
+        "warning": 1,
+        "fail": 3,
+        "skip": 14,
+        "passRate": 88,
         "status": "fail"
       },
       "checks": [
@@ -1547,7 +1649,7 @@
           "status": "pass",
           "details": {
             "url": "https://sa.revibe.me/products/iphone-12-pro-max",
-            "lcpMs": 480
+            "lcpMs": 940
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -1617,12 +1719,14 @@
           "id": "pdp-trustpilot-present",
           "category": "content",
           "description": "Trustpilot widget rendered with non-zero review count",
-          "status": "skip",
+          "status": "pass",
           "details": {
             "url": "https://sa.revibe.me/products/iphone-12-pro-max",
-            "hasHeading": false,
-            "count": 0,
-            "todo": "Trustpilot widget not on this PDP"
+            "hasHeading": true,
+            "hasText": true,
+            "widgetUrl": false,
+            "count": 1,
+            "todo": null
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -1630,11 +1734,13 @@
         {
           "id": "pdp-related-products-count",
           "category": "content",
-          "description": "Recommended/Related section has ≥3 product cards",
+          "description": "Recommended/Related section has ≥3 product cards (or PDP shows ≥3 other product links)",
           "status": "fail",
           "details": {
             "url": "https://sa.revibe.me/products/iphone-12-pro-max",
-            "count": 0
+            "source": "heading",
+            "count": 0,
+            "totalOther": 0
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -1647,7 +1753,7 @@
           "details": {
             "url": "https://sa.revibe.me/products/iphone-12-pro-max",
             "sectionPresent": false,
-            "hasCharger": false,
+            "hasCharger": true,
             "hasMobile": true,
             "todo": "'What's Included' section not found"
           },
@@ -1658,11 +1764,12 @@
           "id": "pdp-tech-spec-present",
           "category": "content",
           "description": "Technical Specification section present and non-empty",
-          "status": "fail",
+          "status": "pass",
           "details": {
             "url": "https://sa.revibe.me/products/iphone-12-pro-max",
-            "present": false,
-            "length": 0
+            "present": true,
+            "length": 2000,
+            "headingText": "Technical Specifications"
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -1671,16 +1778,16 @@
           "id": "pdp-usp-icons-all-four",
           "category": "content",
           "description": "PDP USP strip mentions Certified · Unlocked · 12 Months Warranty · Free Delivery (≥3 of 4)",
-          "status": "fail",
+          "status": "pass",
           "details": {
             "url": "https://sa.revibe.me/products/iphone-12-pro-max",
             "items": {
-              "certified": false,
-              "unlocked": false,
+              "certified": true,
+              "unlocked": true,
               "warranty12": true,
               "freeDelivery": true
             },
-            "count": 2
+            "count": 4
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -1697,6 +1804,55 @@
             "v2Shown": true,
             "v1NoLongerInTopOfPage": true,
             "todo": null
+          },
+          "journey": "j2-pdp",
+          "journeyName": "PDP"
+        },
+        {
+          "id": "pdp-warranty-info-modal-content",
+          "category": "functional",
+          "description": "Clicking the warranty (i) icon reveals Revibe Care+ content (Full Protection / Accidental Damage / Express Replacement / 24/7 Support / Revibe Care+)",
+          "status": "warning",
+          "details": {
+            "url": "https://sa.revibe.me/products/iphone-12-pro-max",
+            "keywordHits": 1,
+            "keywords": [
+              "fullProtection"
+            ],
+            "textGrewBy": 261
+          },
+          "journey": "j2-pdp",
+          "journeyName": "PDP"
+        },
+        {
+          "id": "pdp-supplier-click-resolves",
+          "category": "functional",
+          "description": "Supplier widget present and the supplier link resolves to 2xx/3xx",
+          "status": "pass",
+          "details": {
+            "url": "https://sa.revibe.me/products/iphone-12-pro-max",
+            "supplier": {
+              "name": "Skip To Content",
+              "href": "#MainContent",
+              "absHref": "https://sa.revibe.me/products/iphone-12-pro-max?variant=45685160640833#MainContent"
+            },
+            "linkStatus": 200,
+            "error": null
+          },
+          "journey": "j2-pdp",
+          "journeyName": "PDP"
+        },
+        {
+          "id": "pdp-cashback-visible",
+          "category": "visual",
+          "description": "Cashback element is actually rendered (not display:none / zero-sized)",
+          "status": "pass",
+          "details": {
+            "url": "https://sa.revibe.me/products/iphone-12-pro-max",
+            "todo": null,
+            "nodeCount": 56,
+            "visible": true,
+            "smallestVisibleArea": 5366
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -1816,7 +1972,7 @@
           "description": "Homepage LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 1948,
+            "lcpMs": 2064,
             "source": "reused from j4-navigation"
           },
           "journey": "j5-speed",
@@ -1828,7 +1984,7 @@
           "description": "PLP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 53,
+            "lcpMs": 31,
             "url": "https://sa.revibe.me/collections/all"
           },
           "journey": "j5-speed",
@@ -1840,7 +1996,7 @@
           "description": "PDP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 480,
+            "lcpMs": 940,
             "source": "reused from j2-pdp"
           },
           "journey": "j5-speed",
@@ -1886,7 +2042,7 @@
           "description": "PDP CLS under thresholds (pass <0.1, warn 0.1-0.25, fail >0.25)",
           "status": "fail",
           "details": {
-            "cls": 0.732,
+            "cls": 0.682,
             "source": "reused from j2-pdp"
           },
           "journey": "j5-speed",
