@@ -2,56 +2,86 @@ import { chromium, devices } from 'playwright';
 import { writeFileSync, mkdirSync, existsSync, readdirSync, copyFileSync } from 'fs';
 import { join } from 'path';
 import { SITES } from './sites.js';
-import j1 from './journeys/j1-plp.js';
-import j2 from './journeys/j2-pdp.js';
-import j3 from './journeys/j3-cart.js';
-import j4 from './journeys/j4-navigation.js';
-import j5 from './journeys/j5-speed.js';
-import j6 from './journeys/j6-localization.js';
+
+// Phase-1 priority journeys (built out with real checks)
+import j01 from './journeys/j01-critical-path-smoke.js';
+import j04 from './journeys/j04-commerce-smoke.js';
+import j06 from './journeys/j06-plp-deep.js';
+import j07 from './journeys/j07-pdp-variant-pricing.js';
+import j08 from './journeys/j08-pdp-widgets-trust.js';
+import j09 from './journeys/j09-pdp-content-spec.js';
+import j10 from './journeys/j10-atc-warranty-flow.js';
+import j11 from './journeys/j11-cart-checkout-deep.js';
+
+// Phase-2 journeys (existing 47 checks, renamed to new codes; checks stay byte-for-byte)
+import j02 from './journeys/j02-site-health.js';
+import j03 from './journeys/j03-performance.js';
+import j12 from './journeys/j12-localization.js';
+
 import { renderHTML } from './render-html.js';
 
-// Execution order is dependency-driven, not numeric:
-// j4 (homepage init) → j1 (PLP, captures first product handle)
-//   → j2 (PDP, captures Shopify variant id) → j3 (cart, uses variant id)
-//   → j5 (reads cached LCPs + measures PLP fresh) → j6 (Arabic)
-const JOURNEYS = [j4, j1, j2, j3, j5, j6];
+// Execution order — dependency-driven, not numeric.
+// j02 (site health = homepage init, captures homepage LCP into ctx)
+//   -> j06 (PLP, captures product paths)
+//   -> j07 (PDP setup; J08/J09/J10/J04 reuse ctx.pdpProduct)
+//   -> j08, j09, j10
+//   -> j04 (commerce smoke; reuses PDP)
+//   -> j11 (cart + checkout)
+//   -> j03 (performance — reads cached LCP/CLS from ctx)
+//   -> j12 (Arabic, separate page)
+//   -> j01 (per-deploy smoke; chained, navigates fresh)
+const JOURNEYS = [j02, j06, j07, j08, j09, j10, j04, j11, j03, j12, j01];
 
 const RUN_TIMESTAMP = new Date().toISOString();
 const RUN_DATE = RUN_TIMESTAMP.slice(0, 10);
 
+// FREQUENCY, PRIORITY, JOURNEY are comma-separated env vars. Empty = no filter.
+const FILTER = {
+  frequency: parseCsv(process.env.FREQUENCY),
+  priority: parseCsv(process.env.PRIORITY),
+  journey: parseCsv(process.env.JOURNEY),
+};
+function parseCsv(v) { return (v || '').split(',').map((s) => s.trim()).filter(Boolean); }
+function journeyMatchesFilter(j) {
+  if (FILTER.journey.length > 0 && !FILTER.journey.includes(j.journeyCode)) return false;
+  if (FILTER.frequency.length > 0 && !FILTER.frequency.includes(j.frequency)) return false;
+  if (FILTER.priority.length > 0 && !FILTER.priority.includes(j.priority)) return false;
+  return true;
+}
+
 async function main() {
   const startTime = Date.now();
+  const matched = JOURNEYS.filter(journeyMatchesFilter);
+  const filterApplied = FILTER.frequency.length + FILTER.priority.length + FILTER.journey.length > 0;
+  console.log(`\nJourneys: ${matched.length}/${JOURNEYS.length} selected${filterApplied ? ` (filter: ${JSON.stringify(FILTER)})` : ''}`);
+  if (matched.length === 0) {
+    console.log('No journeys matched the filter. Exiting.');
+    process.exit(0);
+  }
+
   const browser = await chromium.launch();
   const siteReports = [];
-
   for (const site of SITES) {
     console.log(`\n=== ${site.name} (${site.region}) ===`);
     try {
-      const report = await runSite(browser, site);
+      const report = await runSite(browser, site, matched);
       siteReports.push(report);
       const s = report.summary;
       console.log(`  ${s.pass} pass / ${s.warning} warn / ${s.fail} fail / ${s.skip} skip (${s.total} total)`);
     } catch (err) {
       console.error(`  ERROR: ${err.message}`);
       siteReports.push({
-        id: site.id,
-        name: site.name,
-        region: site.region,
-        error: err.message,
+        id: site.id, name: site.name, region: site.region, error: err.message,
         summary: { total: 0, pass: 0, warning: 0, fail: 1, skip: 0, passRate: 0, status: 'fail' },
         checks: [],
       });
     }
   }
-
   await browser.close();
 
   const runTimeMs = Date.now() - startTime;
   const warrantyTiers = SITES.reduce((acc, s) => {
-    acc[s.id] = s.warrantyTiers.map((t) => ({
-      maxPrice: t.maxPrice === Infinity ? null : t.maxPrice,
-      warranty: t.warranty,
-    }));
+    acc[s.id] = s.warrantyTiers.map((t) => ({ maxPrice: t.maxPrice === Infinity ? null : t.maxPrice, warranty: t.warranty }));
     return acc;
   }, {});
 
@@ -59,6 +89,7 @@ async function main() {
     date: RUN_DATE,
     timestamp: RUN_TIMESTAMP,
     runTimeMs,
+    filter: { ...FILTER, applied: filterApplied, journeysMatched: matched.length, journeysTotal: JOURNEYS.length },
     sites: siteReports,
     warrantyTiers,
   };
@@ -70,16 +101,11 @@ async function main() {
   writeFileSync(htmlPath, renderHTML(report));
   console.log(`\nJSON  → ${jsonPath}`);
   console.log(`HTML  → ${htmlPath}`);
-
   syncDashboardData();
   console.log(`Dashboard data → docs/reports/`);
   console.log(`Run time: ${(runTimeMs / 1000).toFixed(1)}s`);
 }
 
-// Mirrors reports/*.{json,html} into docs/reports/ and writes an index so
-// the static dashboard at /docs/index.html can enumerate runs at fetch time,
-// and the HTML reports are reachable at the live Pages URL for direct sharing.
-// GitHub Pages serves from /docs, so anything we want public must live there.
 function syncDashboardData() {
   if (!existsSync('docs')) mkdirSync('docs');
   if (!existsSync('docs/reports')) mkdirSync('docs/reports');
@@ -93,7 +119,7 @@ function syncDashboardData() {
   writeFileSync(join('docs/reports', 'index.json'), JSON.stringify({ dates }, null, 2));
 }
 
-async function runSite(browser, site) {
+async function runSite(browser, site, journeysToRun) {
   const context = await browser.newContext({ ...devices['iPhone 13'] });
   const page = await context.newPage();
   const ctx = {};
@@ -106,9 +132,7 @@ async function runSite(browser, site) {
 
   const checks = [];
   let journeyIdx = 0;
-  for (const journey of JOURNEYS) {
-    // Small pause between journeys lowers request cadence and reduces
-    // intermittent Cloudflare bot-challenge interception.
+  for (const journey of journeysToRun) {
     if (journeyIdx > 0) await sleep(1500);
     journeyIdx++;
     console.log(`  → ${journey.id}`);
@@ -117,27 +141,26 @@ async function runSite(browser, site) {
       journeyChecks = await journey.run(page, site, ctx);
     } catch (err) {
       console.error(`    journey ${journey.id} threw: ${err.message}`);
-      journeyChecks = [
-        {
-          id: `${journey.id}-error`,
-          category: 'meta',
-          description: `Journey ${journey.id} threw an error during execution`,
-          status: 'fail',
-          details: { error: err.message, stack: (err.stack || '').split('\n').slice(0, 5).join('\n') },
-        },
-      ];
+      journeyChecks = [{
+        id: `${journey.id}-error`, category: 'meta',
+        description: `Journey ${journey.id} threw an error during execution`,
+        status: 'fail',
+        details: { error: err.message, stack: (err.stack || '').split('\n').slice(0, 5).join('\n') },
+      }];
     }
     for (const c of journeyChecks) {
       c.journey = journey.id;
       c.journeyName = journey.name;
+      c.journeyCode = journey.journeyCode || null;
+      c.journeyFrequency = journey.frequency || null;
+      c.journeyPriority = journey.priority || null;
     }
     checks.push(...journeyChecks);
   }
 
   checks.push({
     id: 'image-network-ok',
-    journey: 'meta',
-    journeyName: 'Cross-journey',
+    journey: 'meta', journeyName: 'Cross-journey', journeyCode: null, journeyFrequency: null, journeyPriority: null,
     category: 'visual',
     description: 'All image network requests returned 2xx/3xx across this session',
     status: failedImageRequests.length === 0 ? 'pass' : 'warning',
@@ -153,15 +176,10 @@ function summarize(site, checks) {
   for (const c of checks) counts[c.status] = (counts[c.status] || 0) + 1;
   const scoreable = counts.pass + counts.warning + counts.fail;
   return {
-    id: site.id,
-    name: site.name,
-    region: site.region,
+    id: site.id, name: site.name, region: site.region,
     summary: {
       total: checks.length,
-      pass: counts.pass,
-      warning: counts.warning,
-      fail: counts.fail,
-      skip: counts.skip,
+      pass: counts.pass, warning: counts.warning, fail: counts.fail, skip: counts.skip,
       passRate: scoreable > 0 ? Math.round((counts.pass / scoreable) * 100) : 0,
       status: counts.fail > 0 ? 'fail' : counts.warning > 0 ? 'warning' : 'pass',
     },
@@ -169,11 +187,6 @@ function summarize(site, checks) {
   };
 }
 
-function sleep(ms) {
-  return new Promise((r) => setTimeout(r, ms));
-}
+function sleep(ms) { return new Promise((r) => setTimeout(r, ms)); }
 
-main().catch((err) => {
-  console.error('Run failed:', err);
-  process.exit(1);
-});
+main().catch((err) => { console.error('Run failed:', err); process.exit(1); });
