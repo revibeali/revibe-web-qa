@@ -229,6 +229,15 @@ export default {
 
     // Related / Recommended products: at least 3 product cards under such a section.
     // Broader heading patterns + total-product-link count as a fallback.
+    // Scroll to bottom + wait briefly to let lazy-loaded carousels render.
+    await page.evaluate(async () => {
+      const h = document.documentElement.scrollHeight;
+      window.scrollTo(0, h);
+      await new Promise((r) => setTimeout(r, 1500));
+      window.scrollTo(0, h * 0.7);
+      await new Promise((r) => setTimeout(r, 1000));
+    });
+    await page.waitForLoadState('networkidle', { timeout: 5000 }).catch(() => {});
     const relatedCount = await page.evaluate(() => {
       const patterns = /recommended|related|you may also|similar (products|items)|customers also|frequently bought|more from|trending|featured products/i;
       const heading = Array.from(document.querySelectorAll('h1,h2,h3,h4,h5,h6,strong,div[class*="heading"],div[class*="title"]'))
@@ -406,8 +415,16 @@ export default {
       if (!icon) return { clicked: false, reason: 'no info icon in card' };
       const before = (document.body.innerText || '');
       const beforeLen = before.length;
+      const beforeLower = before.toLowerCase();
+      const preKeywords = {
+        fullProtection: /full\s*protection/.test(beforeLower),
+        accidentalDamage: /accidental\s*damage/.test(beforeLower),
+        expressReplacement: /express\s*replacement/.test(beforeLower),
+        support247: /24[\/\-\s]*7\s*support/.test(beforeLower),
+        revibeCarePlus: /revibe\s*care\s*\+?|revibe\s*care\s*plus/.test(beforeLower),
+      };
       try { icon.click(); } catch (e) { return { clicked: false, reason: 'click threw: ' + e.message }; }
-      return { clicked: true, beforeLen, iconTag: icon.tagName };
+      return { clicked: true, beforeLen, iconTag: icon.tagName, preKeywords };
     });
     if (!warrantyClick.clicked) {
       checks.push({
@@ -430,19 +447,27 @@ export default {
           revibeCarePlus: /revibe\s*care\s*\+?|revibe\s*care\s*plus/.test(text),
         };
       });
+      // Compare to pre-click state: only count keywords that NEWLY appeared.
       const keywords = ['fullProtection', 'accidentalDamage', 'expressReplacement', 'support247', 'revibeCarePlus'];
-      const hits = keywords.filter((k) => post[k]).length;
+      const newKeywords = keywords.filter((k) => post[k] && !warrantyClick.preKeywords[k]);
+      const newHits = newKeywords.length;
       const grew = post.length > warrantyClick.beforeLen;
       let status;
-      if (hits >= 3 && grew) status = 'pass';
-      else if (hits >= 3 || grew) status = 'warning';
+      if (newHits >= 3 && grew) status = 'pass';
+      else if (newHits >= 1 && grew) status = 'warning';
       else status = 'fail';
       checks.push({
         id: 'pdp-warranty-info-modal-content',
         category: 'functional',
-        description: 'Clicking the warranty (i) icon reveals Revibe Care+ content (Full Protection / Accidental Damage / Express Replacement / 24/7 Support / Revibe Care+)',
+        description: 'Clicking the warranty (i) icon reveals NEW Revibe Care+ content (Full Protection / Accidental Damage / Express Replacement / 24/7 Support / Revibe Care+)',
         status,
-        details: { url: pdpUrl, keywordHits: hits, keywords: keywords.filter((k) => post[k]), textGrewBy: post.length - warrantyClick.beforeLen },
+        details: {
+          url: pdpUrl,
+          newKeywords,
+          preClickKeywords: keywords.filter((k) => warrantyClick.preKeywords[k]),
+          postClickKeywords: keywords.filter((k) => post[k]),
+          textGrewBy: post.length - warrantyClick.beforeLen,
+        },
       });
     }
 

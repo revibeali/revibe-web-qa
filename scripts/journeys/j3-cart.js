@@ -277,13 +277,21 @@ export default {
     if (handles.length >= 2) {
       await shopifyClearCart(page);
       const added = [];
+      const attemptLog = [];
       for (const h of handles) {
         if (added.length >= 3) break;
         const prod = await fetchShopifyProductJson(page, h);
         const vid = prod?.variants?.[0]?.id;
-        if (!vid) continue;
-        if (added.includes(vid)) continue;
+        if (!vid) {
+          attemptLog.push({ handle: h, vid: null, status: 'no-variant' });
+          continue;
+        }
+        if (added.includes(vid)) {
+          attemptLog.push({ handle: h, vid, status: 'duplicate-variant' });
+          continue;
+        }
         const res = await shopifyAddToCart(page, vid, 1);
+        attemptLog.push({ handle: h, vid, status: res.status, ok: res.ok, bodyPreview: res.bodyPreview?.slice(0, 80) });
         if (res.ok) added.push(vid);
       }
       const cartJson = await shopifyGetCart(page);
@@ -294,7 +302,7 @@ export default {
         category: 'functional',
         description: 'Adding 2-3 distinct products lands all of them in /cart.js',
         status: added.length >= 2 && allPresent ? 'pass' : added.length === 1 ? 'warning' : 'fail',
-        details: { attempted: handles.length, added, cartVids, allPresent, itemCount: cartJson?.item_count ?? 0 },
+        details: { attempted: handles.length, added, cartVids, allPresent, itemCount: cartJson?.item_count ?? 0, attemptLog },
       });
     } else {
       checks.push({
