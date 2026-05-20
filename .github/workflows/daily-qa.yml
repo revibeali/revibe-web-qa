@@ -56,3 +56,34 @@ jobs:
             echo "Push attempt $attempt failed, retrying..."
             sleep 5
           done
+
+      - name: Post summary to Slack
+        if: always()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          RUN_NUMBER: ${{ github.run_number }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "SLACK_WEBHOOK_URL not set"
+            exit 0
+          fi
+          DATE=$(date -u +%F)
+          REPORT="reports/${DATE}.json"
+          if [ -f "$REPORT" ]; then
+            SUMMARY=$(jq -r '.sites[] | (if .summary.status == "pass" then ":white_check_mark:" elif .summary.status == "warning" then ":warning:" else ":x:" end) + " " + .name + ": " + (.summary.pass|tostring) + "p / " + (.summary.warning|tostring) + "w / " + (.summary.fail|tostring) + "f / " + (.summary.skip|tostring) + "s (" + (.summary.passRate|tostring) + "%)"' "$REPORT")
+            OVERALL=":white_check_mark:"
+            if echo "$SUMMARY" | grep -q ":x:"; then OVERALL=":x:"; fi
+            if [ "$OVERALL" = ":white_check_mark:" ]; then
+              if echo "$SUMMARY" | grep -q ":warning:"; then OVERALL=":warning:"; fi
+            fi
+            TEXT="*Daily QA - ${DATE} - ${OVERALL}*
+${SUMMARY}
+<https://revibeali.github.io/revibe-web-qa/|Dashboard> - <${RUN_URL}|Run #${RUN_NUMBER}>"
+          else
+            TEXT="*Daily QA - ${DATE} - :x:*
+QA failed before reports were written.
+<${RUN_URL}|See run logs>"
+          fi
+          jq -n --arg t "$TEXT" '{text:$t}' | curl -s -X POST -H 'Content-Type: application/json' --data @- "$SLACK_WEBHOOK_URL"
+          echo "Posted."
