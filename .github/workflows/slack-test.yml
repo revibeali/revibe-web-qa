@@ -1,0 +1,20 @@
+name: Slack Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post test message to Slack
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "ERROR: SLACK_WEBHOOK_URL secret is not set."
+            exit 1
+          fi
+          PAYLOAD='{"text":"*Slack connection test* :white_check_mark:\nIf you see this, the webhook + repo secret are wired correctly. Daily QA notifications will land in this channel."}'
+          curl -s -X POST -H 'Content-Type: application/json' --data "$PAYLOAD" "$SLACK_WEBHOOK_URL"
+          echo "Posted."
