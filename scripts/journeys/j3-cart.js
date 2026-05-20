@@ -7,6 +7,8 @@ import {
   shopifyClearCart,
   shopifyAddToCart,
   shopifyGetCart,
+  shopifyChangeCart,
+  fetchShopifyProductJson,
 } from '../helpers.js';
 
 export default {
@@ -182,6 +184,107 @@ export default {
           lcpMs: checkoutLcpMs,
           todo: !checkoutLoaded ? 'Checkout did not return 2xx — may redirect to external Shop Pay domain or be CDN-blocked' : null,
         },
+      });
+    }
+
+    // ---- Bucket A: discount code input present on cart page ----
+    if (!cartBlocked && !cartLoadErr) {
+      const promoPresent = await page.evaluate(() => {
+        const inputs = Array.from(document.querySelectorAll('input[type="text"], input[type="search"], input:not([type])'));
+        const placeholders = inputs.map((i) => (i.placeholder || i.getAttribute('aria-label') || i.name || '').toLowerCase()).join(' ');
+        const bodyText = (document.body.innerText || '').toLowerCase();
+        const hasPromoUI = /\b(promo|discount|code|voucher|coupon)\b/i.test(placeholders) || /enter (promo|discount|code|voucher|coupon)/i.test(bodyText);
+        return hasPromoUI;
+      });
+      checks.push({
+        id: 'cart-promo-code-input-present',
+        category: 'functional',
+        description: 'Cart page has a promo/discount code input field',
+        status: promoPresent ? 'pass' : 'warning',
+        details: { found: promoPresent, todo: promoPresent ? null : 'No discount-code input detected on cart page' },
+      });
+    } else {
+      checks.push({
+        id: 'cart-promo-code-input-present',
+        category: 'functional',
+        description: 'Cart page has a promo/discount code input field',
+        status: 'skip',
+        details: { todo: 'Cart page CDN-blocked; can\'t inspect DOM' },
+      });
+    }
+
+    // ---- Bucket B: quantity update via /cart/change.js, then verify total changes ----
+    if (addedOk) {
+      const cartBefore = await shopifyGetCart(page);
+      const totalBefore = cartBefore?.total_price ?? null;
+      const changeRes = await shopifyChangeCart(page, 1, 2);
+      const cartAfter = await shopifyGetCart(page);
+      const totalAfter = cartAfter?.total_price ?? null;
+      const qtyAfter = cartAfter?.items?.[0]?.quantity ?? null;
+      const totalDoubled = totalBefore != null && totalAfter != null && totalAfter === totalBefore * 2;
+      checks.push({
+        id: 'cart-quantity-update-via-api',
+        category: 'functional',
+        description: 'Updating line quantity to 2 doubles the total via /cart/change.js',
+        status: changeRes.ok && qtyAfter === 2 && totalDoubled ? 'pass' : changeRes.ok && qtyAfter === 2 ? 'warning' : 'fail',
+        details: { totalBefore, totalAfter, qtyAfter, doubled: totalDoubled, status: changeRes.status },
+      });
+
+      // Remove (quantity 0) and verify item count drops
+      const removeRes = await shopifyChangeCart(page, 1, 0);
+      const cartAfterRemove = await shopifyGetCart(page);
+      const itemCountAfter = cartAfterRemove?.item_count ?? null;
+      checks.push({
+        id: 'cart-remove-via-api',
+        category: 'functional',
+        description: 'Removing line (quantity=0) drops cart item count',
+        status: removeRes.ok && itemCountAfter === 0 ? 'pass' : 'fail',
+        details: { itemCountAfter, status: removeRes.status },
+      });
+    } else {
+      for (const id of ['cart-quantity-update-via-api', 'cart-remove-via-api']) {
+        checks.push({
+          id,
+          category: 'functional',
+          description: id,
+          status: 'skip',
+          details: { todo: 'No item to update/remove (cart was not populated)' },
+        });
+      }
+    }
+
+    // ---- Bucket B: multi-product cart add ----
+    // Add up to 3 distinct products via their handles, verify all 3 land in /cart.js.
+    const handles = (ctx.plpProductPaths || []).slice(0, 5);
+    if (handles.length >= 2) {
+      await shopifyClearCart(page);
+      const added = [];
+      for (const h of handles) {
+        if (added.length >= 3) break;
+        const prod = await fetchShopifyProductJson(page, h);
+        const vid = prod?.variants?.[0]?.id;
+        if (!vid) continue;
+        if (added.includes(vid)) continue;
+        const res = await shopifyAddToCart(page, vid, 1);
+        if (res.ok) added.push(vid);
+      }
+      const cartJson = await shopifyGetCart(page);
+      const cartVids = (cartJson?.items || []).map((i) => i.variant_id);
+      const allPresent = added.length > 0 && added.every((vid) => cartVids.includes(vid));
+      checks.push({
+        id: 'cart-multi-product-add',
+        category: 'functional',
+        description: 'Adding 2-3 distinct products lands all of them in /cart.js',
+        status: added.length >= 2 && allPresent ? 'pass' : added.length === 1 ? 'warning' : 'fail',
+        details: { attempted: handles.length, added, cartVids, allPresent, itemCount: cartJson?.item_count ?? 0 },
+      });
+    } else {
+      checks.push({
+        id: 'cart-multi-product-add',
+        category: 'functional',
+        description: 'Adding 2-3 distinct products lands all of them in /cart.js',
+        status: 'skip',
+        details: { todo: 'PLP did not provide enough product handles' },
       });
     }
 

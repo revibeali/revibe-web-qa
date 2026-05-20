@@ -1,10 +1,11 @@
-// Reusable QA helpers: LCP measurement, broken-image detection,
+// Reusable QA helpers: LCP+CLS measurement, broken-image detection,
 // Shopify cart/product utilities, warranty math, Arabic detection.
 // Designed to work on any page (homepage, PLP, PDP, cart, checkout).
 
 export async function measureLCP(page, url, { timeout = 30000, idleTimeout = 15000 } = {}) {
   await page.addInitScript(() => {
     window.__lcp = 0;
+    window.__cls = 0;
     try {
       new PerformanceObserver((list) => {
         const entries = list.getEntries();
@@ -16,17 +17,34 @@ export async function measureLCP(page, url, { timeout = 30000, idleTimeout = 150
     } catch (_) {
       // Browser doesn't expose LCP; __lcp stays 0.
     }
+    try {
+      new PerformanceObserver((list) => {
+        for (const entry of list.getEntries()) {
+          if (!entry.hadRecentInput) window.__cls += entry.value;
+        }
+      }).observe({ type: 'layout-shift', buffered: true });
+    } catch (_) {
+      // CLS not supported; __cls stays 0.
+    }
   });
   const response = await page.goto(url, { waitUntil: 'load', timeout });
   await page.waitForLoadState('networkidle', { timeout: idleTimeout }).catch(() => {});
-  const lcp = await page.evaluate(() => window.__lcp || 0);
-  return { lcpMs: Math.round(lcp), response };
+  const m = await page.evaluate(() => ({ lcp: window.__lcp || 0, cls: window.__cls || 0 }));
+  return { lcpMs: Math.round(m.lcp), cls: Math.round(m.cls * 1000) / 1000, response };
 }
 
 export function lcpStatus(lcpMs) {
   if (!lcpMs || lcpMs <= 0) return 'fail';
   if (lcpMs < 2500) return 'pass';
   if (lcpMs <= 4000) return 'warning';
+  return 'fail';
+}
+
+// Google's CLS thresholds: <0.1 good, 0.1-0.25 needs improvement, >0.25 poor.
+export function clsStatus(cls) {
+  if (cls == null) return 'skip';
+  if (cls < 0.1) return 'pass';
+  if (cls <= 0.25) return 'warning';
   return 'fail';
 }
 
@@ -155,6 +173,28 @@ export async function shopifyGetCart(page) {
       return null;
     }
   });
+}
+
+// Update a cart line's quantity. Use quantity=0 to remove.
+// `line` is 1-indexed per Shopify's /cart/change.js contract.
+export async function shopifyChangeCart(page, line, quantity) {
+  return await page.evaluate(
+    async ({ line, qty }) => {
+      try {
+        const res = await fetch('/cart/change.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ line, quantity: qty }),
+        });
+        if (!res.ok) return { ok: false, status: res.status };
+        const body = await res.json();
+        return { ok: true, status: res.status, body };
+      } catch (e) {
+        return { ok: false, status: 0, error: String(e.message || e) };
+      }
+    },
+    { line, qty: quantity }
+  );
 }
 
 export function warrantyDisplayPattern(amount, currencyCode, currencySymbols) {

@@ -17,6 +17,7 @@ export default {
       response = result.response;
       lcpMs = result.lcpMs;
       ctx.homepageLcpMs = lcpMs;
+      ctx.homepageCls = result.cls;
     } catch (err) {
       for (const id of ['homepage-loads', 'currency-present', 'homepage-broken-images', 'internal-links-no-4xx', 'header-nav-multi-items']) {
         checks.push({
@@ -109,6 +110,62 @@ export default {
       description: 'Header/nav contains multiple links (≥3 distinct hrefs)',
       status: navCount >= 3 ? 'pass' : 'fail',
       details: { count: navCount },
+    });
+
+    // ---- Bucket A: sample 5 FOOTER links and check 2xx/3xx ----
+    const footerLinks = await page.evaluate(() => {
+      const out = new Set();
+      document.querySelectorAll('footer a[href]').forEach((a) => {
+        try {
+          const u = new URL(a.href);
+          if (u.host !== location.host) return;
+          if (!u.pathname || u.pathname === '/' || u.pathname.length <= 1) return;
+          if (u.pathname.startsWith('/ar')) return;
+          out.add(u.origin + u.pathname);
+        } catch (_) {}
+      });
+      return Array.from(out).slice(0, 5);
+    });
+    const footerResults = [];
+    for (const link of footerLinks) {
+      try {
+        const resp = await page.context().request.get(link, { timeout: 15000, maxRedirects: 5 });
+        footerResults.push({ url: link, status: resp.status() });
+      } catch (e) {
+        footerResults.push({ url: link, status: 0, error: e.message });
+      }
+    }
+    const footerBad = footerResults.filter((r) => r.status === 0 || r.status >= 400);
+    let footerStatus;
+    if (footerResults.length === 0) footerStatus = 'skip';
+    else if (footerBad.length === 0) footerStatus = 'pass';
+    else if (footerBad.length <= 1) footerStatus = 'warning';
+    else footerStatus = 'fail';
+    checks.push({
+      id: 'footer-no-4xx',
+      category: 'functional',
+      description: 'Sample of footer links return 2xx/3xx',
+      status: footerStatus,
+      details: { sampled: footerResults.length, badCount: footerBad.length, results: footerResults.slice(0, 5), todo: footerResults.length === 0 ? 'No footer links found' : null },
+    });
+
+    // ---- Bucket B: mobile hamburger button selector present ----
+    const hamburger = await page.evaluate(() => {
+      const candidates = Array.from(document.querySelectorAll('button, [role="button"], a'));
+      const found = candidates.find((el) => {
+        const aria = (el.getAttribute('aria-label') || '').toLowerCase();
+        const cls = (el.className || '').toString().toLowerCase();
+        const id = (el.id || '').toLowerCase();
+        return /menu|hamburger|nav/.test(aria + ' ' + cls + ' ' + id) || /menu/.test(el.textContent || '');
+      });
+      return { present: !!found, sample: found ? (found.outerHTML.slice(0, 120)) : null };
+    });
+    checks.push({
+      id: 'mobile-hamburger-present',
+      category: 'functional',
+      description: 'Mobile hamburger / menu trigger present in header',
+      status: hamburger.present ? 'pass' : 'fail',
+      details: hamburger,
     });
 
     return checks;

@@ -2,7 +2,7 @@
 // Source-of-truth for intent: https://docs.google.com/document/d/1IZbKwnGIuAgyVXM24bLeKS2HFtziUgt6Y9raC32yYbk/
 // Code = deterministic subset; qualitative items (visual/translation judgment) live in the doc only.
 
-import { measureLCP, lcpStatus } from '../helpers.js';
+import { measureLCP, lcpStatus, clsStatus } from '../helpers.js';
 
 export default {
   id: 'j5-speed',
@@ -61,9 +61,34 @@ export default {
       });
     }
 
+    // ---- Bucket A: CLS (Cumulative Layout Shift) thresholds ----
+    // Google's Core Web Vitals: <0.1 good, 0.1-0.25 needs improvement, >0.25 poor.
+    pushClsFromCtx(checks, 'homepage-cls', 'Homepage CLS under thresholds (pass <0.1, warn 0.1-0.25, fail >0.25)', ctx.homepageCls, 'reused from j4-navigation');
+    pushClsFromCtx(checks, 'pdp-cls', 'PDP CLS under thresholds (pass <0.1, warn 0.1-0.25, fail >0.25)', ctx.pdpCls, 'reused from j2-pdp');
+
     return checks;
   },
 };
+
+function pushClsFromCtx(checks, id, description, cls, source) {
+  if (cls == null) {
+    checks.push({
+      id,
+      category: 'performance',
+      description,
+      status: 'skip',
+      details: { todo: `${id} not captured by earlier journey` },
+    });
+    return;
+  }
+  checks.push({
+    id,
+    category: 'performance',
+    description,
+    status: clsStatus(cls),
+    details: { cls, source },
+  });
+}
 
 function pushLcpFromCtx(checks, id, description, lcpMs, source) {
   if (lcpMs == null) {

@@ -55,6 +55,7 @@ export default {
 
         defaultOrder = await getProductOrder(page);
         ctx.plpFirstProductPath = defaultOrder[0] || null;
+        ctx.plpProductPaths = defaultOrder.slice(0, 5);
       }
     } catch (err) {
       for (const id of ['plp-banner-text', 'plp-bnpl-logos']) {
