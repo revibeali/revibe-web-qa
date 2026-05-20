@@ -1,7 +1,7 @@
 {
   "date": "2026-05-20",
-  "timestamp": "2026-05-20T09:49:30.391Z",
-  "runTimeMs": 277147,
+  "timestamp": "2026-05-20T09:59:22.701Z",
+  "runTimeMs": 277241,
   "sites": [
     {
       "id": "za",
@@ -208,7 +208,7 @@
           "status": "pass",
           "details": {
             "url": "https://revibe.co.za/products/iphone-11",
-            "lcpMs": 704
+            "lcpMs": 696
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -341,7 +341,7 @@
           "description": "Homepage LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 696,
+            "lcpMs": 1160,
             "source": "reused from j4-navigation"
           },
           "journey": "j5-speed",
@@ -353,7 +353,7 @@
           "description": "PLP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 39,
+            "lcpMs": 38,
             "url": "https://revibe.co.za/collections/all"
           },
           "journey": "j5-speed",
@@ -365,7 +365,7 @@
           "description": "PDP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 704,
+            "lcpMs": 696,
             "source": "reused from j2-pdp"
           },
           "journey": "j5-speed",
@@ -446,11 +446,11 @@
       "region": "United Arab Emirates",
       "summary": {
         "total": 30,
-        "pass": 18,
+        "pass": 17,
         "warning": 0,
         "fail": 1,
-        "skip": 11,
-        "passRate": 95,
+        "skip": 12,
+        "passRate": 94,
         "status": "fail"
       },
       "checks": [
@@ -603,23 +603,12 @@
         },
         {
           "id": "plp-sort-price-asc",
-          "category": "functional",
-          "description": "Sort by price low-to-high changes product card order",
-          "status": "pass",
+          "category": "meta",
+          "description": "plp-sort-price-asc skipped — Cloudflare challenge intercepted https://revibe.me/collections/all?sort_by=price-ascending",
+          "status": "skip",
           "details": {
-            "defaultCount": 8,
-            "sortedCount": 8,
-            "defaultFirst3": [
-              "/products/iphone-12-pro",
-              "/products/iphone-13-pro-max",
-              "/products/iphone-12-pro-max"
-            ],
-            "sortedFirst3": [
-              "/products/ipad-5th-gen-2017-wi-fi-cellular",
-              "/products/ipad-6th-gen-2018-wi-fi",
-              "/products/awei-h25-smartwatch"
-            ],
-            "orderChanged": true
+            "url": "https://revibe.me/collections/all?sort_by=price-ascending",
+            "todo": "Cloudflare anti-bot challenge intercepted this page. Investigate stealth/UA tuning later."
           },
           "journey": "j1-plp",
           "journeyName": "PLP"
@@ -643,7 +632,7 @@
           "status": "pass",
           "details": {
             "url": "https://revibe.me/products/iphone-12-pro",
-            "lcpMs": 67
+            "lcpMs": 39
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -762,7 +751,7 @@
           "description": "Homepage LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 1456,
+            "lcpMs": 1756,
             "source": "reused from j4-navigation"
           },
           "journey": "j5-speed",
@@ -774,7 +763,7 @@
           "description": "PLP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 51,
+            "lcpMs": 49,
             "url": "https://revibe.me/collections/all"
           },
           "journey": "j5-speed",
@@ -786,7 +775,7 @@
           "description": "PDP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 67,
+            "lcpMs": 39,
             "source": "reused from j2-pdp"
           },
           "journey": "j5-speed",
@@ -798,7 +787,7 @@
           "description": "Cart LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 336,
+            "lcpMs": 792,
             "source": "reused from j3-cart"
           },
           "journey": "j5-speed",
@@ -1163,7 +1152,7 @@
           "description": "Homepage LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 1560,
+            "lcpMs": 2140,
             "source": "reused from j4-navigation"
           },
           "journey": "j5-speed",
@@ -1175,7 +1164,7 @@
           "description": "PLP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 51,
+            "lcpMs": 50,
             "url": "https://sa.revibe.me/collections/all"
           },
           "journey": "j5-speed",
@@ -1198,7 +1187,7 @@
           "description": "Cart LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 408,
+            "lcpMs": 756,
             "source": "reused from j3-cart"
           },
           "journey": "j5-speed",

@@ -81,7 +81,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
   <div class="metric">
     <div class="metric-label">Aggregate pass rate</div>
     <div class="metric-value">98%</div>
-    <div class="metric-sub">49 of 50 scoreable checks</div>
+    <div class="metric-sub">48 of 49 scoreable checks</div>
   </div>
   <div class="metric">
     <div class="metric-label">Total checks</div>
@@ -91,7 +91,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
   <div class="metric">
     <div class="metric-label">Open failures</div>
     <div class="metric-value">1</div>
-    <div class="metric-sub">0 warnings · 40 skipped</div>
+    <div class="metric-sub">0 warnings · 41 skipped</div>
   </div>
   <div class="metric">
     <div class="metric-label">Run time</div>
@@ -200,7 +200,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-lcp</td>
     <td>PDP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;lcpMs&quot;:704}</code></td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;lcpMs&quot;:696}</code></td>
   </tr><tr class="row-pass">
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-compare-gt-price</td>
@@ -274,17 +274,17 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">homepage-lcp</td>
     <td>Homepage LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;lcpMs&quot;:696,&quot;source&quot;:&quot;reused from j4-navigation&quot;}</code></td>
+    <td class="details"><code>{&quot;lcpMs&quot;:1160,&quot;source&quot;:&quot;reused from j4-navigation&quot;}</code></td>
   </tr><tr class="row-pass">
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">plp-lcp</td>
     <td>PLP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;lcpMs&quot;:39,&quot;url&quot;:&quot;https://revibe.co.za/collections/all&quot;}</code></td>
+    <td class="details"><code>{&quot;lcpMs&quot;:38,&quot;url&quot;:&quot;https://revibe.co.za/collections/all&quot;}</code></td>
   </tr><tr class="row-pass">
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-lcp</td>
     <td>PDP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;lcpMs&quot;:704,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
+    <td class="details"><code>{&quot;lcpMs&quot;:696,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
   </tr><tr class="row-skip">
     <td><span class="pill small skip">skip</span></td>
     <td class="check-id">cart-lcp</td>
@@ -348,7 +348,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <h3>revibe.me</h3>
     <span class="region">United Arab Emirates</span>
     <span class="pill fail">fail</span>
-    <span class="counts">18 pass · 0 warn · 1 fail · 11 skip · 95%</span>
+    <span class="counts">17 pass · 0 warn · 1 fail · 12 skip · 94%</span>
   </header>
   <details >
   <summary>
@@ -391,7 +391,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
   <summary>
     <span class="journey-id">j1-plp</span>
     <span class="journey-name">PLP</span>
-    <span class="journey-counts">5 checks · 5p / 0w / 0f / 0s</span>
+    <span class="journey-counts">5 checks · 4p / 0w / 0f / 1s</span>
   </summary>
   <table>
     <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
@@ -416,11 +416,11 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td class="check-id">plp-search-samsung</td>
     <td>Search &quot;Samsung&quot; returns &gt;=1 product card AND heading mentions &quot;Samsung&quot;</td>
     <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/search?q=Samsung&quot;,&quot;productCardCount&quot;:20,&quot;h1&quot;:&quot;Search results for Samsung&quot;,&quot;headingMentionsQuery&quot;:true}</code></td>
-  </tr><tr class="row-pass">
-    <td><span class="pill small pass">pass</span></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
     <td class="check-id">plp-sort-price-asc</td>
-    <td>Sort by price low-to-high changes product card order</td>
-    <td class="details"><code>{&quot;defaultCount&quot;:8,&quot;sortedCount&quot;:8,&quot;defaultFirst3&quot;:[&quot;/products/iphone-12-pro&quot;,&quot;/products/iphone-13-pro-max&quot;,&quot;/products/iphone-12-pro-max&quot;],&quot;sortedFirst3&quot;:[&quot;/products/ipad-5th-gen-2017-wi-fi-cellular&quot;,&quot;/products/ipad-6th-gen-2018-wi-fi&quot;,&quot;/products/awei-h25-smartwatch&quot;],&quot;orderChanged&quot;:true}</code></td>
+    <td>plp-sort-price-asc skipped — Cloudflare challenge intercepted https://revibe.me/collections/all?sort_by=price-ascending</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/collections/all?sort_by=price-ascending&quot;,&quot;todo&quot;:&quot;Cloudflare anti-bot challenge intercepted this page. Investigate stealth/UA tuning later.&quot;}</code></td>
   </tr>
     </tbody>
   </table>
@@ -442,7 +442,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-lcp</td>
     <td>PDP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;lcpMs&quot;:67}</code></td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;lcpMs&quot;:39}</code></td>
   </tr><tr class="row-skip">
     <td><span class="pill small skip">skip</span></td>
     <td class="check-id">pdp-compare-gt-price</td>
@@ -516,22 +516,22 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">homepage-lcp</td>
     <td>Homepage LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;lcpMs&quot;:1456,&quot;source&quot;:&quot;reused from j4-navigation&quot;}</code></td>
+    <td class="details"><code>{&quot;lcpMs&quot;:1756,&quot;source&quot;:&quot;reused from j4-navigation&quot;}</code></td>
   </tr><tr class="row-pass">
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">plp-lcp</td>
     <td>PLP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;lcpMs&quot;:51,&quot;url&quot;:&quot;https://revibe.me/collections/all&quot;}</code></td>
+    <td class="details"><code>{&quot;lcpMs&quot;:49,&quot;url&quot;:&quot;https://revibe.me/collections/all&quot;}</code></td>
   </tr><tr class="row-pass">
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-lcp</td>
     <td>PDP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;lcpMs&quot;:67,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
+    <td class="details"><code>{&quot;lcpMs&quot;:39,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
   </tr><tr class="row-pass">
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">cart-lcp</td>
     <td>Cart LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;lcpMs&quot;:336,&quot;source&quot;:&quot;reused from j3-cart&quot;}</code></td>
+    <td class="details"><code>{&quot;lcpMs&quot;:792,&quot;source&quot;:&quot;reused from j3-cart&quot;}</code></td>
   </tr><tr class="row-skip">
     <td><span class="pill small skip">skip</span></td>
     <td class="check-id">checkout-lcp</td>
@@ -758,12 +758,12 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">homepage-lcp</td>
     <td>Homepage LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;lcpMs&quot;:1560,&quot;source&quot;:&quot;reused from j4-navigation&quot;}</code></td>
+    <td class="details"><code>{&quot;lcpMs&quot;:2140,&quot;source&quot;:&quot;reused from j4-navigation&quot;}</code></td>
   </tr><tr class="row-pass">
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">plp-lcp</td>
     <td>PLP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;lcpMs&quot;:51,&quot;url&quot;:&quot;https://sa.revibe.me/collections/all&quot;}</code></td>
+    <td class="details"><code>{&quot;lcpMs&quot;:50,&quot;url&quot;:&quot;https://sa.revibe.me/collections/all&quot;}</code></td>
   </tr><tr class="row-skip">
     <td><span class="pill small skip">skip</span></td>
     <td class="check-id">pdp-lcp</td>
@@ -773,7 +773,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">cart-lcp</td>
     <td>Cart LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;lcpMs&quot;:408,&quot;source&quot;:&quot;reused from j3-cart&quot;}</code></td>
+    <td class="details"><code>{&quot;lcpMs&quot;:756,&quot;source&quot;:&quot;reused from j3-cart&quot;}</code></td>
   </tr><tr class="row-skip">
     <td><span class="pill small skip">skip</span></td>
     <td class="check-id">checkout-lcp</td>
@@ -866,7 +866,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     </div></div>
 </section>
   <footer>
-    <span>Generated 2026-05-20T09:49:30.391Z</span>
+    <span>Generated 2026-05-20T09:59:22.701Z</span>
     <span>Run time 4m 37s</span>
   </footer>
 </main>
