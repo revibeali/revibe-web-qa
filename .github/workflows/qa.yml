@@ -2,7 +2,7 @@ name: Daily QA
 
 on:
   schedule:
-    - cron: '7 6 * * *'
+    - cron: '35 9 * * *'
   workflow_dispatch:
 
 permissions:
@@ -77,9 +77,13 @@ jobs:
             OVERALL=":white_check_mark:"
             if echo "$SUMMARY" | grep -q ":x:"; then OVERALL=":x:"; fi
             if [ "$OVERALL" = ":white_check_mark:" ] && echo "$SUMMARY" | grep -q ":warning:"; then OVERALL=":warning:"; fi
-            MESSAGE="*Daily QA · ${DATE} · ${OVERALL}*"$'\n'"${SUMMARY}"$'\n'"<https://revibeali.github.io/revibe-web-qa/|Dashboard> · <${RUN_URL}|Run #${RUN_NUMBER}>"
+            MESSAGE="*Daily QA · ${DATE} · ${OVERALL}*"$'
+'"${SUMMARY}"$'
+'"<https://revibeali.github.io/revibe-web-qa/|Dashboard> · <${RUN_URL}|Run #${RUN_NUMBER}>"
           else
-            MESSAGE="*Daily QA · ${DATE} · :x:*"$'\n'"QA failed before reports were written."$'\n'"<${RUN_URL}|See run logs>"
+            MESSAGE="*Daily QA · ${DATE} · :x:*"$'
+'"QA failed before reports were written."$'
+'"<${RUN_URL}|See run logs>"
           fi
           PAYLOAD=$(jq -n --arg text "$MESSAGE" '{text:$text}')
           curl -s -X POST -H 'Content-Type: application/json' --data "$PAYLOAD" "$SLACK_WEBHOOK_URL" > /dev/null
