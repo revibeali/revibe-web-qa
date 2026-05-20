@@ -74,10 +74,38 @@ function renderTabNav(t, failCount) {
 function renderSummary(report, t, failures, warnings, skipReasons) {
   return `
 ${renderHero(report, t, failures, warnings)}
+${renderRegressionBanner(report)}
 ${renderSiteCards(report)}
 ${renderIssuesNarrative(failures, warnings)}
 ${renderSkipReasons(skipReasons)}
 `;
+}
+
+function renderRegressionBanner(report) {
+  const d = report.diff;
+  if (!d || !d.hasBaseline) return '';
+  const nb = (d.newlyBroken || []).length;
+  const nf = (d.newlyFixed || []).length;
+  if (nb === 0 && nf === 0) {
+    return `<div class="regression-banner stable">
+      <strong>Since ${escape(d.baselineDate)}:</strong> no change — same checks broken, same checks fixed.
+    </div>`;
+  }
+  const broken = (d.newlyBroken || []).slice(0, 6).map((i) =>
+    `<li><span class="issue-id">${escape(i.id)}</span> <span class="issue-sites">${escape(shortSiteName(i.site))}</span> <span class="issue-desc">${escape((i.description || '').slice(0, 110))}</span></li>`
+  ).join('');
+  const fixed = (d.newlyFixed || []).slice(0, 6).map((i) =>
+    `<li><span class="issue-id pass">${escape(i.id)}</span> <span class="issue-sites">${escape(shortSiteName(i.site))}</span> <span class="issue-desc">${escape((i.description || '').slice(0, 110))}</span></li>`
+  ).join('');
+  return `<div class="regression-banner ${nb > 0 ? 'attention' : 'positive'}">
+    <div class="regression-summary">
+      <strong>Since ${escape(d.baselineDate)}:</strong>
+      ${nb > 0 ? `<span class="rb-newly-broken">+${nb} newly broken</span>` : ''}
+      ${nf > 0 ? `<span class="rb-newly-fixed">+${nf} newly fixed</span>` : ''}
+    </div>
+    ${nb > 0 ? `<details ${nb > 0 ? 'open' : ''}><summary>Newly broken (${nb})</summary><ul class="regression-list">${broken}</ul></details>` : ''}
+    ${nf > 0 ? `<details><summary>Newly fixed (${nf})</summary><ul class="regression-list">${fixed}</ul></details>` : ''}
+  </div>`;
 }
 
 function renderHero(report, t, failures, warnings) {
@@ -232,6 +260,7 @@ function renderTechSiteSections(report) {
 function renderCheckCard(check) {
   const detailsJson = check.details ? JSON.stringify(check.details, null, 2) : '';
   const todo = check.details?.todo || check.details?.reason || null;
+  const shot = check.details?.screenshot ? `<a class="check-shot-link" href="${escape(check.details.screenshot)}" target="_blank" rel="noopener"><img loading="lazy" src="${escape(check.details.screenshot)}" alt="Failure screenshot for ${escape(check.id)}"></a>` : '';
   return `<article class="check-card" data-status="${escape(check.status)}">
     <header class="check-card-head">
       <span class="pill small ${escape(check.status)}">${escape(STATUS_LABEL[check.status] || check.status)}</span>
@@ -239,6 +268,7 @@ function renderCheckCard(check) {
     </header>
     <div class="check-desc">${escape(check.description || '')}</div>
     ${todo ? `<div class="check-todo">${escape(todo)}</div>` : ''}
+    ${shot}
     ${detailsJson ? `<details class="check-detail"><summary>Details</summary><pre>${escape(detailsJson)}</pre></details>` : ''}
   </article>`;
 }
@@ -463,6 +493,24 @@ nav.tabs { display: flex; gap: 4px; border-bottom: 0.5px solid var(--line); marg
 .skip-count { font-weight: 500; color: var(--grey); min-width: 32px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
 .skip-reason { font-size: 13px; color: var(--muted); flex: 1; }
 .muted { color: var(--muted); font-size: 13px; }
+
+.regression-banner { background: var(--card-bg); border: 0.5px solid var(--line); border-radius: 6px; padding: 12px 14px; margin-bottom: 16px; border-left: 3px solid var(--grey); }
+.regression-banner.attention { border-left-color: var(--rose); }
+.regression-banner.positive { border-left-color: var(--teal); }
+.regression-banner.stable { border-left-color: var(--grey); color: var(--muted); font-size: 13px; }
+.regression-summary { display: flex; flex-wrap: wrap; gap: 12px; font-size: 14px; }
+.rb-newly-broken { color: var(--rose); font-weight: 500; }
+.rb-newly-fixed { color: var(--teal); font-weight: 500; }
+.regression-banner details { margin-top: 8px; }
+.regression-banner summary { font-size: 12px; color: var(--muted); cursor: pointer; padding: 4px 0; }
+.regression-banner .regression-list { list-style: none; padding: 0; margin: 6px 0 0; font-size: 12px; display: grid; gap: 4px; }
+.regression-banner .regression-list li { display: flex; flex-wrap: wrap; gap: 6px; padding: 4px 0; border-bottom: 0.5px solid var(--line-soft); }
+.regression-banner .regression-list .issue-id { color: var(--rose); }
+.regression-banner .regression-list .issue-id.pass { color: var(--teal); }
+.regression-banner .regression-list .issue-desc { color: var(--muted); flex: 1 1 100%; padding-left: 0; }
+
+.check-shot-link { display: block; margin-top: 8px; border: 0.5px solid var(--line); border-radius: 4px; overflow: hidden; }
+.check-shot-link img { display: block; width: 100%; max-height: 280px; object-fit: cover; object-position: top; }
 
 .filter-bar { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; position: sticky; top: 0; background: var(--cream); padding: 8px 0; z-index: 5; }
 .filter-btn { background: var(--card-bg); border: 0.5px solid var(--line); border-radius: 999px; padding: 5px 12px; font: inherit; font-size: 12px; font-weight: 500; color: var(--muted); cursor: pointer; }
