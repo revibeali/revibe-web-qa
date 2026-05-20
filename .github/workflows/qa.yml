@@ -1,4 +1,3 @@
-# Schedule re-registration nudge — 2026-05-20
 name: Daily QA
 
 on:
@@ -53,3 +52,49 @@ jobs:
           fi
           git commit -m "QA run: $DATE"
           git push
+
+      - name: Post summary to Slack
+        if: always()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          RUN_NUMBER: ${{ github.run_number }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "SLACK_WEBHOOK_URL secret not set — skipping notification."
+            exit 0
+          fi
+          DATE=$(date -u +%F)
+          REPORT="reports/${DATE}.json"
+          if [ -f "$REPORT" ]; then
+            SUMMARY=$(node -e '
+              const fs = require("fs");
+              const r = JSON.parse(fs.readFileSync(process.argv[1]));
+              const lines = r.sites.map(s => {
+                const st = s.summary;
+                const emoji = st.status === "pass" ? ":white_check_mark:" : st.status === "warning" ? ":warning:" : ":x:";
+                return emoji + " " + s.name + ": " + st.pass + "p / " + st.warning + "w / " + st.fail + "f / " + st.skip + "s (" + st.passRate + "%)";
+              });
+              console.log(lines.join("
+"));
+            ' "$REPORT")
+            OVERALL=":white_check_mark:"
+            if echo "$SUMMARY" | grep -q ":x:"; then OVERALL=":x:"; fi
+            if [ "$OVERALL" = ":white_check_mark:" ] && echo "$SUMMARY" | grep -q ":warning:"; then OVERALL=":warning:"; fi
+            MESSAGE=$(cat <<EOF
+*Daily QA · ${DATE} · ${OVERALL}*
+${SUMMARY}
+<https://revibeali.github.io/revibe-web-qa/|Dashboard> · <${RUN_URL}|Run #${RUN_NUMBER}>
+EOF
+)
+          else
+            MESSAGE=$(cat <<EOF
+*Daily QA · ${DATE} · :x:*
+QA failed before reports were written.
+<${RUN_URL}|See run logs>
+EOF
+)
+          fi
+          PAYLOAD=$(jq -n --arg text "$MESSAGE" '{text:$text}')
+          curl -s -X POST -H 'Content-Type: application/json' --data "$PAYLOAD" "$SLACK_WEBHOOK_URL" > /dev/null
+          echo "Slack notification posted."
