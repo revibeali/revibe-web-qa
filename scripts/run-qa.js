@@ -1,5 +1,5 @@
 import { chromium, devices } from 'playwright';
-import { writeFileSync, mkdirSync, existsSync, readdirSync, copyFileSync } from 'fs';
+import { writeFileSync, readFileSync, mkdirSync, existsSync, readdirSync, copyFileSync, rmSync, statSync } from 'fs';
 import { join } from 'path';
 import { SITES } from './sites.js';
 
@@ -85,11 +85,15 @@ async function main() {
     return acc;
   }, {});
 
+  // Regression diff vs the most recent prior report (if any)
+  const diff = computeRegressionDiff(RUN_DATE, siteReports);
+
   const report = {
     date: RUN_DATE,
     timestamp: RUN_TIMESTAMP,
     runTimeMs,
     filter: { ...FILTER, applied: filterApplied, journeysMatched: matched.length, journeysTotal: JOURNEYS.length },
+    diff,
     sites: siteReports,
     warrantyTiers,
   };
@@ -117,6 +121,79 @@ function syncDashboardData() {
   }
   const dates = jsonFiles.map((f) => f.replace('.json', '')).sort();
   writeFileSync(join('docs/reports', 'index.json'), JSON.stringify({ dates }, null, 2));
+
+  // Mirror today's screenshots into docs/reports/screenshots/<date>/ for Pages access.
+  const todayShots = join('reports', 'screenshots', RUN_DATE);
+  if (existsSync(todayShots)) {
+    mirrorDir(todayShots, join('docs/reports/screenshots', RUN_DATE));
+  }
+  // 30-day retention: prune older dated screenshot directories.
+  pruneOldScreenshots('reports/screenshots', 30);
+  pruneOldScreenshots('docs/reports/screenshots', 30);
+}
+
+function mirrorDir(src, dst) {
+  if (!existsSync(src)) return;
+  if (!existsSync(dst)) mkdirSync(dst, { recursive: true });
+  for (const name of readdirSync(src)) {
+    const s = join(src, name);
+    const d = join(dst, name);
+    const st = statSync(s);
+    if (st.isDirectory()) mirrorDir(s, d);
+    else copyFileSync(s, d);
+  }
+}
+
+function pruneOldScreenshots(root, keepDays) {
+  if (!existsSync(root)) return;
+  const cutoff = new Date(Date.now() - keepDays * 24 * 3600 * 1000);
+  const cutoffStr = cutoff.toISOString().slice(0, 10);
+  for (const name of readdirSync(root)) {
+    if (/^\d{4}-\d{2}-\d{2}$/.test(name) && name < cutoffStr) {
+      try { rmSync(join(root, name), { recursive: true, force: true }); } catch (_) {}
+    }
+  }
+}
+
+// Compares this run against the most recent prior report (different date) and
+// returns { newlyBroken, newlyFixed, stillBroken } as arrays of {site,id,description}.
+function computeRegressionDiff(currentDate, siteReports) {
+  if (!existsSync('reports')) return null;
+  const priors = readdirSync('reports')
+    .filter((f) => /^\d{4}-\d{2}-\d{2}\.json$/.test(f) && !f.startsWith(currentDate))
+    .sort()
+    .reverse();
+  if (priors.length === 0) return { hasBaseline: false };
+  let prior;
+  try { prior = JSON.parse(readFileSync(join('reports', priors[0]), 'utf8')); }
+  catch (_) { return { hasBaseline: false }; }
+  const priorChecks = new Map();
+  for (const s of prior.sites || []) {
+    for (const c of s.checks || []) {
+      priorChecks.set(`${s.id}::${c.id}`, c.status);
+    }
+  }
+  const newlyBroken = [], newlyFixed = [], stillBroken = [];
+  for (const s of siteReports) {
+    for (const c of s.checks || []) {
+      const key = `${s.id}::${c.id}`;
+      const prev = priorChecks.get(key);
+      if (c.status === 'fail' && prev && prev !== 'fail') {
+        newlyBroken.push({ site: s.name, id: c.id, description: c.description, was: prev });
+      } else if (c.status !== 'fail' && prev === 'fail') {
+        newlyFixed.push({ site: s.name, id: c.id, description: c.description, now: c.status });
+      } else if (c.status === 'fail' && prev === 'fail') {
+        stillBroken.push({ site: s.name, id: c.id, description: c.description });
+      }
+    }
+  }
+  return {
+    hasBaseline: true,
+    baselineDate: prior.date,
+    newlyBroken,
+    newlyFixed,
+    stillBroken,
+  };
 }
 
 async function runSite(browser, site, journeysToRun) {
@@ -154,6 +231,24 @@ async function runSite(browser, site, journeysToRun) {
       c.journeyCode = journey.journeyCode || null;
       c.journeyFrequency = journey.frequency || null;
       c.journeyPriority = journey.priority || null;
+    }
+    // Screenshot-on-fail: if any check in this journey failed, snapshot the
+    // current page state. One PNG per (site, journey) shared by its failures.
+    const journeyHasFail = journeyChecks.some((c) => c.status === 'fail');
+    if (journeyHasFail) {
+      const relPath = join('screenshots', RUN_DATE, site.id, `${journey.id}.png`);
+      const absPath = join('reports', relPath);
+      try {
+        mkdirSync(join('reports', 'screenshots', RUN_DATE, site.id), { recursive: true });
+        await page.screenshot({ path: absPath, fullPage: false, timeout: 5000 });
+        for (const c of journeyChecks) {
+          if (c.status === 'fail') {
+            c.details = { ...(c.details || {}), screenshot: relPath };
+          }
+        }
+      } catch (e) {
+        console.log(`    (screenshot failed for ${journey.id}: ${e.message})`);
+      }
     }
     checks.push(...journeyChecks);
   }
