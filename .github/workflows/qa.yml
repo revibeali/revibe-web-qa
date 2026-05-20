@@ -1,9 +1,10 @@
 name: Daily QA
 
 on:
+  workflow_dispatch: {}
   schedule:
-    - cron: '35 9 * * *'
-  workflow_dispatch:
+    - cron: '50 9 * * *'
+
 
 permissions:
   contents: write
