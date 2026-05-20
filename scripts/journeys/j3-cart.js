@@ -255,7 +255,25 @@ export default {
 
     // ---- Bucket B: multi-product cart add ----
     // Add up to 3 distinct products via their handles, verify all 3 land in /cart.js.
-    const handles = (ctx.plpProductPaths || []).slice(0, 5);
+    // If j1 didn't capture paths (e.g. CF-challenged), fetch them directly from PLP now.
+    let handles = (ctx.plpProductPaths || []).slice(0, 5);
+    if (handles.length < 2) {
+      try {
+        await page.goto(site.baseUrl + site.plpPath, { waitUntil: 'domcontentloaded', timeout: 30000 });
+        await page.waitForLoadState('networkidle', { timeout: 8000 }).catch(() => {});
+        handles = await page.evaluate(() => {
+          const seen = new Set();
+          const out = [];
+          document.querySelectorAll('a[href*="/products/"]').forEach((a) => {
+            try {
+              const p = new URL(a.href).pathname;
+              if (!seen.has(p)) { seen.add(p); out.push(p); }
+            } catch (_) {}
+          });
+          return out.slice(0, 5);
+        });
+      } catch (_) {}
+    }
     if (handles.length >= 2) {
       await shopifyClearCart(page);
       const added = [];

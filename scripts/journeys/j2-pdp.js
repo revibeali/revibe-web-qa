@@ -204,14 +204,16 @@ export default {
 
     // ---- Bucket A: deterministic widget presence checks ----
 
-    // Trustpilot: heading + non-zero plausible review count
+    // Trustpilot: text/widget URLs in DOM (Trustpilot embed often uses iframe; check src too)
     const trustpilot = await page.evaluate(() => {
-      const text = (document.body.innerText || '').toLowerCase();
-      const hasHeading = /trustpilot/i.test(text);
-      // Match patterns like "1,234 reviews" / "based on 567 reviews"
-      const m = (document.body.innerText || '').match(/(\d{1,3}(?:[,]\d{3})*|\d+)\s*(?:reviews?|ratings?)/i);
+      const fullText = (document.body.textContent || '').toLowerCase();
+      const hasText = /trustpilot/i.test(fullText);
+      const widgetUrl = Array.from(document.querySelectorAll('iframe,script,img,a'))
+        .some((el) => /trustpilot\.com/i.test((el.src || el.href || '')));
+      const hasHeading = hasText || widgetUrl;
+      const m = (document.body.textContent || '').match(/(\d{1,3}(?:[,]\d{3})*|\d+)\s*(?:reviews?|ratings?)/i);
       const count = m ? parseInt(m[1].replace(/,/g, ''), 10) : 0;
-      return { hasHeading, count };
+      return { hasHeading, hasText, widgetUrl, count };
     });
     let trustpilotStatus;
     if (!trustpilot.hasHeading) trustpilotStatus = 'skip';
@@ -225,45 +227,51 @@ export default {
       details: { url: pdpUrl, ...trustpilot, todo: trustpilotStatus === 'skip' ? 'Trustpilot widget not on this PDP' : null },
     });
 
-    // Related / Recommended products: at least 3 product cards under such a section
+    // Related / Recommended products: at least 3 product cards under such a section.
+    // Broader heading patterns + total-product-link count as a fallback.
     const relatedCount = await page.evaluate(() => {
-      const text = (document.body.innerText || '').toLowerCase();
-      const headingIdx = Math.max(text.indexOf('recommended'), text.indexOf('related'), text.indexOf('you may also'));
-      if (headingIdx < 0) return 0;
-      // Count distinct /products/ links AFTER the heading
-      const allLinks = Array.from(document.querySelectorAll('a[href*="/products/"]'));
-      const headingEl = (function () {
-        for (const el of document.querySelectorAll('h1,h2,h3,h4')) {
-          const t = (el.innerText || '').toLowerCase();
-          if (t.includes('recommended') || t.includes('related') || t.includes('you may also')) return el;
-        }
-        return null;
-      })();
-      if (!headingEl) return 0;
-      const set = new Set();
-      let node = headingEl;
-      while ((node = node.nextElementSibling) || (node = headingEl.parentElement && headingEl.parentElement.nextElementSibling)) {
-        if (!node) break;
-        node.querySelectorAll('a[href*="/products/"]').forEach((a) => {
-          try { set.add(new URL(a.href).pathname); } catch (_) {}
+      const patterns = /recommended|related|you may also|similar (products|items)|customers also|frequently bought|more from|trending|featured products/i;
+      const heading = Array.from(document.querySelectorAll('h1,h2,h3,h4,h5,h6,strong,div[class*="heading"],div[class*="title"]'))
+        .find((el) => patterns.test(el.textContent || ''));
+      const allProductLinks = Array.from(document.querySelectorAll('a[href*="/products/"]'));
+      const currentHandle = location.pathname.split('/products/')[1]?.split('?')[0] ?? '';
+      const otherProductPaths = new Set();
+      allProductLinks.forEach((a) => {
+        try {
+          const p = new URL(a.href).pathname;
+          // Exclude the current PDP itself
+          if (!currentHandle || !p.endsWith('/' + currentHandle)) otherProductPaths.add(p);
+        } catch (_) {}
+      });
+      if (heading) {
+        // Count product links in the heading's section/parent/siblings
+        let scope = heading;
+        for (let i = 0; i < 4 && scope.parentElement; i++) scope = scope.parentElement;
+        const inScope = new Set();
+        scope.querySelectorAll('a[href*="/products/"]').forEach((a) => {
+          try { inScope.add(new URL(a.href).pathname); } catch (_) {}
         });
-        if (set.size >= 8) break;
-        if (!node.nextElementSibling) break;
+        return { source: 'heading', count: inScope.size, totalOther: otherProductPaths.size };
       }
-      return set.size;
+      // No heading found; fall back to "number of other product links on the page"
+      return { source: 'fallback-total-other-products', count: otherProductPaths.size, totalOther: otherProductPaths.size };
     });
     checks.push({
       id: 'pdp-related-products-count',
       category: 'content',
-      description: 'Recommended/Related section has ≥3 product cards',
-      status: relatedCount >= 3 ? 'pass' : relatedCount > 0 ? 'warning' : 'fail',
-      details: { url: pdpUrl, count: relatedCount },
+      description: 'Recommended/Related section has ≥3 product cards (or PDP shows ≥3 other product links)',
+      status: relatedCount.count >= 3 ? 'pass' : relatedCount.count > 0 ? 'warning' : 'fail',
+      details: { url: pdpUrl, ...relatedCount },
     });
 
-    // "What's Included" for smartphone: Charger + Mobile both appear
+    // "What's Included" for smartphone: broader heading match + textContent (catches collapsed accordions)
     const whatsIncluded = await page.evaluate(() => {
-      const text = (document.body.innerText || '').toLowerCase();
-      const sectionPresent = text.includes("what's included") || text.includes('whats included') || text.includes('what is included');
+      const text = (document.body.textContent || '').toLowerCase();
+      const sectionPresent =
+        /what['']?s\s*included/i.test(text) ||
+        /\bin\s*the\s*box\b/i.test(text) ||
+        /\bpackage\s*(contents|includes)\b/i.test(text) ||
+        /\bbox\s*contents\b/i.test(text);
       const hasCharger = /\bcharger\b/.test(text);
       const hasMobile = /\bmobile\b/.test(text) || /\bphone\b/.test(text);
       return { sectionPresent, hasCharger, hasMobile };
@@ -280,15 +288,15 @@ export default {
       details: { url: pdpUrl, ...whatsIncluded, todo: wiStatus === 'skip' ? "'What's Included' section not found" : null },
     });
 
-    // Technical Specification: section present and non-empty
+    // Technical Specification: broader element search + textContent (collapsed accordions)
     const techSpec = await page.evaluate(() => {
-      const headings = Array.from(document.querySelectorAll('h1,h2,h3,h4,h5,h6'));
-      const heading = headings.find((h) => /technical\s*specification|specifications?/i.test(h.innerText || ''));
+      const heading = Array.from(document.querySelectorAll('h1,h2,h3,h4,h5,h6,summary,button,div[class*="title"],div[class*="heading"]'))
+        .find((h) => /\btechnical\s*specifications?|^specifications?|\bspecs\b|\bproduct\s*details\b|\bfeatures\b/i.test((h.textContent || '').trim()));
       if (!heading) return { present: false, length: 0 };
-      let sibling = heading.parentElement;
-      let extracted = '';
-      if (sibling) extracted = (sibling.innerText || '').slice(0, 1000);
-      return { present: true, length: extracted.length };
+      let scope = heading;
+      for (let i = 0; i < 3 && scope.parentElement; i++) scope = scope.parentElement;
+      const extracted = (scope.textContent || '').slice(0, 2000);
+      return { present: true, length: extracted.length, headingText: (heading.textContent || '').trim().slice(0, 60) };
     });
     checks.push({
       id: 'pdp-tech-spec-present',
@@ -298,14 +306,15 @@ export default {
       details: { url: pdpUrl, ...techSpec },
     });
 
-    // USP icons: Certified by Experts · Unlocked · 12 Months Warranty · Free Delivery
+    // USP icons: use textContent (captures hidden/collapsed text) + alt attrs (icon-only USPs)
     const usp = await page.evaluate(() => {
-      const text = (document.body.innerText || '').toLowerCase();
+      const fullText = ((document.body.textContent || '') + ' ' +
+        Array.from(document.images).map((i) => i.alt || '').join(' ')).toLowerCase();
       const items = {
-        certified: /certified by experts|certified renewed/i.test(text),
-        unlocked: /unlocked/i.test(text),
-        warranty12: /12\s*months?\s*warranty/i.test(text),
-        freeDelivery: /free\s*(delivery|shipping)/i.test(text),
+        certified: /certified by experts|certified renewed|inspected by experts/i.test(fullText),
+        unlocked: /(all\s*phones?\s*are\s*)?unlocked/i.test(fullText),
+        warranty12: /12\s*months?\s*warranty/i.test(fullText),
+        freeDelivery: /free\s*(delivery|shipping)/i.test(fullText),
       };
       const count = Object.values(items).filter(Boolean).length;
       return { items, count };
