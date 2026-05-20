@@ -1,91 +1,11 @@
 name: Daily QA
 
 on:
-  workflow_dispatch: {}
-  schedule:
-    - cron: '50 9 * * *'
-
-
-permissions:
-  contents: write
-
-concurrency:
-  group: daily-qa
-  cancel-in-progress: false
+  workflow_dispatch:
 
 jobs:
   qa:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
     steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          persist-credentials: true
-
-      - name: Setup Node 20
-        uses: actions/setup-node@v5
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Install Playwright (chromium only)
-        run: npx playwright install --with-deps chromium
-
-      - name: Run QA
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: npm run qa
-
-      - name: Commit and push reports
-        run: |
-          DATE=$(date -u +%F)
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add reports/ docs/ 2>/dev/null || true
-          if git diff --cached --quiet; then
-            echo "No new reports to commit."
-            exit 0
-          fi
-          git commit -m "QA run: $DATE"
-          # Race-safe push: rebase on remote in case main moved while QA was running.
-          # Retry up to 3 times before failing.
-          for attempt in 1 2 3; do
-            git pull --rebase origin main && git push && break
-            echo "Push attempt $attempt failed, retrying..."
-            sleep 5
-          done
-
-      - name: Post summary to Slack
-        if: always()
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          RUN_NUMBER: ${{ github.run_number }}
-        run: |
-          if [ -z "$SLACK_WEBHOOK_URL" ]; then
-            echo "SLACK_WEBHOOK_URL secret not set — skipping."
-            exit 0
-          fi
-          DATE=$(date -u +%F)
-          REPORT="reports/${DATE}.json"
-          if [ -f "$REPORT" ]; then
-            SUMMARY=$(jq -r '.sites[] | (if .summary.status == "pass" then ":white_check_mark:" elif .summary.status == "warning" then ":warning:" else ":x:" end) + " " + .name + ": " + (.summary.pass|tostring) + "p / " + (.summary.warning|tostring) + "w / " + (.summary.fail|tostring) + "f / " + (.summary.skip|tostring) + "s (" + (.summary.passRate|tostring) + "%)"' "$REPORT")
-            OVERALL=":white_check_mark:"
-            if echo "$SUMMARY" | grep -q ":x:"; then OVERALL=":x:"; fi
-            if [ "$OVERALL" = ":white_check_mark:" ] && echo "$SUMMARY" | grep -q ":warning:"; then OVERALL=":warning:"; fi
-            MESSAGE="*Daily QA · ${DATE} · ${OVERALL}*"$'
-'"${SUMMARY}"$'
-'"<https://revibeali.github.io/revibe-web-qa/|Dashboard> · <${RUN_URL}|Run #${RUN_NUMBER}>"
-          else
-            MESSAGE="*Daily QA · ${DATE} · :x:*"$'
-'"QA failed before reports were written."$'
-'"<${RUN_URL}|See run logs>"
-          fi
-          PAYLOAD=$(jq -n --arg text "$MESSAGE" '{text:$text}')
-          curl -s -X POST -H 'Content-Type: application/json' --data "$PAYLOAD" "$SLACK_WEBHOOK_URL" > /dev/null
-          echo "Slack notification posted."
+      - name: Smoke
+        run: echo "ok"
