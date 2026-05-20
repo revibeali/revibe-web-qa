@@ -1,7 +1,7 @@
 {
   "date": "2026-05-20",
-  "timestamp": "2026-05-20T10:39:21.519Z",
-  "runTimeMs": 276392,
+  "timestamp": "2026-05-20T10:55:14.975Z",
+  "runTimeMs": 286865,
   "sites": [
     {
       "id": "za",
@@ -10,8 +10,8 @@
       "summary": {
         "total": 47,
         "pass": 28,
-        "warning": 1,
-        "fail": 3,
+        "warning": 0,
+        "fail": 4,
         "skip": 15,
         "passRate": 88,
         "status": "fail"
@@ -255,7 +255,7 @@
           "status": "pass",
           "details": {
             "url": "https://revibe.co.za/products/iphone-11",
-            "lcpMs": 372
+            "lcpMs": 768
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -346,7 +346,7 @@
             "url": "https://revibe.co.za/products/iphone-11",
             "source": "heading",
             "count": 0,
-            "totalOther": 0
+            "totalOther": 8
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -417,12 +417,15 @@
         {
           "id": "pdp-warranty-info-modal-content",
           "category": "functional",
-          "description": "Clicking the warranty (i) icon reveals Revibe Care+ content (Full Protection / Accidental Damage / Express Replacement / 24/7 Support / Revibe Care+)",
-          "status": "warning",
+          "description": "Clicking the warranty (i) icon reveals NEW Revibe Care+ content (Full Protection / Accidental Damage / Express Replacement / 24/7 Support / Revibe Care+)",
+          "status": "fail",
           "details": {
             "url": "https://revibe.co.za/products/iphone-11",
-            "keywordHits": 1,
-            "keywords": [
+            "newKeywords": [],
+            "preClickKeywords": [
+              "fullProtection"
+            ],
+            "postClickKeywords": [
               "fullProtection"
             ],
             "textGrewBy": 261
@@ -561,7 +564,34 @@
             "added": [],
             "cartVids": [],
             "allPresent": false,
-            "itemCount": 0
+            "itemCount": 0,
+            "attemptLog": [
+              {
+                "handle": "/products/iphone-11",
+                "vid": null,
+                "status": "no-variant"
+              },
+              {
+                "handle": "/products/iphone-12",
+                "vid": null,
+                "status": "no-variant"
+              },
+              {
+                "handle": "/products/iphone-13",
+                "vid": null,
+                "status": "no-variant"
+              },
+              {
+                "handle": "/products/iphone-12-mini",
+                "vid": null,
+                "status": "no-variant"
+              },
+              {
+                "handle": "/products/iphone-12-pro",
+                "vid": null,
+                "status": "no-variant"
+              }
+            ]
           },
           "journey": "j3-cart",
           "journeyName": "Cart"
@@ -572,7 +602,7 @@
           "description": "Homepage LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 948,
+            "lcpMs": 1036,
             "source": "reused from j4-navigation"
           },
           "journey": "j5-speed",
@@ -596,7 +626,7 @@
           "description": "PDP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 372,
+            "lcpMs": 768,
             "source": "reused from j2-pdp"
           },
           "journey": "j5-speed",
@@ -642,7 +672,7 @@
           "description": "PDP CLS under thresholds (pass <0.1, warn 0.1-0.25, fail >0.25)",
           "status": "fail",
           "details": {
-            "cls": 0.76,
+            "cls": 1.096,
             "source": "reused from j2-pdp"
           },
           "journey": "j5-speed",
@@ -702,8 +732,8 @@
       "summary": {
         "total": 47,
         "pass": 30,
-        "warning": 1,
-        "fail": 3,
+        "warning": 0,
+        "fail": 4,
         "skip": 13,
         "passRate": 88,
         "status": "fail"
@@ -945,7 +975,7 @@
           "status": "pass",
           "details": {
             "url": "https://revibe.me/products/iphone-12-pro",
-            "lcpMs": 336
+            "lcpMs": 836
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -1036,7 +1066,7 @@
             "url": "https://revibe.me/products/iphone-12-pro",
             "source": "heading",
             "count": 0,
-            "totalOther": 0
+            "totalOther": 9
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -1107,12 +1137,15 @@
         {
           "id": "pdp-warranty-info-modal-content",
           "category": "functional",
-          "description": "Clicking the warranty (i) icon reveals Revibe Care+ content (Full Protection / Accidental Damage / Express Replacement / 24/7 Support / Revibe Care+)",
-          "status": "warning",
+          "description": "Clicking the warranty (i) icon reveals NEW Revibe Care+ content (Full Protection / Accidental Damage / Express Replacement / 24/7 Support / Revibe Care+)",
+          "status": "fail",
           "details": {
             "url": "https://revibe.me/products/iphone-12-pro",
-            "keywordHits": 1,
-            "keywords": [
+            "newKeywords": [],
+            "preClickKeywords": [
+              "fullProtection"
+            ],
+            "postClickKeywords": [
               "fullProtection"
             ],
             "textGrewBy": 261
@@ -1257,7 +1290,34 @@
             "added": [],
             "cartVids": [],
             "allPresent": false,
-            "itemCount": 0
+            "itemCount": 0,
+            "attemptLog": [
+              {
+                "handle": "/products/iphone-12-pro",
+                "vid": null,
+                "status": "no-variant"
+              },
+              {
+                "handle": "/products/iphone-13-pro-max",
+                "vid": null,
+                "status": "no-variant"
+              },
+              {
+                "handle": "/products/iphone-12-pro-max",
+                "vid": null,
+                "status": "no-variant"
+              },
+              {
+                "handle": "/products/iphone-14-pro-max",
+                "vid": null,
+                "status": "no-variant"
+              },
+              {
+                "handle": "/products/iphone-12",
+                "vid": null,
+                "status": "no-variant"
+              }
+            ]
           },
           "journey": "j3-cart",
           "journeyName": "Cart"
@@ -1268,7 +1328,7 @@
           "description": "Homepage LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 1492,
+            "lcpMs": 1084,
             "source": "reused from j4-navigation"
           },
           "journey": "j5-speed",
@@ -1280,7 +1340,7 @@
           "description": "PLP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 39,
+            "lcpMs": 38,
             "url": "https://revibe.me/collections/all"
           },
           "journey": "j5-speed",
@@ -1292,7 +1352,7 @@
           "description": "PDP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 336,
+            "lcpMs": 836,
             "source": "reused from j2-pdp"
           },
           "journey": "j5-speed",
@@ -1326,7 +1386,7 @@
           "description": "Homepage CLS under thresholds (pass <0.1, warn 0.1-0.25, fail >0.25)",
           "status": "pass",
           "details": {
-            "cls": 0,
+            "cls": 0.052,
             "source": "reused from j4-navigation"
           },
           "journey": "j5-speed",
@@ -1404,8 +1464,8 @@
       "summary": {
         "total": 47,
         "pass": 29,
-        "warning": 1,
-        "fail": 3,
+        "warning": 0,
+        "fail": 4,
         "skip": 14,
         "passRate": 88,
         "status": "fail"
@@ -1649,7 +1709,7 @@
           "status": "pass",
           "details": {
             "url": "https://sa.revibe.me/products/iphone-12-pro-max",
-            "lcpMs": 940
+            "lcpMs": 992
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -1740,7 +1800,7 @@
             "url": "https://sa.revibe.me/products/iphone-12-pro-max",
             "source": "heading",
             "count": 0,
-            "totalOther": 0
+            "totalOther": 9
           },
           "journey": "j2-pdp",
           "journeyName": "PDP"
@@ -1811,12 +1871,15 @@
         {
           "id": "pdp-warranty-info-modal-content",
           "category": "functional",
-          "description": "Clicking the warranty (i) icon reveals Revibe Care+ content (Full Protection / Accidental Damage / Express Replacement / 24/7 Support / Revibe Care+)",
-          "status": "warning",
+          "description": "Clicking the warranty (i) icon reveals NEW Revibe Care+ content (Full Protection / Accidental Damage / Express Replacement / 24/7 Support / Revibe Care+)",
+          "status": "fail",
           "details": {
             "url": "https://sa.revibe.me/products/iphone-12-pro-max",
-            "keywordHits": 1,
-            "keywords": [
+            "newKeywords": [],
+            "preClickKeywords": [
+              "fullProtection"
+            ],
+            "postClickKeywords": [
               "fullProtection"
             ],
             "textGrewBy": 261
@@ -1961,7 +2024,34 @@
             "added": [],
             "cartVids": [],
             "allPresent": false,
-            "itemCount": 0
+            "itemCount": 0,
+            "attemptLog": [
+              {
+                "handle": "/products/iphone-12-pro-max",
+                "vid": null,
+                "status": "no-variant"
+              },
+              {
+                "handle": "/products/iphone-12-pro",
+                "vid": null,
+                "status": "no-variant"
+              },
+              {
+                "handle": "/products/iphone-11",
+                "vid": null,
+                "status": "no-variant"
+              },
+              {
+                "handle": "/products/iphone-12",
+                "vid": null,
+                "status": "no-variant"
+              },
+              {
+                "handle": "/products/iphone-13-pro-max",
+                "vid": null,
+                "status": "no-variant"
+              }
+            ]
           },
           "journey": "j3-cart",
           "journeyName": "Cart"
@@ -1972,7 +2062,7 @@
           "description": "Homepage LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 2064,
+            "lcpMs": 1840,
             "source": "reused from j4-navigation"
           },
           "journey": "j5-speed",
@@ -1984,7 +2074,7 @@
           "description": "PLP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 31,
+            "lcpMs": 44,
             "url": "https://sa.revibe.me/collections/all"
           },
           "journey": "j5-speed",
@@ -1996,7 +2086,7 @@
           "description": "PDP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 940,
+            "lcpMs": 992,
             "source": "reused from j2-pdp"
           },
           "journey": "j5-speed",
