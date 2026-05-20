@@ -1,0 +1,122 @@
+name: Claude — process task queue
+
+# Runs every 4 hours and on push to .tasks/inbox/.
+# Picks the oldest task file from .tasks/inbox/, calls Claude Code to handle it,
+# moves the task file to .tasks/completed/ (or .tasks/failed/ on error),
+# and opens a PR with whatever changes Claude produced.
+on:
+  schedule:
+    - cron: '0 */4 * * *'
+  workflow_dispatch:
+  push:
+    paths:
+      - '.tasks/inbox/**'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: claude-tasks
+  cancel-in-progress: false
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: true
+          fetch-depth: 0
+
+      - name: Pick next task
+        id: pick
+        run: |
+          mkdir -p .tasks/inbox .tasks/completed .tasks/failed
+          TASK_FILE=$(ls -1 .tasks/inbox/*.md 2>/dev/null | head -1 || true)
+          if [ -z "$TASK_FILE" ]; then
+            echo "No tasks queued."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "Picked $TASK_FILE"
+          echo "task_file=$TASK_FILE" >> "$GITHUB_OUTPUT"
+          BASENAME=$(basename "$TASK_FILE" .md)
+          echo "task_name=$BASENAME" >> "$GITHUB_OUTPUT"
+          echo "branch=auto/${BASENAME}" >> "$GITHUB_OUTPUT"
+
+      - name: Setup Node 20
+        if: steps.pick.outputs.skip != 'true'
+        uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+
+      - name: Install Claude Code CLI
+        if: steps.pick.outputs.skip != 'true'
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Create branch
+        if: steps.pick.outputs.skip != 'true'
+        run: |
+          git config user.name "claude-bot"
+          git config user.email "claude@anthropic-bot.local"
+          git checkout -b "${{ steps.pick.outputs.branch }}"
+
+      - name: Run Claude on task
+        if: steps.pick.outputs.skip != 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          set -e
+          TASK_CONTENT=$(cat "${{ steps.pick.outputs.task_file }}")
+          # Prepend a standing instruction prefix so Claude knows the repo conventions.
+          PROMPT=$(cat <<EOF
+          You are working in the revibe-web-qa repo (Playwright-based QA harness).
+
+          Repo conventions:
+          - Journey files live in scripts/journeys/jXX-*.js
+          - Helpers in scripts/helpers.js; sites config in scripts/sites.js
+          - Add metadata (journeyCode, frequency, priority) to any new journey
+          - Each check returns { id, category, description, status, details }
+          - Run "node --check scripts/run-qa.js" to syntax-test before committing
+          - Do NOT run "npm run qa" (5+ min, costly); the existing daily workflow handles execution
+          - When done, write a one-paragraph summary to .tasks/completed/<task-name>.md
+
+          Task to perform:
+          ===
+          $TASK_CONTENT
+          ===
+          EOF
+          )
+          # Use Claude Code in non-interactive mode with a generous turn limit.
+          # The CLI will read/write repo files directly.
+          echo "$PROMPT" | claude-code --print --max-turns 40 --output-format json > /tmp/claude.out 2>&1 || true
+          cat /tmp/claude.out | tail -200
+
+      - name: Move task file
+        if: steps.pick.outputs.skip != 'true'
+        run: |
+          DATE=$(date -u +%F)
+          DEST=".tasks/completed/${DATE}-${{ steps.pick.outputs.task_name }}.md"
+          git mv "${{ steps.pick.outputs.task_file }}" "$DEST" || mv "${{ steps.pick.outputs.task_file }}" "$DEST"
+
+      - name: Commit and open PR
+        if: steps.pick.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes — nothing to PR."
+            exit 0
+          fi
+          git commit -m "claude: ${{ steps.pick.outputs.task_name }}"
+          git push origin "${{ steps.pick.outputs.branch }}"
+          gh pr create \
+            --title "claude: ${{ steps.pick.outputs.task_name }}" \
+            --body "Automated PR from task queue. Source task in \`.tasks/completed/\`. Review before merging." \
+            --base main \
+            --head "${{ steps.pick.outputs.branch }}" || echo "PR creation failed — check logs"
