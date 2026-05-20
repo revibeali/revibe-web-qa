@@ -2,7 +2,7 @@ name: Daily QA
 
 on:
   schedule:
-    - cron: '30 9 * * *'
+    - cron: '7 6 * * *'
   workflow_dispatch:
 
 permissions:
@@ -18,13 +18,13 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           persist-credentials: true
 
       - name: Setup Node 20
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: '20'
           cache: 'npm'
@@ -51,7 +51,13 @@ jobs:
             exit 0
           fi
           git commit -m "QA run: $DATE"
-          git push
+          # Race-safe push: rebase on remote in case main moved while QA was running.
+          # Retry up to 3 times before failing.
+          for attempt in 1 2 3; do
+            git pull --rebase origin main && git push && break
+            echo "Push attempt $attempt failed, retrying..."
+            sleep 5
+          done
 
       - name: Post summary to Slack
         if: always()
