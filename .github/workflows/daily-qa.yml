@@ -2,6 +2,19 @@ name: Daily QA
 
 on:
   workflow_dispatch:
+    inputs:
+      frequency:
+        description: 'Comma-separated frequencies (per-deploy,daily,weekly,monthly). Empty = all.'
+        required: false
+        default: ''
+      priority:
+        description: 'Comma-separated priorities (critical,major,minor). Empty = all.'
+        required: false
+        default: ''
+      journey:
+        description: 'Comma-separated journey codes (J01,J02,J03,J04,J06,J07,J08,J09,J10,J11,J12). Empty = all.'
+        required: false
+        default: ''
   schedule:
     - cron: '50 9 * * *'
 
@@ -38,6 +51,9 @@ jobs:
       - name: Run QA
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          FREQUENCY: ${{ github.event.inputs.frequency }}
+          PRIORITY: ${{ github.event.inputs.priority }}
+          JOURNEY: ${{ github.event.inputs.journey }}
         run: npm run qa
 
       - name: Commit and push reports
