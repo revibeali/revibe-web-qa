@@ -238,6 +238,66 @@ export function extractDisplayedWarranty(cardText, headingFragmentLower, currenc
   return Number.isFinite(n) ? n : null;
 }
 
+// Shared PDP-setup helper used by every PDP-family journey (J07/J08/J09/J10).
+// Idempotent — if ctx.pdpProduct is already populated, returns immediately
+// so multiple journey files can reuse a single PDP navigation per site.
+// Returns { ok, response, lcpMs, cls, product } describing the loaded PDP.
+export async function ensurePDPLoaded(page, site, ctx) {
+  if (ctx.pdpProduct?.url && ctx.pdpReady) {
+    return { ok: true, fromCache: true, product: ctx.pdpProduct, lcpMs: ctx.pdpLcpMs, cls: ctx.pdpCls };
+  }
+  // Fall back to grabbing a PLP product handle if upstream j06 didn't capture it.
+  if (!ctx.plpFirstProductPath) {
+    try {
+      await page.goto(site.baseUrl + site.plpPath, { waitUntil: 'domcontentloaded', timeout: 30000 });
+      await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
+      ctx.plpFirstProductPath = await page.evaluate(() => {
+        const a = document.querySelector('a[href*="/products/"]');
+        if (!a) return null;
+        try { return new URL(a.href).pathname; } catch (_) { return null; }
+      });
+    } catch (_) {}
+  }
+  if (!ctx.plpFirstProductPath) {
+    return { ok: false, reason: 'no-product-path' };
+  }
+  const pdpUrl = site.baseUrl + ctx.plpFirstProductPath;
+  let response, lcpMs = 0, cls = 0;
+  try {
+    const result = await measureLCP(page, pdpUrl);
+    response = result.response;
+    lcpMs = result.lcpMs;
+    cls = result.cls;
+    ctx.pdpLcpMs = lcpMs;
+    ctx.pdpCls = cls;
+  } catch (err) {
+    return { ok: false, reason: 'pdp-nav-error', error: err.message };
+  }
+  const status = response?.status() ?? 0;
+  if (status === 403 || status === 429) {
+    return { ok: false, reason: 'cdn-blocked', status };
+  }
+  if (status >= 400) {
+    return { ok: false, reason: 'http-error', status };
+  }
+  const product = await fetchShopifyProductJson(page, ctx.plpFirstProductPath);
+  if (!product || !product.variants || product.variants.length === 0) {
+    return { ok: false, reason: 'no-product-json', response, lcpMs, cls };
+  }
+  const variant = product.variants[0];
+  ctx.pdpProduct = {
+    handle: product.handle,
+    title: product.title,
+    url: pdpUrl,
+    price: Math.round(variant.price / 100),
+    compare: variant.compare_at_price ? Math.round(variant.compare_at_price / 100) : 0,
+    variantId: variant.id,
+    product,
+  };
+  ctx.pdpReady = true;
+  return { ok: true, response, lcpMs, cls, product: ctx.pdpProduct };
+}
+
 export async function getWarrantyCardText(page, headingFragmentLower) {
   return await page.evaluate((heading) => {
     // Find the smallest (most-specific) element whose textContent includes the heading,
