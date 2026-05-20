@@ -1,7 +1,7 @@
 {
   "date": "2026-05-20",
-  "timestamp": "2026-05-20T12:58:25.031Z",
-  "runTimeMs": 344020,
+  "timestamp": "2026-05-20T13:07:26.026Z",
+  "runTimeMs": 588076,
   "filter": {
     "frequency": [],
     "priority": [],
@@ -16,22 +16,22 @@
       "name": "revibe.co.za",
       "region": "South Africa",
       "summary": {
-        "total": 52,
-        "pass": 31,
+        "total": 50,
+        "pass": 14,
         "warning": 0,
-        "fail": 4,
+        "fail": 19,
         "skip": 17,
-        "passRate": 89,
+        "passRate": 42,
         "status": "fail"
       },
       "checks": [
         {
           "id": "homepage-loads",
-          "category": "functional",
-          "description": "Homepage loads with 2xx response",
-          "status": "pass",
+          "category": "meta",
+          "description": "homepage-loads",
+          "status": "fail",
           "details": {
-            "status": 200
+            "error": "Homepage failed to load: page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://revibe.co.za/\", waiting until \"load\"\n"
           },
           "journey": "j02-site-health",
           "journeyName": "Navigation & Page Health",
@@ -41,15 +41,11 @@
         },
         {
           "id": "currency-present",
-          "category": "localization",
-          "description": "Currency ZAR appears on homepage",
-          "status": "pass",
+          "category": "meta",
+          "description": "currency-present",
+          "status": "fail",
           "details": {
-            "expectedSymbols": [
-              "R",
-              "ZAR"
-            ],
-            "foundSymbol": "R"
+            "error": "Homepage failed to load: page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://revibe.co.za/\", waiting until \"load\"\n"
           },
           "journey": "j02-site-health",
           "journeyName": "Navigation & Page Health",
@@ -59,12 +55,11 @@
         },
         {
           "id": "homepage-broken-images",
-          "category": "visual",
-          "description": "No broken images on homepage (post-lazy-load scroll)",
-          "status": "pass",
+          "category": "meta",
+          "description": "homepage-broken-images",
+          "status": "fail",
           "details": {
-            "count": 0,
-            "sampleUrls": []
+            "error": "Homepage failed to load: page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://revibe.co.za/\", waiting until \"load\"\n"
           },
           "journey": "j02-site-health",
           "journeyName": "Navigation & Page Health",
@@ -74,34 +69,11 @@
         },
         {
           "id": "internal-links-no-4xx",
-          "category": "functional",
-          "description": "Sample of internal links from homepage return 2xx/3xx",
-          "status": "pass",
+          "category": "meta",
+          "description": "internal-links-no-4xx",
+          "status": "fail",
           "details": {
-            "sampled": 5,
-            "badCount": 0,
-            "results": [
-              {
-                "url": "https://revibe.co.za/pages/my-account",
-                "status": 200
-              },
-              {
-                "url": "https://revibe.co.za/pages/wishlist",
-                "status": 200
-              },
-              {
-                "url": "https://revibe.co.za/cart",
-                "status": 200
-              },
-              {
-                "url": "https://revibe.co.za/collections/hot-deals",
-                "status": 200
-              },
-              {
-                "url": "https://revibe.co.za/collections/refurbished-iphones",
-                "status": 200
-              }
-            ]
+            "error": "Homepage failed to load: page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://revibe.co.za/\", waiting until \"load\"\n"
           },
           "journey": "j02-site-health",
           "journeyName": "Navigation & Page Health",
@@ -111,64 +83,11 @@
         },
         {
           "id": "header-nav-multi-items",
-          "category": "functional",
-          "description": "Header/nav contains multiple links (≥3 distinct hrefs)",
-          "status": "pass",
+          "category": "meta",
+          "description": "header-nav-multi-items",
+          "status": "fail",
           "details": {
-            "count": 51
-          },
-          "journey": "j02-site-health",
-          "journeyName": "Navigation & Page Health",
-          "journeyCode": "J02",
-          "journeyFrequency": "daily",
-          "journeyPriority": "critical"
-        },
-        {
-          "id": "footer-no-4xx",
-          "category": "functional",
-          "description": "Sample of footer links return 2xx/3xx",
-          "status": "pass",
-          "details": {
-            "sampled": 5,
-            "badCount": 0,
-            "results": [
-              {
-                "url": "https://revibe.co.za/pages/about-us",
-                "status": 200
-              },
-              {
-                "url": "https://revibe.co.za/collections/all",
-                "status": 200
-              },
-              {
-                "url": "https://revibe.co.za/pages/become-a-seller",
-                "status": 200
-              },
-              {
-                "url": "https://revibe.co.za/pages/contact",
-                "status": 200
-              },
-              {
-                "url": "https://revibe.co.za/pages/terms-and-conditions",
-                "status": 200
-              }
-            ],
-            "todo": null
-          },
-          "journey": "j02-site-health",
-          "journeyName": "Navigation & Page Health",
-          "journeyCode": "J02",
-          "journeyFrequency": "daily",
-          "journeyPriority": "critical"
-        },
-        {
-          "id": "mobile-hamburger-present",
-          "category": "functional",
-          "description": "Mobile hamburger / menu trigger present in header",
-          "status": "pass",
-          "details": {
-            "present": true,
-            "sample": "<a href=\"/collections/hot-deals\" class=\"menu-lv-1__action header__menu-item header__menu-item list-menu__item link link-"
+            "error": "Homepage failed to load: page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://revibe.co.za/\", waiting until \"load\"\n"
           },
           "journey": "j02-site-health",
           "journeyName": "Navigation & Page Health",
@@ -282,12 +201,12 @@
         },
         {
           "id": "pdp-loads",
-          "category": "functional",
-          "description": "PDP loads with 2xx response",
-          "status": "pass",
+          "category": "meta",
+          "description": "pdp-loads",
+          "status": "fail",
           "details": {
-            "url": "https://revibe.co.za/products/iphone-11",
-            "status": 200
+            "todo": null,
+            "error": "pdp-nav-error"
           },
           "journey": "j07-pdp-variant-pricing",
           "journeyName": "PDP Variant & Pricing",
@@ -297,15 +216,12 @@
         },
         {
           "id": "pdp-compare-gt-price",
-          "category": "math",
-          "description": "PDP compare-at price is greater than actual price",
-          "status": "pass",
+          "category": "meta",
+          "description": "pdp-compare-gt-price",
+          "status": "fail",
           "details": {
-            "url": "https://revibe.co.za/products/iphone-11",
-            "title": "iPhone 11",
-            "price": 4299,
-            "compare": 8200,
-            "currency": "ZAR"
+            "todo": null,
+            "error": "pdp-nav-error"
           },
           "journey": "j07-pdp-variant-pricing",
           "journeyName": "PDP Variant & Pricing",
@@ -315,11 +231,12 @@
         },
         {
           "id": "pdp-variant-url-changes-price",
-          "category": "functional",
-          "description": "Navigating ?variant=<id> shows that variant's price",
-          "status": "skip",
+          "category": "meta",
+          "description": "pdp-variant-url-changes-price",
+          "status": "fail",
           "details": {
-            "todo": "Product has only one variant"
+            "todo": null,
+            "error": "pdp-nav-error"
           },
           "journey": "j07-pdp-variant-pricing",
           "journeyName": "PDP Variant & Pricing",
@@ -329,12 +246,12 @@
         },
         {
           "id": "pdp-warranty-heading",
-          "category": "content",
-          "description": "Warranty card heading \"Get full protection and warranty for 24 months\" present on PDP",
-          "status": "pass",
+          "category": "meta",
+          "description": "pdp-warranty-heading",
+          "status": "fail",
           "details": {
-            "url": "https://revibe.co.za/products/iphone-11",
-            "found": true
+            "todo": null,
+            "error": "pdp-nav-error"
           },
           "journey": "j08-pdp-widgets-trust",
           "journeyName": "PDP Widgets & Trust",
@@ -344,19 +261,12 @@
         },
         {
           "id": "pdp-warranty-tier-math",
-          "category": "math",
-          "description": "Displayed warranty price matches canonical tier for product price",
-          "status": "pass",
+          "category": "meta",
+          "description": "pdp-warranty-tier-math",
+          "status": "fail",
           "details": {
-            "url": "https://revibe.co.za/products/iphone-11",
-            "productPrice": 4299,
-            "expectedWarranty": 400,
-            "displayedWarranty": 400,
-            "currency": "ZAR",
-            "match": true,
-            "tierHandle": "2-years-extended-warranty-plan-2",
-            "tierProductId": 49083439841568,
-            "cardSnippet": "Color: Black\n \n \n \n \n \nStorage: 64 GB\n64 GB\n128 GB\n256 GB\nCondition: Good\nCondition Guide\nGood\nR 4,299\nR 400 Cashback\nVery Good\nR 4,699\nExcellent\nR 4,899\nGet full protection and warranty for 24 months\nFull protection (incl. misuse) - Protect against any damage or accident and extend your warranty for 2 years\nR 400\nShop Now, Pay Later!\n   \n R 400 Cashback\nBuy Now\nAdd to Cart\n\n12 months warranty\n\nR "
+            "todo": null,
+            "error": "pdp-nav-error"
           },
           "journey": "j08-pdp-widgets-trust",
           "journeyName": "PDP Widgets & Trust",
@@ -366,15 +276,12 @@
         },
         {
           "id": "pdp-cashback-reasonable",
-          "category": "content",
-          "description": "Cashback widget present AND amount > 0 (skipped while feature On Hold per QA doc)",
-          "status": "pass",
+          "category": "meta",
+          "description": "pdp-cashback-reasonable",
+          "status": "fail",
           "details": {
-            "url": "https://revibe.co.za/products/iphone-11",
             "todo": null,
-            "present": true,
-            "amount": 4.29,
-            "snippet": "Good\nCondition Guide\nGood\nR 4,299\nR 400 Cashback\nVery Good\nR 4,699\nExcellent\nR 4,899\nGet full protection and warranty for 24 months\nFull pro"
+            "error": "pdp-nav-error"
           },
           "journey": "j08-pdp-widgets-trust",
           "journeyName": "PDP Widgets & Trust",
@@ -384,16 +291,12 @@
         },
         {
           "id": "pdp-trustpilot-present",
-          "category": "content",
-          "description": "Trustpilot widget rendered with non-zero review count",
-          "status": "pass",
+          "category": "meta",
+          "description": "pdp-trustpilot-present",
+          "status": "fail",
           "details": {
-            "url": "https://revibe.co.za/products/iphone-11",
-            "hasHeading": true,
-            "hasText": true,
-            "widgetUrl": false,
-            "count": 1,
-            "todo": null
+            "todo": null,
+            "error": "pdp-nav-error"
           },
           "journey": "j08-pdp-widgets-trust",
           "journeyName": "PDP Widgets & Trust",
@@ -403,18 +306,12 @@
         },
         {
           "id": "pdp-usp-icons-all-four",
-          "category": "content",
-          "description": "PDP USP strip mentions Certified · Unlocked · 12 Months Warranty · Free Delivery (≥3 of 4)",
-          "status": "pass",
+          "category": "meta",
+          "description": "pdp-usp-icons-all-four",
+          "status": "fail",
           "details": {
-            "url": "https://revibe.co.za/products/iphone-11",
-            "items": {
-              "certified": true,
-              "unlocked": true,
-              "warranty12": true,
-              "freeDelivery": true
-            },
-            "count": 4
+            "todo": null,
+            "error": "pdp-nav-error"
           },
           "journey": "j08-pdp-widgets-trust",
           "journeyName": "PDP Widgets & Trust",
@@ -424,12 +321,12 @@
         },
         {
           "id": "pdp-supplier-click-resolves",
-          "category": "functional",
-          "description": "Supplier widget present and clicking it opens a real page",
-          "status": "skip",
+          "category": "meta",
+          "description": "pdp-supplier-click-resolves",
+          "status": "fail",
           "details": {
-            "url": "https://revibe.co.za/products/iphone-11",
-            "todo": "No supplier widget detected on PDP"
+            "todo": null,
+            "error": "pdp-nav-error"
           },
           "journey": "j08-pdp-widgets-trust",
           "journeyName": "PDP Widgets & Trust",
@@ -439,15 +336,12 @@
         },
         {
           "id": "pdp-cashback-visible",
-          "category": "visual",
-          "description": "Cashback element is actually rendered (not display:none / zero-sized)",
-          "status": "pass",
+          "category": "meta",
+          "description": "pdp-cashback-visible",
+          "status": "fail",
           "details": {
-            "url": "https://revibe.co.za/products/iphone-11",
             "todo": null,
-            "nodeCount": 55,
-            "visible": true,
-            "smallestVisibleArea": 3024
+            "error": "pdp-nav-error"
           },
           "journey": "j08-pdp-widgets-trust",
           "journeyName": "PDP Widgets & Trust",
@@ -793,10 +687,9 @@
           "id": "homepage-lcp",
           "category": "performance",
           "description": "Homepage LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
-          "status": "pass",
+          "status": "skip",
           "details": {
-            "lcpMs": 1068,
-            "source": "reused from j4-navigation"
+            "todo": "homepage-lcp not captured by earlier journey"
           },
           "journey": "j03-performance",
           "journeyName": "Page Speed (LCP across journeys)",
@@ -810,7 +703,7 @@
           "description": "PLP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 32,
+            "lcpMs": 40,
             "url": "https://revibe.co.za/collections/all"
           },
           "journey": "j03-performance",
@@ -825,7 +718,7 @@
           "description": "PDP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 756,
+            "lcpMs": 316,
             "source": "reused from j2-pdp"
           },
           "journey": "j03-performance",
@@ -866,10 +759,9 @@
           "id": "homepage-cls",
           "category": "performance",
           "description": "Homepage CLS under thresholds (pass <0.1, warn 0.1-0.25, fail >0.25)",
-          "status": "pass",
+          "status": "skip",
           "details": {
-            "cls": 0,
-            "source": "reused from j4-navigation"
+            "todo": "homepage-cls not captured by earlier journey"
           },
           "journey": "j03-performance",
           "journeyName": "Page Speed (LCP across journeys)",
@@ -883,7 +775,7 @@
           "description": "PDP CLS under thresholds (pass <0.1, warn 0.1-0.25, fail >0.25)",
           "status": "fail",
           "details": {
-            "cls": 0.765,
+            "cls": 1.499,
             "source": "reused from j2-pdp"
           },
           "journey": "j03-performance",
@@ -999,22 +891,22 @@
       "name": "revibe.me",
       "region": "United Arab Emirates",
       "summary": {
-        "total": 52,
-        "pass": 33,
+        "total": 50,
+        "pass": 16,
         "warning": 0,
-        "fail": 4,
-        "skip": 15,
-        "passRate": 89,
+        "fail": 18,
+        "skip": 16,
+        "passRate": 47,
         "status": "fail"
       },
       "checks": [
         {
           "id": "homepage-loads",
-          "category": "functional",
-          "description": "Homepage loads with 2xx response",
-          "status": "pass",
+          "category": "meta",
+          "description": "homepage-loads",
+          "status": "fail",
           "details": {
-            "status": 200
+            "error": "Homepage failed to load: page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://revibe.me/\", waiting until \"load\"\n"
           },
           "journey": "j02-site-health",
           "journeyName": "Navigation & Page Health",
@@ -1024,15 +916,11 @@
         },
         {
           "id": "currency-present",
-          "category": "localization",
-          "description": "Currency AED appears on homepage",
-          "status": "pass",
+          "category": "meta",
+          "description": "currency-present",
+          "status": "fail",
           "details": {
-            "expectedSymbols": [
-              "AED",
-              "د.إ"
-            ],
-            "foundSymbol": "AED"
+            "error": "Homepage failed to load: page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://revibe.me/\", waiting until \"load\"\n"
           },
           "journey": "j02-site-health",
           "journeyName": "Navigation & Page Health",
@@ -1042,12 +930,11 @@
         },
         {
           "id": "homepage-broken-images",
-          "category": "visual",
-          "description": "No broken images on homepage (post-lazy-load scroll)",
-          "status": "pass",
+          "category": "meta",
+          "description": "homepage-broken-images",
+          "status": "fail",
           "details": {
-            "count": 0,
-            "sampleUrls": []
+            "error": "Homepage failed to load: page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://revibe.me/\", waiting until \"load\"\n"
           },
           "journey": "j02-site-health",
           "journeyName": "Navigation & Page Health",
@@ -1057,34 +944,11 @@
         },
         {
           "id": "internal-links-no-4xx",
-          "category": "functional",
-          "description": "Sample of internal links from homepage return 2xx/3xx",
-          "status": "pass",
+          "category": "meta",
+          "description": "internal-links-no-4xx",
+          "status": "fail",
           "details": {
-            "sampled": 5,
-            "badCount": 0,
-            "results": [
-              {
-                "url": "https://revibe.me/pages/order-tracking",
-                "status": 200
-              },
-              {
-                "url": "https://revibe.me/pages/my-account",
-                "status": 200
-              },
-              {
-                "url": "https://revibe.me/pages/wishlist",
-                "status": 200
-              },
-              {
-                "url": "https://revibe.me/cart",
-                "status": 200
-              },
-              {
-                "url": "https://revibe.me/collections/eid-deals",
-                "status": 200
-              }
-            ]
+            "error": "Homepage failed to load: page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://revibe.me/\", waiting until \"load\"\n"
           },
           "journey": "j02-site-health",
           "journeyName": "Navigation & Page Health",
@@ -1094,64 +958,11 @@
         },
         {
           "id": "header-nav-multi-items",
-          "category": "functional",
-          "description": "Header/nav contains multiple links (≥3 distinct hrefs)",
-          "status": "pass",
+          "category": "meta",
+          "description": "header-nav-multi-items",
+          "status": "fail",
           "details": {
-            "count": 63
-          },
-          "journey": "j02-site-health",
-          "journeyName": "Navigation & Page Health",
-          "journeyCode": "J02",
-          "journeyFrequency": "daily",
-          "journeyPriority": "critical"
-        },
-        {
-          "id": "footer-no-4xx",
-          "category": "functional",
-          "description": "Sample of footer links return 2xx/3xx",
-          "status": "pass",
-          "details": {
-            "sampled": 5,
-            "badCount": 0,
-            "results": [
-              {
-                "url": "https://revibe.me/pages/about-us",
-                "status": 200
-              },
-              {
-                "url": "https://revibe.me/collections/all",
-                "status": 200
-              },
-              {
-                "url": "https://revibe.me/blogs/posts",
-                "status": 200
-              },
-              {
-                "url": "https://revibe.me/pages/become-a-seller",
-                "status": 200
-              },
-              {
-                "url": "https://revibe.me/blogs/revibe-reviews",
-                "status": 200
-              }
-            ],
-            "todo": null
-          },
-          "journey": "j02-site-health",
-          "journeyName": "Navigation & Page Health",
-          "journeyCode": "J02",
-          "journeyFrequency": "daily",
-          "journeyPriority": "critical"
-        },
-        {
-          "id": "mobile-hamburger-present",
-          "category": "functional",
-          "description": "Mobile hamburger / menu trigger present in header",
-          "status": "pass",
-          "details": {
-            "present": true,
-            "sample": "<a href=\"/collections/eid-deals\" class=\"menu-lv-1__action header__menu-item header__menu-item list-menu__item link link-"
+            "error": "Homepage failed to load: page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://revibe.me/\", waiting until \"load\"\n"
           },
           "journey": "j02-site-health",
           "journeyName": "Navigation & Page Health",
@@ -1263,12 +1074,12 @@
         },
         {
           "id": "pdp-loads",
-          "category": "functional",
-          "description": "PDP loads with 2xx response",
-          "status": "pass",
+          "category": "meta",
+          "description": "pdp-loads",
+          "status": "fail",
           "details": {
-            "url": "https://revibe.me/products/iphone-12-pro",
-            "status": 200
+            "todo": null,
+            "error": "pdp-nav-error"
           },
           "journey": "j07-pdp-variant-pricing",
           "journeyName": "PDP Variant & Pricing",
@@ -1278,15 +1089,12 @@
         },
         {
           "id": "pdp-compare-gt-price",
-          "category": "math",
-          "description": "PDP compare-at price is greater than actual price",
-          "status": "pass",
+          "category": "meta",
+          "description": "pdp-compare-gt-price",
+          "status": "fail",
           "details": {
-            "url": "https://revibe.me/products/iphone-12-pro",
-            "title": "iPhone 12 Pro",
-            "price": 959,
-            "compare": 1540,
-            "currency": "AED"
+            "todo": null,
+            "error": "pdp-nav-error"
           },
           "journey": "j07-pdp-variant-pricing",
           "journeyName": "PDP Variant & Pricing",
@@ -1296,11 +1104,12 @@
         },
         {
           "id": "pdp-variant-url-changes-price",
-          "category": "functional",
-          "description": "Navigating ?variant=<id> shows that variant's price",
-          "status": "skip",
+          "category": "meta",
+          "description": "pdp-variant-url-changes-price",
+          "status": "fail",
           "details": {
-            "todo": "Product has only one variant"
+            "todo": null,
+            "error": "pdp-nav-error"
           },
           "journey": "j07-pdp-variant-pricing",
           "journeyName": "PDP Variant & Pricing",
@@ -1310,12 +1119,12 @@
         },
         {
           "id": "pdp-warranty-heading",
-          "category": "content",
-          "description": "Warranty card heading \"Get full protection and warranty for 24 months\" present on PDP",
-          "status": "pass",
+          "category": "meta",
+          "description": "pdp-warranty-heading",
+          "status": "fail",
           "details": {
-            "url": "https://revibe.me/products/iphone-12-pro",
-            "found": true
+            "todo": null,
+            "error": "pdp-nav-error"
           },
           "journey": "j08-pdp-widgets-trust",
           "journeyName": "PDP Widgets & Trust",
@@ -1325,19 +1134,12 @@
         },
         {
           "id": "pdp-warranty-tier-math",
-          "category": "math",
-          "description": "Displayed warranty price matches canonical tier for product price",
-          "status": "pass",
+          "category": "meta",
+          "description": "pdp-warranty-tier-math",
+          "status": "fail",
           "details": {
-            "url": "https://revibe.me/products/iphone-12-pro",
-            "productPrice": 959,
-            "expectedWarranty": 85,
-            "displayedWarranty": 85,
-            "currency": "AED",
-            "match": true,
-            "tierHandle": "2-years-extended-warranty-plan-2",
-            "tierProductId": 45577073656127,
-            "cardSnippet": "Color: Graphite\n \n \n \nStorage: 128 GB\n128 GB\n256 GB\n512 GB\nCondition: Good\nCondition Guide\nGood\nAED 959\n200 AED Cashback\nVery Good\nAED 1,069\nExcellent\nAED 1,099\nGet full protection and warranty for 24 months\nFull protection (incl. misuse) - Protect against any damage or accident and extend your warranty for 2 years\nAED 85\nShop Now, Pay Later!\n \n 200 AED Cashback\nAdd to Cart\nAuthenticated & sold by"
+            "todo": null,
+            "error": "pdp-nav-error"
           },
           "journey": "j08-pdp-widgets-trust",
           "journeyName": "PDP Widgets & Trust",
@@ -1347,15 +1149,12 @@
         },
         {
           "id": "pdp-cashback-reasonable",
-          "category": "content",
-          "description": "Cashback widget present AND amount > 0 (skipped while feature On Hold per QA doc)",
-          "status": "pass",
+          "category": "meta",
+          "description": "pdp-cashback-reasonable",
+          "status": "fail",
           "details": {
-            "url": "https://revibe.me/products/iphone-12-pro",
             "todo": null,
-            "present": true,
-            "amount": 200,
-            "snippet": "DER WITH CODE EIDGIFT AND ENJOY 200 AED CASHBACK AT CHECKOUT!\n150,000+ Customers\nExcellent\niPhone 12 Pro\nAdd to wishlist\nRenewed\n-38% vs new"
+            "error": "pdp-nav-error"
           },
           "journey": "j08-pdp-widgets-trust",
           "journeyName": "PDP Widgets & Trust",
@@ -1365,16 +1164,12 @@
         },
         {
           "id": "pdp-trustpilot-present",
-          "category": "content",
-          "description": "Trustpilot widget rendered with non-zero review count",
-          "status": "pass",
+          "category": "meta",
+          "description": "pdp-trustpilot-present",
+          "status": "fail",
           "details": {
-            "url": "https://revibe.me/products/iphone-12-pro",
-            "hasHeading": true,
-            "hasText": true,
-            "widgetUrl": false,
-            "count": 1,
-            "todo": null
+            "todo": null,
+            "error": "pdp-nav-error"
           },
           "journey": "j08-pdp-widgets-trust",
           "journeyName": "PDP Widgets & Trust",
@@ -1384,18 +1179,12 @@
         },
         {
           "id": "pdp-usp-icons-all-four",
-          "category": "content",
-          "description": "PDP USP strip mentions Certified · Unlocked · 12 Months Warranty · Free Delivery (≥3 of 4)",
-          "status": "pass",
+          "category": "meta",
+          "description": "pdp-usp-icons-all-four",
+          "status": "fail",
           "details": {
-            "url": "https://revibe.me/products/iphone-12-pro",
-            "items": {
-              "certified": true,
-              "unlocked": true,
-              "warranty12": true,
-              "freeDelivery": true
-            },
-            "count": 4
+            "todo": null,
+            "error": "pdp-nav-error"
           },
           "journey": "j08-pdp-widgets-trust",
           "journeyName": "PDP Widgets & Trust",
@@ -1405,18 +1194,12 @@
         },
         {
           "id": "pdp-supplier-click-resolves",
-          "category": "functional",
-          "description": "Supplier widget present and the supplier link resolves to 2xx/3xx",
-          "status": "pass",
+          "category": "meta",
+          "description": "pdp-supplier-click-resolves",
+          "status": "fail",
           "details": {
-            "url": "https://revibe.me/products/iphone-12-pro",
-            "supplier": {
-              "name": "Skip To Content",
-              "href": "#MainContent",
-              "absHref": "https://revibe.me/products/iphone-12-pro?variant=45726108418367#MainContent"
-            },
-            "linkStatus": 200,
-            "error": null
+            "todo": null,
+            "error": "pdp-nav-error"
           },
           "journey": "j08-pdp-widgets-trust",
           "journeyName": "PDP Widgets & Trust",
@@ -1426,15 +1209,12 @@
         },
         {
           "id": "pdp-cashback-visible",
-          "category": "visual",
-          "description": "Cashback element is actually rendered (not display:none / zero-sized)",
-          "status": "pass",
+          "category": "meta",
+          "description": "pdp-cashback-visible",
+          "status": "fail",
           "details": {
-            "url": "https://revibe.me/products/iphone-12-pro",
             "todo": null,
-            "nodeCount": 59,
-            "visible": true,
-            "smallestVisibleArea": 5366
+            "error": "pdp-nav-error"
           },
           "journey": "j08-pdp-widgets-trust",
           "journeyName": "PDP Widgets & Trust",
@@ -1778,10 +1558,9 @@
           "id": "homepage-lcp",
           "category": "performance",
           "description": "Homepage LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
-          "status": "pass",
+          "status": "skip",
           "details": {
-            "lcpMs": 1568,
-            "source": "reused from j4-navigation"
+            "todo": "homepage-lcp not captured by earlier journey"
           },
           "journey": "j03-performance",
           "journeyName": "Page Speed (LCP across journeys)",
@@ -1795,7 +1574,7 @@
           "description": "PLP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 39,
+            "lcpMs": 35,
             "url": "https://revibe.me/collections/all"
           },
           "journey": "j03-performance",
@@ -1810,7 +1589,7 @@
           "description": "PDP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 864,
+            "lcpMs": 424,
             "source": "reused from j2-pdp"
           },
           "journey": "j03-performance",
@@ -1851,10 +1630,9 @@
           "id": "homepage-cls",
           "category": "performance",
           "description": "Homepage CLS under thresholds (pass <0.1, warn 0.1-0.25, fail >0.25)",
-          "status": "pass",
+          "status": "skip",
           "details": {
-            "cls": 0,
-            "source": "reused from j4-navigation"
+            "todo": "homepage-cls not captured by earlier journey"
           },
           "journey": "j03-performance",
           "journeyName": "Page Speed (LCP across journeys)",
@@ -1866,9 +1644,9 @@
           "id": "pdp-cls",
           "category": "performance",
           "description": "PDP CLS under thresholds (pass <0.1, warn 0.1-0.25, fail >0.25)",
-          "status": "fail",
+          "status": "pass",
           "details": {
-            "cls": 0.685,
+            "cls": 0.021,
             "source": "reused from j2-pdp"
           },
           "journey": "j03-performance",
@@ -1990,22 +1768,22 @@
       "name": "sa.revibe.me",
       "region": "Saudi Arabia",
       "summary": {
-        "total": 52,
-        "pass": 33,
+        "total": 50,
+        "pass": 14,
         "warning": 0,
-        "fail": 3,
-        "skip": 16,
-        "passRate": 92,
+        "fail": 19,
+        "skip": 17,
+        "passRate": 42,
         "status": "fail"
       },
       "checks": [
         {
           "id": "homepage-loads",
-          "category": "functional",
-          "description": "Homepage loads with 2xx response",
-          "status": "pass",
+          "category": "meta",
+          "description": "homepage-loads",
+          "status": "fail",
           "details": {
-            "status": 200
+            "error": "Homepage failed to load: page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://sa.revibe.me/\", waiting until \"load\"\n"
           },
           "journey": "j02-site-health",
           "journeyName": "Navigation & Page Health",
@@ -2015,15 +1793,11 @@
         },
         {
           "id": "currency-present",
-          "category": "localization",
-          "description": "Currency SAR appears on homepage",
-          "status": "pass",
+          "category": "meta",
+          "description": "currency-present",
+          "status": "fail",
           "details": {
-            "expectedSymbols": [
-              "SAR",
-              "ر.س"
-            ],
-            "foundSymbol": "SAR"
+            "error": "Homepage failed to load: page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://sa.revibe.me/\", waiting until \"load\"\n"
           },
           "journey": "j02-site-health",
           "journeyName": "Navigation & Page Health",
@@ -2033,12 +1807,11 @@
         },
         {
           "id": "homepage-broken-images",
-          "category": "visual",
-          "description": "No broken images on homepage (post-lazy-load scroll)",
-          "status": "pass",
+          "category": "meta",
+          "description": "homepage-broken-images",
+          "status": "fail",
           "details": {
-            "count": 0,
-            "sampleUrls": []
+            "error": "Homepage failed to load: page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://sa.revibe.me/\", waiting until \"load\"\n"
           },
           "journey": "j02-site-health",
           "journeyName": "Navigation & Page Health",
@@ -2048,34 +1821,11 @@
         },
         {
           "id": "internal-links-no-4xx",
-          "category": "functional",
-          "description": "Sample of internal links from homepage return 2xx/3xx",
-          "status": "pass",
+          "category": "meta",
+          "description": "internal-links-no-4xx",
+          "status": "fail",
           "details": {
-            "sampled": 5,
-            "badCount": 0,
-            "results": [
-              {
-                "url": "https://sa.revibe.me/pages/my-account",
-                "status": 200
-              },
-              {
-                "url": "https://sa.revibe.me/pages/wishlist",
-                "status": 200
-              },
-              {
-                "url": "https://sa.revibe.me/cart",
-                "status": 200
-              },
-              {
-                "url": "https://sa.revibe.me/collections/eid-deals",
-                "status": 200
-              },
-              {
-                "url": "https://sa.revibe.me/collections/refurbished-iphones",
-                "status": 200
-              }
-            ]
+            "error": "Homepage failed to load: page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://sa.revibe.me/\", waiting until \"load\"\n"
           },
           "journey": "j02-site-health",
           "journeyName": "Navigation & Page Health",
@@ -2085,64 +1835,11 @@
         },
         {
           "id": "header-nav-multi-items",
-          "category": "functional",
-          "description": "Header/nav contains multiple links (≥3 distinct hrefs)",
-          "status": "pass",
+          "category": "meta",
+          "description": "header-nav-multi-items",
+          "status": "fail",
           "details": {
-            "count": 58
-          },
-          "journey": "j02-site-health",
-          "journeyName": "Navigation & Page Health",
-          "journeyCode": "J02",
-          "journeyFrequency": "daily",
-          "journeyPriority": "critical"
-        },
-        {
-          "id": "footer-no-4xx",
-          "category": "functional",
-          "description": "Sample of footer links return 2xx/3xx",
-          "status": "pass",
-          "details": {
-            "sampled": 5,
-            "badCount": 0,
-            "results": [
-              {
-                "url": "https://sa.revibe.me/pages/about-us",
-                "status": 200
-              },
-              {
-                "url": "https://sa.revibe.me/collections/all",
-                "status": 200
-              },
-              {
-                "url": "https://sa.revibe.me/blogs/news",
-                "status": 200
-              },
-              {
-                "url": "https://sa.revibe.me/pages/become-a-seller",
-                "status": 200
-              },
-              {
-                "url": "https://sa.revibe.me/pages/contact",
-                "status": 200
-              }
-            ],
-            "todo": null
-          },
-          "journey": "j02-site-health",
-          "journeyName": "Navigation & Page Health",
-          "journeyCode": "J02",
-          "journeyFrequency": "daily",
-          "journeyPriority": "critical"
-        },
-        {
-          "id": "mobile-hamburger-present",
-          "category": "functional",
-          "description": "Mobile hamburger / menu trigger present in header",
-          "status": "pass",
-          "details": {
-            "present": true,
-            "sample": "<a href=\"/collections/eid-deals\" class=\"menu-lv-1__action header__menu-item header__menu-item list-menu__item link link-"
+            "error": "Homepage failed to load: page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://sa.revibe.me/\", waiting until \"load\"\n"
           },
           "journey": "j02-site-health",
           "journeyName": "Navigation & Page Health",
@@ -2256,12 +1953,12 @@
         },
         {
           "id": "pdp-loads",
-          "category": "functional",
-          "description": "PDP loads with 2xx response",
-          "status": "pass",
+          "category": "meta",
+          "description": "pdp-loads",
+          "status": "fail",
           "details": {
-            "url": "https://sa.revibe.me/products/iphone-12-pro-max",
-            "status": 200
+            "todo": null,
+            "error": "pdp-nav-error"
           },
           "journey": "j07-pdp-variant-pricing",
           "journeyName": "PDP Variant & Pricing",
@@ -2271,15 +1968,12 @@
         },
         {
           "id": "pdp-compare-gt-price",
-          "category": "math",
-          "description": "PDP compare-at price is greater than actual price",
-          "status": "pass",
+          "category": "meta",
+          "description": "pdp-compare-gt-price",
+          "status": "fail",
           "details": {
-            "url": "https://sa.revibe.me/products/iphone-12-pro-max",
-            "title": "iPhone 12 Pro Max",
-            "price": 1199,
-            "compare": 2475,
-            "currency": "SAR"
+            "todo": null,
+            "error": "pdp-nav-error"
           },
           "journey": "j07-pdp-variant-pricing",
           "journeyName": "PDP Variant & Pricing",
@@ -2289,11 +1983,12 @@
         },
         {
           "id": "pdp-variant-url-changes-price",
-          "category": "functional",
-          "description": "Navigating ?variant=<id> shows that variant's price",
-          "status": "skip",
+          "category": "meta",
+          "description": "pdp-variant-url-changes-price",
+          "status": "fail",
           "details": {
-            "todo": "Product has only one variant"
+            "todo": null,
+            "error": "pdp-nav-error"
           },
           "journey": "j07-pdp-variant-pricing",
           "journeyName": "PDP Variant & Pricing",
@@ -2303,12 +1998,12 @@
         },
         {
           "id": "pdp-warranty-heading",
-          "category": "content",
-          "description": "Warranty card heading \"Get full protection and warranty for 24 months\" present on PDP",
-          "status": "pass",
+          "category": "meta",
+          "description": "pdp-warranty-heading",
+          "status": "fail",
           "details": {
-            "url": "https://sa.revibe.me/products/iphone-12-pro-max",
-            "found": true
+            "todo": null,
+            "error": "pdp-nav-error"
           },
           "journey": "j08-pdp-widgets-trust",
           "journeyName": "PDP Widgets & Trust",
@@ -2318,19 +2013,12 @@
         },
         {
           "id": "pdp-warranty-tier-math",
-          "category": "math",
-          "description": "Displayed warranty price matches canonical tier for product price",
-          "status": "pass",
+          "category": "meta",
+          "description": "pdp-warranty-tier-math",
+          "status": "fail",
           "details": {
-            "url": "https://sa.revibe.me/products/iphone-12-pro-max",
-            "productPrice": 1199,
-            "expectedWarranty": 95,
-            "displayedWarranty": 95,
-            "currency": "SAR",
-            "match": true,
-            "tierHandle": "2-years-extended-warranty-plan",
-            "tierProductId": 45371583136065,
-            "cardSnippet": "Color: Graphite\n \n \n \nStorage: 128 GB\n128 GB\n256 GB\n512 GB\nCondition: Good\nCondition Guide\nGood\nSAR 1,199\n200 SAR Cashback\nVery Good\nSAR 1,479\nExcellent\nSAR 1,529\nGet full protection and warranty for 24 months\nFull protection (incl. misuse) - Protect against any damage or accident and extend your warranty for 2 years\nSAR 95\nShop Now, Pay Later!\n \n 200 SAR Cashback\nAdd to Cart\nAuthenticated & sold "
+            "todo": null,
+            "error": "pdp-nav-error"
           },
           "journey": "j08-pdp-widgets-trust",
           "journeyName": "PDP Widgets & Trust",
@@ -2340,15 +2028,12 @@
         },
         {
           "id": "pdp-cashback-reasonable",
-          "category": "content",
-          "description": "Cashback widget present AND amount > 0 (skipped while feature On Hold per QA doc)",
-          "status": "pass",
+          "category": "meta",
+          "description": "pdp-cashback-reasonable",
+          "status": "fail",
           "details": {
-            "url": "https://sa.revibe.me/products/iphone-12-pro-max",
             "todo": null,
-            "present": true,
-            "amount": 200,
-            "snippet": "DER WITH CODE EIDGIFT AND ENJOY 200 SAR CASHBACK AT CHECKOUT!\n150,000+ Customers\nExcellent\niPhone 12 Pro Max\nAdd to wishlist\nRenewed\n-52% vs"
+            "error": "pdp-nav-error"
           },
           "journey": "j08-pdp-widgets-trust",
           "journeyName": "PDP Widgets & Trust",
@@ -2358,16 +2043,12 @@
         },
         {
           "id": "pdp-trustpilot-present",
-          "category": "content",
-          "description": "Trustpilot widget rendered with non-zero review count",
-          "status": "pass",
+          "category": "meta",
+          "description": "pdp-trustpilot-present",
+          "status": "fail",
           "details": {
-            "url": "https://sa.revibe.me/products/iphone-12-pro-max",
-            "hasHeading": true,
-            "hasText": true,
-            "widgetUrl": false,
-            "count": 1,
-            "todo": null
+            "todo": null,
+            "error": "pdp-nav-error"
           },
           "journey": "j08-pdp-widgets-trust",
           "journeyName": "PDP Widgets & Trust",
@@ -2377,18 +2058,12 @@
         },
         {
           "id": "pdp-usp-icons-all-four",
-          "category": "content",
-          "description": "PDP USP strip mentions Certified · Unlocked · 12 Months Warranty · Free Delivery (≥3 of 4)",
-          "status": "pass",
+          "category": "meta",
+          "description": "pdp-usp-icons-all-four",
+          "status": "fail",
           "details": {
-            "url": "https://sa.revibe.me/products/iphone-12-pro-max",
-            "items": {
-              "certified": true,
-              "unlocked": true,
-              "warranty12": true,
-              "freeDelivery": true
-            },
-            "count": 4
+            "todo": null,
+            "error": "pdp-nav-error"
           },
           "journey": "j08-pdp-widgets-trust",
           "journeyName": "PDP Widgets & Trust",
@@ -2398,18 +2073,12 @@
         },
         {
           "id": "pdp-supplier-click-resolves",
-          "category": "functional",
-          "description": "Supplier widget present and the supplier link resolves to 2xx/3xx",
-          "status": "pass",
+          "category": "meta",
+          "description": "pdp-supplier-click-resolves",
+          "status": "fail",
           "details": {
-            "url": "https://sa.revibe.me/products/iphone-12-pro-max",
-            "supplier": {
-              "name": "Skip To Content",
-              "href": "#MainContent",
-              "absHref": "https://sa.revibe.me/products/iphone-12-pro-max?variant=45685160608065#MainContent"
-            },
-            "linkStatus": 200,
-            "error": null
+            "todo": null,
+            "error": "pdp-nav-error"
           },
           "journey": "j08-pdp-widgets-trust",
           "journeyName": "PDP Widgets & Trust",
@@ -2419,15 +2088,12 @@
         },
         {
           "id": "pdp-cashback-visible",
-          "category": "visual",
-          "description": "Cashback element is actually rendered (not display:none / zero-sized)",
-          "status": "pass",
+          "category": "meta",
+          "description": "pdp-cashback-visible",
+          "status": "fail",
           "details": {
-            "url": "https://sa.revibe.me/products/iphone-12-pro-max",
             "todo": null,
-            "nodeCount": 56,
-            "visible": true,
-            "smallestVisibleArea": 3220
+            "error": "pdp-nav-error"
           },
           "journey": "j08-pdp-widgets-trust",
           "journeyName": "PDP Widgets & Trust",
@@ -2773,10 +2439,9 @@
           "id": "homepage-lcp",
           "category": "performance",
           "description": "Homepage LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
-          "status": "pass",
+          "status": "skip",
           "details": {
-            "lcpMs": 1956,
-            "source": "reused from j4-navigation"
+            "todo": "homepage-lcp not captured by earlier journey"
           },
           "journey": "j03-performance",
           "journeyName": "Page Speed (LCP across journeys)",
@@ -2790,7 +2455,7 @@
           "description": "PLP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 45,
+            "lcpMs": 33,
             "url": "https://sa.revibe.me/collections/all"
           },
           "journey": "j03-performance",
@@ -2805,7 +2470,7 @@
           "description": "PDP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 928,
+            "lcpMs": 472,
             "source": "reused from j2-pdp"
           },
           "journey": "j03-performance",
@@ -2846,10 +2511,9 @@
           "id": "homepage-cls",
           "category": "performance",
           "description": "Homepage CLS under thresholds (pass <0.1, warn 0.1-0.25, fail >0.25)",
-          "status": "pass",
+          "status": "skip",
           "details": {
-            "cls": 0.052,
-            "source": "reused from j4-navigation"
+            "todo": "homepage-cls not captured by earlier journey"
           },
           "journey": "j03-performance",
           "journeyName": "Page Speed (LCP across journeys)",
@@ -2861,9 +2525,9 @@
           "id": "pdp-cls",
           "category": "performance",
           "description": "PDP CLS under thresholds (pass <0.1, warn 0.1-0.25, fail >0.25)",
-          "status": "pass",
+          "status": "fail",
           "details": {
-            "cls": 0.06,
+            "cls": 1.471,
             "source": "reused from j2-pdp"
           },
           "journey": "j03-performance",
