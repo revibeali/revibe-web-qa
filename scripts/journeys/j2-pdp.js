@@ -370,6 +370,186 @@ export default {
       });
     }
 
+    // ---- Bucket B: Warranty (i) icon click reveals Revibe Care+ content ----
+    // Capture text before click, click any info icon inside the warranty card,
+    // wait briefly, then verify Revibe Care+ keywords appear that weren't there before.
+    const warrantyClick = await page.evaluate(() => {
+      // Find the smallest element whose textContent contains the warranty heading
+      const heading = 'get full protection and warranty for 24 months';
+      const matches = [];
+      document.querySelectorAll('*').forEach((el) => {
+        const tc = (el.textContent || '').toLowerCase();
+        if (tc.includes(heading)) matches.push({ el, len: tc.length });
+      });
+      if (matches.length === 0) return { clicked: false, reason: 'no warranty heading' };
+      matches.sort((a, b) => a.len - b.len);
+      let card = matches[0].el;
+      for (let i = 0; i < 5 && card.parentElement; i++) card = card.parentElement;
+      // Find an "info" affordance inside or near the card
+      const clickCandidates = Array.from(card.querySelectorAll('button, a, [role="button"], svg, span, i'));
+      const icon = clickCandidates.find((el) => {
+        const aria = (el.getAttribute('aria-label') || '').toLowerCase();
+        const title = (el.getAttribute('title') || '').toLowerCase();
+        const text = (el.textContent || '').trim().toLowerCase();
+        const cls = (typeof el.className === 'string' ? el.className : (el.className.baseVal || '')).toLowerCase();
+        return /info|more|details|learn|tooltip/.test(aria + ' ' + title + ' ' + cls) || text === 'i' || text === '?';
+      });
+      if (!icon) return { clicked: false, reason: 'no info icon in card' };
+      const before = (document.body.innerText || '');
+      const beforeLen = before.length;
+      try { icon.click(); } catch (e) { return { clicked: false, reason: 'click threw: ' + e.message }; }
+      return { clicked: true, beforeLen, iconTag: icon.tagName };
+    });
+    if (!warrantyClick.clicked) {
+      checks.push({
+        id: 'pdp-warranty-info-modal-content',
+        category: 'functional',
+        description: 'Clicking the warranty (i) icon reveals Revibe Care+ content',
+        status: 'skip',
+        details: { url: pdpUrl, todo: warrantyClick.reason || 'no info icon found in warranty card' },
+      });
+    } else {
+      await page.waitForTimeout(900);
+      const post = await page.evaluate(() => {
+        const text = (document.body.innerText || '').toLowerCase();
+        return {
+          length: text.length,
+          fullProtection: /full\s*protection/.test(text),
+          accidentalDamage: /accidental\s*damage/.test(text),
+          expressReplacement: /express\s*replacement/.test(text),
+          support247: /24[\/\-\s]*7\s*support/.test(text),
+          revibeCarePlus: /revibe\s*care\s*\+?|revibe\s*care\s*plus/.test(text),
+        };
+      });
+      const keywords = ['fullProtection', 'accidentalDamage', 'expressReplacement', 'support247', 'revibeCarePlus'];
+      const hits = keywords.filter((k) => post[k]).length;
+      const grew = post.length > warrantyClick.beforeLen;
+      let status;
+      if (hits >= 3 && grew) status = 'pass';
+      else if (hits >= 3 || grew) status = 'warning';
+      else status = 'fail';
+      checks.push({
+        id: 'pdp-warranty-info-modal-content',
+        category: 'functional',
+        description: 'Clicking the warranty (i) icon reveals Revibe Care+ content (Full Protection / Accidental Damage / Express Replacement / 24/7 Support / Revibe Care+)',
+        status,
+        details: { url: pdpUrl, keywordHits: hits, keywords: keywords.filter((k) => post[k]), textGrewBy: post.length - warrantyClick.beforeLen },
+      });
+    }
+
+    // ---- Bucket B: Supplier widget click resolves to a real page ----
+    const supplier = await page.evaluate(() => {
+      const text = (document.body.innerText || '').toLowerCase();
+      const labelIdx = (function () {
+        const candidates = ['sold by', 'authenticated & sold by', 'authenticated and sold by', 'seller:', 'supplier:'];
+        for (const c of candidates) {
+          const i = text.indexOf(c);
+          if (i >= 0) return { label: c, idx: i };
+        }
+        return null;
+      })();
+      if (!labelIdx) return { present: false };
+      // Find the closest <a> AFTER the label position in DOM order
+      const allLinks = Array.from(document.querySelectorAll('a[href]'));
+      // Score each link by proximity to "sold by" text
+      let best = null;
+      let bestScore = Infinity;
+      for (const a of allLinks) {
+        const ctx = (a.closest('section,div,article,p,li')?.innerText || '').toLowerCase();
+        if (!ctx.includes(labelIdx.label)) continue;
+        // Prefer absolute href, non-anchor
+        const href = a.getAttribute('href') || '';
+        if (!href || href === '#' || href.startsWith('javascript:')) continue;
+        const score = (a.innerText || '').length;
+        if (score < bestScore && score > 0 && score < 60) {
+          bestScore = score;
+          best = { name: a.innerText.trim(), href };
+        }
+      }
+      if (!best) {
+        // Maybe it's not a link, just text. Mark present without a link.
+        return { present: true, link: null, label: labelIdx.label };
+      }
+      try {
+        const u = new URL(best.href, location.href);
+        best.absHref = u.href;
+      } catch (_) {}
+      return { present: true, link: best, label: labelIdx.label };
+    });
+    if (!supplier.present) {
+      checks.push({
+        id: 'pdp-supplier-click-resolves',
+        category: 'functional',
+        description: 'Supplier widget present and clicking it opens a real page',
+        status: 'skip',
+        details: { url: pdpUrl, todo: 'No supplier widget detected on PDP' },
+      });
+    } else if (!supplier.link) {
+      checks.push({
+        id: 'pdp-supplier-click-resolves',
+        category: 'functional',
+        description: 'Supplier widget present and clicking it opens a real page',
+        status: 'warning',
+        details: { url: pdpUrl, todo: 'Supplier label found but no associated clickable link', label: supplier.label },
+      });
+    } else {
+      // GET the link without leaving the page
+      let linkStatus = 0;
+      let linkErr = null;
+      try {
+        const resp = await page.context().request.get(supplier.link.absHref || supplier.link.href, { timeout: 15000, maxRedirects: 5 });
+        linkStatus = resp.status();
+      } catch (e) { linkErr = e.message; }
+      const ok = linkStatus > 0 && linkStatus < 400;
+      checks.push({
+        id: 'pdp-supplier-click-resolves',
+        category: 'functional',
+        description: 'Supplier widget present and the supplier link resolves to 2xx/3xx',
+        status: ok ? 'pass' : (linkStatus === 403 || linkStatus === 429 ? 'skip' : 'fail'),
+        details: { url: pdpUrl, supplier: supplier.link, linkStatus, error: linkErr },
+      });
+    }
+
+    // ---- Bucket B: Cashback widget visible (not display:none / zero-sized) ----
+    const cashbackViz = await page.evaluate(() => {
+      const xpath = `//*[contains(translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'cashback') or contains(translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'cash back')]`;
+      const result = document.evaluate(xpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+      let visible = false;
+      let smallestVisibleArea = 0;
+      let nodeCount = result.snapshotLength;
+      for (let i = 0; i < Math.min(nodeCount, 30); i++) {
+        const el = result.snapshotItem(i);
+        if (!(el instanceof Element)) continue;
+        const r = el.getBoundingClientRect();
+        const style = getComputedStyle(el);
+        if (style.display !== 'none' && style.visibility !== 'hidden' && r.width > 0 && r.height > 0) {
+          visible = true;
+          if (smallestVisibleArea === 0 || r.width * r.height < smallestVisibleArea) {
+            smallestVisibleArea = r.width * r.height;
+          }
+        }
+      }
+      return { nodeCount, visible, smallestVisibleArea: Math.round(smallestVisibleArea) };
+    });
+    let cashbackVizStatus;
+    let cashbackVizTodo = null;
+    if (cashbackViz.nodeCount === 0) {
+      cashbackVizStatus = 'skip';
+      cashbackVizTodo = 'Cashback text not found in DOM (feature On Hold per QA doc)';
+    } else if (cashbackViz.visible) {
+      cashbackVizStatus = 'pass';
+    } else {
+      cashbackVizStatus = 'fail';
+      cashbackVizTodo = 'Cashback element exists in DOM but is hidden (display:none / zero size) — likely a rendering bug';
+    }
+    checks.push({
+      id: 'pdp-cashback-visible',
+      category: 'visual',
+      description: 'Cashback element is actually rendered (not display:none / zero-sized)',
+      status: cashbackVizStatus,
+      details: { url: pdpUrl, todo: cashbackVizTodo, ...cashbackViz },
+    });
+
     return checks;
   },
 };
