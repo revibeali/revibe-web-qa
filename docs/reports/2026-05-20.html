@@ -75,27 +75,27 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
   <header>
   <div class="kicker">Revibe Daily QA</div>
   <h1>2026-05-20</h1>
-  <div class="pills"><span class="pill pass">revibe.co.za · pass</span><span class="pill fail">revibe.me · fail</span><span class="pill pass">sa.revibe.me · pass</span></div>
+  <div class="pills"><span class="pill fail">revibe.co.za · fail</span><span class="pill fail">revibe.me · fail</span><span class="pill fail">sa.revibe.me · fail</span></div>
 </header>
   <section class="metrics">
   <div class="metric">
     <div class="metric-label">Aggregate pass rate</div>
-    <div class="metric-value">98%</div>
-    <div class="metric-sub">48 of 49 scoreable checks</div>
+    <div class="metric-value">83%</div>
+    <div class="metric-sub">72 of 87 scoreable checks</div>
   </div>
   <div class="metric">
     <div class="metric-label">Total checks</div>
-    <div class="metric-value">90</div>
+    <div class="metric-value">132</div>
     <div class="metric-sub">across 3 sites</div>
   </div>
   <div class="metric">
     <div class="metric-label">Open failures</div>
-    <div class="metric-value">1</div>
-    <div class="metric-sub">0 warnings · 41 skipped</div>
+    <div class="metric-value">15</div>
+    <div class="metric-sub">0 warnings · 45 skipped</div>
   </div>
   <div class="metric">
     <div class="metric-label">Run time</div>
-    <div class="metric-value">4m 37s</div>
+    <div class="metric-value">4m 48s</div>
     <div class="metric-sub"></div>
   </div>
 </section>
@@ -105,14 +105,14 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
   <header class="site-header">
     <h3>revibe.co.za</h3>
     <span class="region">South Africa</span>
-    <span class="pill pass">pass</span>
-    <span class="counts">20 pass · 0 warn · 0 fail · 10 skip · 100%</span>
+    <span class="pill fail">fail</span>
+    <span class="counts">24 pass · 0 warn · 5 fail · 15 skip · 83%</span>
   </header>
   <details >
   <summary>
     <span class="journey-id">j4-navigation</span>
     <span class="journey-name">Navigation &amp; Page Health</span>
-    <span class="journey-counts">5 checks · 5p / 0w / 0f / 0s</span>
+    <span class="journey-counts">7 checks · 7p / 0w / 0f / 0s</span>
   </summary>
   <table>
     <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
@@ -142,6 +142,16 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td class="check-id">header-nav-multi-items</td>
     <td>Header/nav contains multiple links (≥3 distinct hrefs)</td>
     <td class="details"><code>{&quot;count&quot;:51}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">footer-no-4xx</td>
+    <td>Sample of footer links return 2xx/3xx</td>
+    <td class="details"><code>{&quot;sampled&quot;:5,&quot;badCount&quot;:0,&quot;results&quot;:[{&quot;url&quot;:&quot;https://revibe.co.za/pages/about-us&quot;,&quot;status&quot;:200},{&quot;url&quot;:&quot;https://revibe.co.za/collections/all&quot;,&quot;status&quot;:200},{&quot;url&quot;:&quot;https://revibe.co.za/pages/become-a-seller&quot;,&quot;status&quot;:200},{&quot;url&quot;:&quot;https://revibe.co.za/pages/contact&quot;,&quot;status&quot;:200},{&quot;url&quot;:&quot;https://revibe.co.za/pages/terms…</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">mobile-hamburger-present</td>
+    <td>Mobile hamburger / menu trigger present in header</td>
+    <td class="details"><code>{&quot;present&quot;:true,&quot;sample&quot;:&quot;&lt;a href=\&quot;/collections/hot-deals\&quot; class=\&quot;menu-lv-1__action header__menu-item header__menu-item list-menu__item link link-&quot;}</code></td>
   </tr>
     </tbody>
   </table>
@@ -182,11 +192,11 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
   </tr>
     </tbody>
   </table>
-</details><details >
+</details><details open>
   <summary>
     <span class="journey-id">j2-pdp</span>
     <span class="journey-name">PDP</span>
-    <span class="journey-counts">6 checks · 6p / 0w / 0f / 0s</span>
+    <span class="journey-counts">12 checks · 7p / 0w / 3f / 2s</span>
   </summary>
   <table>
     <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
@@ -200,7 +210,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-lcp</td>
     <td>PDP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;lcpMs&quot;:696}</code></td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;lcpMs&quot;:628}</code></td>
   </tr><tr class="row-pass">
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-compare-gt-price</td>
@@ -221,14 +231,44 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td class="check-id">pdp-cashback-reasonable</td>
     <td>Cashback widget present AND amount &gt; 0 (skipped while feature On Hold per QA doc)</td>
     <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;todo&quot;:null,&quot;present&quot;:true,&quot;amount&quot;:4.29,&quot;snippet&quot;:&quot;Good\nCondition Guide\nGood\nR 4,299\nR 400 Cashback\nVery Good\nR 4,699\nExcellent\nR 4,899\nGet full protection and warranty for 24 months\nFull pro&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">pdp-trustpilot-present</td>
+    <td>Trustpilot widget rendered with non-zero review count</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;hasHeading&quot;:false,&quot;count&quot;:0,&quot;todo&quot;:&quot;Trustpilot widget not on this PDP&quot;}</code></td>
+  </tr><tr class="row-fail">
+    <td><span class="pill small fail">fail</span></td>
+    <td class="check-id">pdp-related-products-count</td>
+    <td>Recommended/Related section has ≥3 product cards</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;count&quot;:0}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">pdp-whats-included-smartphone</td>
+    <td>&quot;What&#39;s Included&quot; lists Charger AND Mobile/Phone for smartphone PDPs</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;sectionPresent&quot;:false,&quot;hasCharger&quot;:false,&quot;hasMobile&quot;:true,&quot;todo&quot;:&quot;&#39;What&#39;s Included&#39; section not found&quot;}</code></td>
+  </tr><tr class="row-fail">
+    <td><span class="pill small fail">fail</span></td>
+    <td class="check-id">pdp-tech-spec-present</td>
+    <td>Technical Specification section present and non-empty</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;present&quot;:false,&quot;length&quot;:0}</code></td>
+  </tr><tr class="row-fail">
+    <td><span class="pill small fail">fail</span></td>
+    <td class="check-id">pdp-usp-icons-all-four</td>
+    <td>PDP USP strip mentions Certified · Unlocked · 12 Months Warranty · Free Delivery (≥3 of 4)</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;items&quot;:{&quot;certified&quot;:false,&quot;unlocked&quot;:false,&quot;warranty12&quot;:true,&quot;freeDelivery&quot;:true},&quot;count&quot;:2}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">pdp-variant-url-changes-price</td>
+    <td>Navigating ?variant=&lt;id&gt; shows that variant&#39;s price</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11?variant=49083456225568&quot;,&quot;v1Price&quot;:4299,&quot;v2Price&quot;:4699,&quot;v2Shown&quot;:true,&quot;v1NoLongerInTopOfPage&quot;:true,&quot;todo&quot;:null}</code></td>
   </tr>
     </tbody>
   </table>
-</details><details >
+</details><details open>
   <summary>
     <span class="journey-id">j3-cart</span>
     <span class="journey-name">Cart</span>
-    <span class="journey-counts">5 checks · 0p / 0w / 0f / 5s</span>
+    <span class="journey-counts">9 checks · 0p / 0w / 1f / 8s</span>
   </summary>
   <table>
     <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
@@ -258,14 +298,34 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td class="check-id">checkout-loads</td>
     <td>Checkout page loads with populated cart</td>
     <td class="details"><code>{&quot;todo&quot;:&quot;Cart was not populated; cannot test checkout&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">cart-promo-code-input-present</td>
+    <td>Cart page has a promo/discount code input field</td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;Cart page CDN-blocked; can&#39;t inspect DOM&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">cart-quantity-update-via-api</td>
+    <td>cart-quantity-update-via-api</td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;No item to update/remove (cart was not populated)&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">cart-remove-via-api</td>
+    <td>cart-remove-via-api</td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;No item to update/remove (cart was not populated)&quot;}</code></td>
+  </tr><tr class="row-fail">
+    <td><span class="pill small fail">fail</span></td>
+    <td class="check-id">cart-multi-product-add</td>
+    <td>Adding 2-3 distinct products lands all of them in /cart.js</td>
+    <td class="details"><code>{&quot;attempted&quot;:5,&quot;added&quot;:[],&quot;cartVids&quot;:[],&quot;allPresent&quot;:false,&quot;itemCount&quot;:0}</code></td>
   </tr>
     </tbody>
   </table>
-</details><details >
+</details><details open>
   <summary>
     <span class="journey-id">j5-speed</span>
     <span class="journey-name">Page Speed (LCP across journeys)</span>
-    <span class="journey-counts">5 checks · 3p / 0w / 0f / 2s</span>
+    <span class="journey-counts">7 checks · 4p / 0w / 1f / 2s</span>
   </summary>
   <table>
     <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
@@ -274,17 +334,17 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">homepage-lcp</td>
     <td>Homepage LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;lcpMs&quot;:1160,&quot;source&quot;:&quot;reused from j4-navigation&quot;}</code></td>
+    <td class="details"><code>{&quot;lcpMs&quot;:704,&quot;source&quot;:&quot;reused from j4-navigation&quot;}</code></td>
   </tr><tr class="row-pass">
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">plp-lcp</td>
     <td>PLP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;lcpMs&quot;:38,&quot;url&quot;:&quot;https://revibe.co.za/collections/all&quot;}</code></td>
+    <td class="details"><code>{&quot;lcpMs&quot;:40,&quot;url&quot;:&quot;https://revibe.co.za/collections/all&quot;}</code></td>
   </tr><tr class="row-pass">
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-lcp</td>
     <td>PDP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;lcpMs&quot;:696,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
+    <td class="details"><code>{&quot;lcpMs&quot;:628,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
   </tr><tr class="row-skip">
     <td><span class="pill small skip">skip</span></td>
     <td class="check-id">cart-lcp</td>
@@ -295,6 +355,16 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td class="check-id">checkout-lcp</td>
     <td>Checkout LCP under thresholds</td>
     <td class="details"><code>{&quot;todo&quot;:&quot;Checkout LCP not captured (cart unpopulated or external redirect)&quot;}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">homepage-cls</td>
+    <td>Homepage CLS under thresholds (pass &lt;0.1, warn 0.1-0.25, fail &gt;0.25)</td>
+    <td class="details"><code>{&quot;cls&quot;:0,&quot;source&quot;:&quot;reused from j4-navigation&quot;}</code></td>
+  </tr><tr class="row-fail">
+    <td><span class="pill small fail">fail</span></td>
+    <td class="check-id">pdp-cls</td>
+    <td>PDP CLS under thresholds (pass &lt;0.1, warn 0.1-0.25, fail &gt;0.25)</td>
+    <td class="details"><code>{&quot;cls&quot;:0.85,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
   </tr>
     </tbody>
   </table>
@@ -348,13 +418,13 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <h3>revibe.me</h3>
     <span class="region">United Arab Emirates</span>
     <span class="pill fail">fail</span>
-    <span class="counts">17 pass · 0 warn · 1 fail · 12 skip · 94%</span>
+    <span class="counts">24 pass · 0 warn · 5 fail · 15 skip · 83%</span>
   </header>
   <details >
   <summary>
     <span class="journey-id">j4-navigation</span>
     <span class="journey-name">Navigation &amp; Page Health</span>
-    <span class="journey-counts">5 checks · 5p / 0w / 0f / 0s</span>
+    <span class="journey-counts">7 checks · 7p / 0w / 0f / 0s</span>
   </summary>
   <table>
     <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
@@ -384,6 +454,16 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td class="check-id">header-nav-multi-items</td>
     <td>Header/nav contains multiple links (≥3 distinct hrefs)</td>
     <td class="details"><code>{&quot;count&quot;:63}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">footer-no-4xx</td>
+    <td>Sample of footer links return 2xx/3xx</td>
+    <td class="details"><code>{&quot;sampled&quot;:5,&quot;badCount&quot;:0,&quot;results&quot;:[{&quot;url&quot;:&quot;https://revibe.me/pages/about-us&quot;,&quot;status&quot;:200},{&quot;url&quot;:&quot;https://revibe.me/collections/all&quot;,&quot;status&quot;:200},{&quot;url&quot;:&quot;https://revibe.me/blogs/posts&quot;,&quot;status&quot;:200},{&quot;url&quot;:&quot;https://revibe.me/pages/become-a-seller&quot;,&quot;status&quot;:200},{&quot;url&quot;:&quot;https://revibe.me/blogs/revibe-reviews&quot;,&quot;statu…</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">mobile-hamburger-present</td>
+    <td>Mobile hamburger / menu trigger present in header</td>
+    <td class="details"><code>{&quot;present&quot;:true,&quot;sample&quot;:&quot;&lt;a href=\&quot;/collections/eid-deals\&quot; class=\&quot;menu-lv-1__action header__menu-item header__menu-item list-menu__item link link-&quot;}</code></td>
   </tr>
     </tbody>
   </table>
@@ -391,7 +471,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
   <summary>
     <span class="journey-id">j1-plp</span>
     <span class="journey-name">PLP</span>
-    <span class="journey-counts">5 checks · 4p / 0w / 0f / 1s</span>
+    <span class="journey-counts">5 checks · 5p / 0w / 0f / 0s</span>
   </summary>
   <table>
     <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
@@ -416,11 +496,11 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td class="check-id">plp-search-samsung</td>
     <td>Search &quot;Samsung&quot; returns &gt;=1 product card AND heading mentions &quot;Samsung&quot;</td>
     <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/search?q=Samsung&quot;,&quot;productCardCount&quot;:20,&quot;h1&quot;:&quot;Search results for Samsung&quot;,&quot;headingMentionsQuery&quot;:true}</code></td>
-  </tr><tr class="row-skip">
-    <td><span class="pill small skip">skip</span></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
     <td class="check-id">plp-sort-price-asc</td>
-    <td>plp-sort-price-asc skipped — Cloudflare challenge intercepted https://revibe.me/collections/all?sort_by=price-ascending</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/collections/all?sort_by=price-ascending&quot;,&quot;todo&quot;:&quot;Cloudflare anti-bot challenge intercepted this page. Investigate stealth/UA tuning later.&quot;}</code></td>
+    <td>Sort by price low-to-high changes product card order</td>
+    <td class="details"><code>{&quot;defaultCount&quot;:8,&quot;sortedCount&quot;:8,&quot;defaultFirst3&quot;:[&quot;/products/iphone-12-pro&quot;,&quot;/products/iphone-13-pro-max&quot;,&quot;/products/iphone-12-pro-max&quot;],&quot;sortedFirst3&quot;:[&quot;/products/ipad-5th-gen-2017-wi-fi-cellular&quot;,&quot;/products/ipad-6th-gen-2018-wi-fi&quot;,&quot;/products/awei-h25-smartwatch&quot;],&quot;orderChanged&quot;:true}</code></td>
   </tr>
     </tbody>
   </table>
@@ -428,49 +508,79 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
   <summary>
     <span class="journey-id">j2-pdp</span>
     <span class="journey-name">PDP</span>
-    <span class="journey-counts">6 checks · 1p / 0w / 1f / 4s</span>
+    <span class="journey-counts">12 checks · 7p / 0w / 3f / 2s</span>
   </summary>
   <table>
     <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
     <tbody>
-      <tr class="row-fail">
-    <td><span class="pill small fail">fail</span></td>
+      <tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-loads</td>
     <td>PDP loads with 2xx response</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;status&quot;:403}</code></td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;status&quot;:200}</code></td>
   </tr><tr class="row-pass">
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-lcp</td>
     <td>PDP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;lcpMs&quot;:39}</code></td>
-  </tr><tr class="row-skip">
-    <td><span class="pill small skip">skip</span></td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;lcpMs&quot;:288}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-compare-gt-price</td>
-    <td>pdp-compare-gt-price</td>
-    <td class="details"><code>{&quot;todo&quot;:&quot;Could not load Shopify product JSON&quot;}</code></td>
-  </tr><tr class="row-skip">
-    <td><span class="pill small skip">skip</span></td>
+    <td>PDP compare-at price is greater than actual price</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;title&quot;:&quot;iPhone 12 Pro&quot;,&quot;price&quot;:959,&quot;compare&quot;:1540,&quot;currency&quot;:&quot;AED&quot;}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-warranty-heading</td>
-    <td>pdp-warranty-heading</td>
-    <td class="details"><code>{&quot;todo&quot;:&quot;Could not load Shopify product JSON&quot;}</code></td>
-  </tr><tr class="row-skip">
-    <td><span class="pill small skip">skip</span></td>
+    <td>Warranty card heading &quot;Get full protection and warranty for 24 months&quot; present on PDP</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;found&quot;:true}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-warranty-tier-math</td>
-    <td>pdp-warranty-tier-math</td>
-    <td class="details"><code>{&quot;todo&quot;:&quot;Could not load Shopify product JSON&quot;}</code></td>
+    <td>Displayed warranty price matches canonical tier for product price</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;productPrice&quot;:959,&quot;expectedWarranty&quot;:85,&quot;displayedWarranty&quot;:85,&quot;currency&quot;:&quot;AED&quot;,&quot;match&quot;:true,&quot;tierHandle&quot;:&quot;2-years-extended-warranty-plan-2&quot;,&quot;tierProductId&quot;:45577073656127,&quot;cardSnippet&quot;:&quot;Color: Graphite\n \n \n \nStorage: 128 GB\n128 GB\n256 GB\n512 GB\nCondition: Good…</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">pdp-cashback-reasonable</td>
+    <td>Cashback widget present AND amount &gt; 0 (skipped while feature On Hold per QA doc)</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;todo&quot;:null,&quot;present&quot;:true,&quot;amount&quot;:200,&quot;snippet&quot;:&quot;DER WITH CODE EIDGIFT AND ENJOY 200 AED CASHBACK AT CHECKOUT!\n150,000+ Customers\nExcellent\niPhone 12 Pro\nAdd to wishlist\nRenewed\n-38% vs new&quot;}</code></td>
   </tr><tr class="row-skip">
     <td><span class="pill small skip">skip</span></td>
-    <td class="check-id">pdp-cashback-reasonable</td>
-    <td>pdp-cashback-reasonable</td>
-    <td class="details"><code>{&quot;todo&quot;:&quot;Could not load Shopify product JSON&quot;}</code></td>
+    <td class="check-id">pdp-trustpilot-present</td>
+    <td>Trustpilot widget rendered with non-zero review count</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;hasHeading&quot;:false,&quot;count&quot;:0,&quot;todo&quot;:&quot;Trustpilot widget not on this PDP&quot;}</code></td>
+  </tr><tr class="row-fail">
+    <td><span class="pill small fail">fail</span></td>
+    <td class="check-id">pdp-related-products-count</td>
+    <td>Recommended/Related section has ≥3 product cards</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;count&quot;:0}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">pdp-whats-included-smartphone</td>
+    <td>&quot;What&#39;s Included&quot; lists Charger AND Mobile/Phone for smartphone PDPs</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;sectionPresent&quot;:false,&quot;hasCharger&quot;:false,&quot;hasMobile&quot;:true,&quot;todo&quot;:&quot;&#39;What&#39;s Included&#39; section not found&quot;}</code></td>
+  </tr><tr class="row-fail">
+    <td><span class="pill small fail">fail</span></td>
+    <td class="check-id">pdp-tech-spec-present</td>
+    <td>Technical Specification section present and non-empty</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;present&quot;:false,&quot;length&quot;:0}</code></td>
+  </tr><tr class="row-fail">
+    <td><span class="pill small fail">fail</span></td>
+    <td class="check-id">pdp-usp-icons-all-four</td>
+    <td>PDP USP strip mentions Certified · Unlocked · 12 Months Warranty · Free Delivery (≥3 of 4)</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;items&quot;:{&quot;certified&quot;:false,&quot;unlocked&quot;:false,&quot;warranty12&quot;:true,&quot;freeDelivery&quot;:true},&quot;count&quot;:2}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">pdp-variant-url-changes-price</td>
+    <td>Navigating ?variant=&lt;id&gt; shows that variant&#39;s price</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro?variant=45726108516671&quot;,&quot;v1Price&quot;:959,&quot;v2Price&quot;:1069,&quot;v2Shown&quot;:true,&quot;v1NoLongerInTopOfPage&quot;:true,&quot;todo&quot;:null}</code></td>
   </tr>
     </tbody>
   </table>
-</details><details >
+</details><details open>
   <summary>
     <span class="journey-id">j3-cart</span>
     <span class="journey-name">Cart</span>
-    <span class="journey-counts">5 checks · 2p / 0w / 0f / 3s</span>
+    <span class="journey-counts">9 checks · 0p / 0w / 1f / 8s</span>
   </summary>
   <table>
     <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
@@ -479,35 +589,55 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td><span class="pill small skip">skip</span></td>
     <td class="check-id">cart-add-via-api</td>
     <td>Cart populated via Shopify /cart/add.js (variant from j2 PDP)</td>
-    <td class="details"><code>{&quot;todo&quot;:&quot;Variant ID unavailable or add failed&quot;,&quot;addResult&quot;:null}</code></td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;Variant ID unavailable or add failed&quot;,&quot;addResult&quot;:{&quot;ok&quot;:false,&quot;status&quot;:403,&quot;bodyPreview&quot;:&quot;&lt;!DOCTYPE html&gt;\n&lt;html lang=\&quot;en\&quot;&gt;\n&lt;head&gt;\n    &lt;meta charset=\&quot;utf-8\&quot; /&gt;\n    &lt;meta name=\&quot;viewport\&quot; content=\&quot;width=device-width, initial-scale=1.0\&quot; /&gt;\n    &lt;title&gt;Ver&quot;}}</code></td>
   </tr><tr class="row-skip">
     <td><span class="pill small skip">skip</span></td>
     <td class="check-id">cart-shows-added-product</td>
     <td>Cart contains the variant added via API</td>
     <td class="details"><code>{&quot;todo&quot;:&quot;No product was added to cart&quot;}</code></td>
-  </tr><tr class="row-pass">
-    <td><span class="pill small pass">pass</span></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
     <td class="check-id">cart-loads</td>
     <td>Cart page loads with 2xx response</td>
-    <td class="details"><code>{&quot;status&quot;:200}</code></td>
-  </tr><tr class="row-pass">
-    <td><span class="pill small pass">pass</span></td>
+    <td class="details"><code>{&quot;status&quot;:403,&quot;todo&quot;:&quot;HTTP 403 on /cart — likely Cloudflare/Shopify anti-bot block. Skipped; investigate stealth mode or whitelisted UA later.&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
     <td class="check-id">cart-bnpl-logos</td>
     <td>BNPL providers Tabby, Tamara present on cart page</td>
-    <td class="details"><code>{&quot;expected&quot;:[&quot;Tabby&quot;,&quot;Tamara&quot;],&quot;found&quot;:[&quot;Tabby&quot;,&quot;Tamara&quot;],&quot;missing&quot;:[]}</code></td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;Cart page blocked (403); BNPL check skipped&quot;}</code></td>
   </tr><tr class="row-skip">
     <td><span class="pill small skip">skip</span></td>
     <td class="check-id">checkout-loads</td>
     <td>Checkout page loads with populated cart</td>
     <td class="details"><code>{&quot;todo&quot;:&quot;Cart was not populated; cannot test checkout&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">cart-promo-code-input-present</td>
+    <td>Cart page has a promo/discount code input field</td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;Cart page CDN-blocked; can&#39;t inspect DOM&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">cart-quantity-update-via-api</td>
+    <td>cart-quantity-update-via-api</td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;No item to update/remove (cart was not populated)&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">cart-remove-via-api</td>
+    <td>cart-remove-via-api</td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;No item to update/remove (cart was not populated)&quot;}</code></td>
+  </tr><tr class="row-fail">
+    <td><span class="pill small fail">fail</span></td>
+    <td class="check-id">cart-multi-product-add</td>
+    <td>Adding 2-3 distinct products lands all of them in /cart.js</td>
+    <td class="details"><code>{&quot;attempted&quot;:5,&quot;added&quot;:[],&quot;cartVids&quot;:[],&quot;allPresent&quot;:false,&quot;itemCount&quot;:0}</code></td>
   </tr>
     </tbody>
   </table>
-</details><details >
+</details><details open>
   <summary>
     <span class="journey-id">j5-speed</span>
     <span class="journey-name">Page Speed (LCP across journeys)</span>
-    <span class="journey-counts">5 checks · 4p / 0w / 0f / 1s</span>
+    <span class="journey-counts">7 checks · 4p / 0w / 1f / 2s</span>
   </summary>
   <table>
     <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
@@ -516,27 +646,37 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">homepage-lcp</td>
     <td>Homepage LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;lcpMs&quot;:1756,&quot;source&quot;:&quot;reused from j4-navigation&quot;}</code></td>
+    <td class="details"><code>{&quot;lcpMs&quot;:1444,&quot;source&quot;:&quot;reused from j4-navigation&quot;}</code></td>
   </tr><tr class="row-pass">
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">plp-lcp</td>
     <td>PLP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;lcpMs&quot;:49,&quot;url&quot;:&quot;https://revibe.me/collections/all&quot;}</code></td>
+    <td class="details"><code>{&quot;lcpMs&quot;:39,&quot;url&quot;:&quot;https://revibe.me/collections/all&quot;}</code></td>
   </tr><tr class="row-pass">
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-lcp</td>
     <td>PDP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;lcpMs&quot;:39,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
-  </tr><tr class="row-pass">
-    <td><span class="pill small pass">pass</span></td>
+    <td class="details"><code>{&quot;lcpMs&quot;:288,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
     <td class="check-id">cart-lcp</td>
     <td>Cart LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;lcpMs&quot;:792,&quot;source&quot;:&quot;reused from j3-cart&quot;}</code></td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;cart-lcp not captured by earlier journey&quot;}</code></td>
   </tr><tr class="row-skip">
     <td><span class="pill small skip">skip</span></td>
     <td class="check-id">checkout-lcp</td>
     <td>Checkout LCP under thresholds</td>
     <td class="details"><code>{&quot;todo&quot;:&quot;Checkout LCP not captured (cart unpopulated or external redirect)&quot;}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">homepage-cls</td>
+    <td>Homepage CLS under thresholds (pass &lt;0.1, warn 0.1-0.25, fail &gt;0.25)</td>
+    <td class="details"><code>{&quot;cls&quot;:0.052,&quot;source&quot;:&quot;reused from j4-navigation&quot;}</code></td>
+  </tr><tr class="row-fail">
+    <td><span class="pill small fail">fail</span></td>
+    <td class="check-id">pdp-cls</td>
+    <td>PDP CLS under thresholds (pass &lt;0.1, warn 0.1-0.25, fail &gt;0.25)</td>
+    <td class="details"><code>{&quot;cls&quot;:0.685,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
   </tr>
     </tbody>
   </table>
@@ -589,14 +729,14 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
   <header class="site-header">
     <h3>sa.revibe.me</h3>
     <span class="region">Saudi Arabia</span>
-    <span class="pill pass">pass</span>
-    <span class="counts">11 pass · 0 warn · 0 fail · 19 skip · 100%</span>
+    <span class="pill fail">fail</span>
+    <span class="counts">24 pass · 0 warn · 5 fail · 15 skip · 83%</span>
   </header>
   <details >
   <summary>
     <span class="journey-id">j4-navigation</span>
     <span class="journey-name">Navigation &amp; Page Health</span>
-    <span class="journey-counts">5 checks · 5p / 0w / 0f / 0s</span>
+    <span class="journey-counts">7 checks · 7p / 0w / 0f / 0s</span>
   </summary>
   <table>
     <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
@@ -626,6 +766,16 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td class="check-id">header-nav-multi-items</td>
     <td>Header/nav contains multiple links (≥3 distinct hrefs)</td>
     <td class="details"><code>{&quot;count&quot;:58}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">footer-no-4xx</td>
+    <td>Sample of footer links return 2xx/3xx</td>
+    <td class="details"><code>{&quot;sampled&quot;:5,&quot;badCount&quot;:0,&quot;results&quot;:[{&quot;url&quot;:&quot;https://sa.revibe.me/pages/about-us&quot;,&quot;status&quot;:200},{&quot;url&quot;:&quot;https://sa.revibe.me/collections/all&quot;,&quot;status&quot;:200},{&quot;url&quot;:&quot;https://sa.revibe.me/blogs/news&quot;,&quot;status&quot;:200},{&quot;url&quot;:&quot;https://sa.revibe.me/pages/become-a-seller&quot;,&quot;status&quot;:200},{&quot;url&quot;:&quot;https://sa.revibe.me/pages/contact&quot;…</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">mobile-hamburger-present</td>
+    <td>Mobile hamburger / menu trigger present in header</td>
+    <td class="details"><code>{&quot;present&quot;:true,&quot;sample&quot;:&quot;&lt;a href=\&quot;/collections/eid-deals\&quot; class=\&quot;menu-lv-1__action header__menu-item header__menu-item list-menu__item link link-&quot;}</code></td>
   </tr>
     </tbody>
   </table>
@@ -633,86 +783,116 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
   <summary>
     <span class="journey-id">j1-plp</span>
     <span class="journey-name">PLP</span>
-    <span class="journey-counts">5 checks · 0p / 0w / 0f / 5s</span>
+    <span class="journey-counts">5 checks · 5p / 0w / 0f / 0s</span>
   </summary>
   <table>
     <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
     <tbody>
-      <tr class="row-skip">
-    <td><span class="pill small skip">skip</span></td>
+      <tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
     <td class="check-id">plp-banner-text</td>
-    <td>plp-banner-text skipped — Cloudflare challenge intercepted https://sa.revibe.me/collections/all</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/collections/all&quot;,&quot;todo&quot;:&quot;Cloudflare anti-bot challenge intercepted this page. Investigate stealth/UA tuning later.&quot;}</code></td>
-  </tr><tr class="row-skip">
-    <td><span class="pill small skip">skip</span></td>
+    <td>PLP banner sub-text &quot;Certified renewed devices - Inspected by Experts - Up to 70% cheaper than new&quot; present</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/collections/all&quot;,&quot;expectedPhrases&quot;:[&quot;certified renewed devices&quot;,&quot;inspected by experts&quot;,&quot;up to 70% cheaper than new&quot;],&quot;missingPhrases&quot;:[]}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
     <td class="check-id">plp-bnpl-logos</td>
-    <td>plp-bnpl-logos skipped — Cloudflare challenge intercepted https://sa.revibe.me/collections/all</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/collections/all&quot;,&quot;todo&quot;:&quot;Cloudflare anti-bot challenge intercepted this page. Investigate stealth/UA tuning later.&quot;}</code></td>
-  </tr><tr class="row-skip">
-    <td><span class="pill small skip">skip</span></td>
+    <td>BNPL providers Tabby, Tamara, Baseeta present on PLP</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/collections/all&quot;,&quot;expected&quot;:[&quot;Tabby&quot;,&quot;Tamara&quot;,&quot;Baseeta&quot;],&quot;found&quot;:[&quot;Tabby&quot;,&quot;Tamara&quot;,&quot;Baseeta&quot;],&quot;missing&quot;:[]}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
     <td class="check-id">plp-empty-state</td>
-    <td>plp-empty-state skipped — Cloudflare challenge intercepted https://sa.revibe.me/collections/all?filter.v.price.gte=999999999</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/collections/all?filter.v.price.gte=999999999&quot;,&quot;todo&quot;:&quot;Cloudflare anti-bot challenge intercepted this page. Investigate stealth/UA tuning later.&quot;}</code></td>
-  </tr><tr class="row-skip">
-    <td><span class="pill small skip">skip</span></td>
+    <td>Empty-state message &quot;No products found...&quot; appears on impossible filter combination</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/collections/all?filter.v.price.gte=999999999&quot;,&quot;expectedSubstring&quot;:&quot;No products found&quot;,&quot;found&quot;:true}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
     <td class="check-id">plp-search-samsung</td>
-    <td>plp-search-samsung skipped — Cloudflare challenge intercepted https://sa.revibe.me/search?q=Samsung</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/search?q=Samsung&quot;,&quot;todo&quot;:&quot;Cloudflare anti-bot challenge intercepted this page. Investigate stealth/UA tuning later.&quot;}</code></td>
-  </tr><tr class="row-skip">
-    <td><span class="pill small skip">skip</span></td>
+    <td>Search &quot;Samsung&quot; returns &gt;=1 product card AND heading mentions &quot;Samsung&quot;</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/search?q=Samsung&quot;,&quot;productCardCount&quot;:20,&quot;h1&quot;:&quot;Search results for Samsung&quot;,&quot;headingMentionsQuery&quot;:true}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
     <td class="check-id">plp-sort-price-asc</td>
-    <td>plp-sort-price-asc skipped — Cloudflare challenge intercepted https://sa.revibe.me/collections/all</td>
-    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/collections/all&quot;,&quot;todo&quot;:&quot;Cloudflare anti-bot challenge intercepted this page. Investigate stealth/UA tuning later.&quot;}</code></td>
+    <td>Sort by price low-to-high changes product card order</td>
+    <td class="details"><code>{&quot;defaultCount&quot;:8,&quot;sortedCount&quot;:8,&quot;defaultFirst3&quot;:[&quot;/products/iphone-12-pro-max&quot;,&quot;/products/iphone-12-pro&quot;,&quot;/products/iphone-11&quot;],&quot;sortedFirst3&quot;:[&quot;/products/galaxy-note-20-ultra&quot;,&quot;/products/samsung-a32-5g&quot;,&quot;/products/samsung-galaxy-s24-1&quot;],&quot;orderChanged&quot;:true}</code></td>
   </tr>
     </tbody>
   </table>
-</details><details >
+</details><details open>
   <summary>
     <span class="journey-id">j2-pdp</span>
     <span class="journey-name">PDP</span>
-    <span class="journey-counts">6 checks · 0p / 0w / 0f / 6s</span>
+    <span class="journey-counts">12 checks · 7p / 0w / 3f / 2s</span>
   </summary>
   <table>
     <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
     <tbody>
-      <tr class="row-skip">
-    <td><span class="pill small skip">skip</span></td>
+      <tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-loads</td>
-    <td>pdp-loads</td>
-    <td class="details"><code>{&quot;todo&quot;:&quot;No product URL captured from PLP&quot;}</code></td>
-  </tr><tr class="row-skip">
-    <td><span class="pill small skip">skip</span></td>
+    <td>PDP loads with 2xx response</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;status&quot;:200}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-lcp</td>
-    <td>pdp-lcp</td>
-    <td class="details"><code>{&quot;todo&quot;:&quot;No product URL captured from PLP&quot;}</code></td>
-  </tr><tr class="row-skip">
-    <td><span class="pill small skip">skip</span></td>
+    <td>PDP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;lcpMs&quot;:480}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-compare-gt-price</td>
-    <td>pdp-compare-gt-price</td>
-    <td class="details"><code>{&quot;todo&quot;:&quot;No product URL captured from PLP&quot;}</code></td>
-  </tr><tr class="row-skip">
-    <td><span class="pill small skip">skip</span></td>
+    <td>PDP compare-at price is greater than actual price</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;title&quot;:&quot;iPhone 12 Pro Max&quot;,&quot;price&quot;:1199,&quot;compare&quot;:2475,&quot;currency&quot;:&quot;SAR&quot;}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-warranty-heading</td>
-    <td>pdp-warranty-heading</td>
-    <td class="details"><code>{&quot;todo&quot;:&quot;No product URL captured from PLP&quot;}</code></td>
-  </tr><tr class="row-skip">
-    <td><span class="pill small skip">skip</span></td>
+    <td>Warranty card heading &quot;Get full protection and warranty for 24 months&quot; present on PDP</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;found&quot;:true}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
     <td class="check-id">pdp-warranty-tier-math</td>
-    <td>pdp-warranty-tier-math</td>
-    <td class="details"><code>{&quot;todo&quot;:&quot;No product URL captured from PLP&quot;}</code></td>
+    <td>Displayed warranty price matches canonical tier for product price</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;productPrice&quot;:1199,&quot;expectedWarranty&quot;:95,&quot;displayedWarranty&quot;:95,&quot;currency&quot;:&quot;SAR&quot;,&quot;match&quot;:true,&quot;tierHandle&quot;:&quot;2-years-extended-warranty-plan&quot;,&quot;tierProductId&quot;:45371583136065,&quot;cardSnippet&quot;:&quot;Color: Graphite\n \n \n \nStorage: 128 GB\n128 GB\n256 GB\n512 GB\nCondition…</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">pdp-cashback-reasonable</td>
+    <td>Cashback widget present AND amount &gt; 0 (skipped while feature On Hold per QA doc)</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;todo&quot;:null,&quot;present&quot;:true,&quot;amount&quot;:200,&quot;snippet&quot;:&quot;DER WITH CODE EIDGIFT AND ENJOY 200 SAR CASHBACK AT CHECKOUT!\n150,000+ Customers\nExcellent\niPhone 12 Pro Max\nAdd to wishlist\nRenewed\n-52% vs&quot;}</code></td>
   </tr><tr class="row-skip">
     <td><span class="pill small skip">skip</span></td>
-    <td class="check-id">pdp-cashback-reasonable</td>
-    <td>pdp-cashback-reasonable</td>
-    <td class="details"><code>{&quot;todo&quot;:&quot;No product URL captured from PLP&quot;}</code></td>
+    <td class="check-id">pdp-trustpilot-present</td>
+    <td>Trustpilot widget rendered with non-zero review count</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;hasHeading&quot;:false,&quot;count&quot;:0,&quot;todo&quot;:&quot;Trustpilot widget not on this PDP&quot;}</code></td>
+  </tr><tr class="row-fail">
+    <td><span class="pill small fail">fail</span></td>
+    <td class="check-id">pdp-related-products-count</td>
+    <td>Recommended/Related section has ≥3 product cards</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;count&quot;:0}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">pdp-whats-included-smartphone</td>
+    <td>&quot;What&#39;s Included&quot; lists Charger AND Mobile/Phone for smartphone PDPs</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;sectionPresent&quot;:false,&quot;hasCharger&quot;:false,&quot;hasMobile&quot;:true,&quot;todo&quot;:&quot;&#39;What&#39;s Included&#39; section not found&quot;}</code></td>
+  </tr><tr class="row-fail">
+    <td><span class="pill small fail">fail</span></td>
+    <td class="check-id">pdp-tech-spec-present</td>
+    <td>Technical Specification section present and non-empty</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;present&quot;:false,&quot;length&quot;:0}</code></td>
+  </tr><tr class="row-fail">
+    <td><span class="pill small fail">fail</span></td>
+    <td class="check-id">pdp-usp-icons-all-four</td>
+    <td>PDP USP strip mentions Certified · Unlocked · 12 Months Warranty · Free Delivery (≥3 of 4)</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;items&quot;:{&quot;certified&quot;:false,&quot;unlocked&quot;:false,&quot;warranty12&quot;:true,&quot;freeDelivery&quot;:true},&quot;count&quot;:2}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">pdp-variant-url-changes-price</td>
+    <td>Navigating ?variant=&lt;id&gt; shows that variant&#39;s price</td>
+    <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max?variant=45685160640833&quot;,&quot;v1Price&quot;:1199,&quot;v2Price&quot;:1479,&quot;v2Shown&quot;:true,&quot;v1NoLongerInTopOfPage&quot;:true,&quot;todo&quot;:null}</code></td>
   </tr>
     </tbody>
   </table>
-</details><details >
+</details><details open>
   <summary>
     <span class="journey-id">j3-cart</span>
     <span class="journey-name">Cart</span>
-    <span class="journey-counts">5 checks · 2p / 0w / 0f / 3s</span>
+    <span class="journey-counts">9 checks · 0p / 0w / 1f / 8s</span>
   </summary>
   <table>
     <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
@@ -721,35 +901,55 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td><span class="pill small skip">skip</span></td>
     <td class="check-id">cart-add-via-api</td>
     <td>Cart populated via Shopify /cart/add.js (variant from j2 PDP)</td>
-    <td class="details"><code>{&quot;todo&quot;:&quot;Variant ID unavailable or add failed&quot;,&quot;addResult&quot;:null}</code></td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;Variant ID unavailable or add failed&quot;,&quot;addResult&quot;:{&quot;ok&quot;:false,&quot;status&quot;:403,&quot;bodyPreview&quot;:&quot;&lt;!DOCTYPE html&gt;\n&lt;html lang=\&quot;en\&quot;&gt;\n&lt;head&gt;\n    &lt;meta charset=\&quot;utf-8\&quot; /&gt;\n    &lt;meta name=\&quot;viewport\&quot; content=\&quot;width=device-width, initial-scale=1.0\&quot; /&gt;\n    &lt;title&gt;Ver&quot;}}</code></td>
   </tr><tr class="row-skip">
     <td><span class="pill small skip">skip</span></td>
     <td class="check-id">cart-shows-added-product</td>
     <td>Cart contains the variant added via API</td>
     <td class="details"><code>{&quot;todo&quot;:&quot;No product was added to cart&quot;}</code></td>
-  </tr><tr class="row-pass">
-    <td><span class="pill small pass">pass</span></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
     <td class="check-id">cart-loads</td>
     <td>Cart page loads with 2xx response</td>
-    <td class="details"><code>{&quot;status&quot;:200}</code></td>
-  </tr><tr class="row-pass">
-    <td><span class="pill small pass">pass</span></td>
+    <td class="details"><code>{&quot;status&quot;:403,&quot;todo&quot;:&quot;HTTP 403 on /cart — likely Cloudflare/Shopify anti-bot block. Skipped; investigate stealth mode or whitelisted UA later.&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
     <td class="check-id">cart-bnpl-logos</td>
     <td>BNPL providers Tabby, Tamara, Baseeta present on cart page</td>
-    <td class="details"><code>{&quot;expected&quot;:[&quot;Tabby&quot;,&quot;Tamara&quot;,&quot;Baseeta&quot;],&quot;found&quot;:[&quot;Tabby&quot;,&quot;Tamara&quot;,&quot;Baseeta&quot;],&quot;missing&quot;:[]}</code></td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;Cart page blocked (403); BNPL check skipped&quot;}</code></td>
   </tr><tr class="row-skip">
     <td><span class="pill small skip">skip</span></td>
     <td class="check-id">checkout-loads</td>
     <td>Checkout page loads with populated cart</td>
     <td class="details"><code>{&quot;todo&quot;:&quot;Cart was not populated; cannot test checkout&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">cart-promo-code-input-present</td>
+    <td>Cart page has a promo/discount code input field</td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;Cart page CDN-blocked; can&#39;t inspect DOM&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">cart-quantity-update-via-api</td>
+    <td>cart-quantity-update-via-api</td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;No item to update/remove (cart was not populated)&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
+    <td class="check-id">cart-remove-via-api</td>
+    <td>cart-remove-via-api</td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;No item to update/remove (cart was not populated)&quot;}</code></td>
+  </tr><tr class="row-fail">
+    <td><span class="pill small fail">fail</span></td>
+    <td class="check-id">cart-multi-product-add</td>
+    <td>Adding 2-3 distinct products lands all of them in /cart.js</td>
+    <td class="details"><code>{&quot;attempted&quot;:5,&quot;added&quot;:[],&quot;cartVids&quot;:[],&quot;allPresent&quot;:false,&quot;itemCount&quot;:0}</code></td>
   </tr>
     </tbody>
   </table>
-</details><details >
+</details><details open>
   <summary>
     <span class="journey-id">j5-speed</span>
     <span class="journey-name">Page Speed (LCP across journeys)</span>
-    <span class="journey-counts">5 checks · 3p / 0w / 0f / 2s</span>
+    <span class="journey-counts">7 checks · 4p / 0w / 1f / 2s</span>
   </summary>
   <table>
     <thead><tr><th>Status</th><th>Check</th><th>Description</th><th>Details</th></tr></thead>
@@ -758,27 +958,37 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">homepage-lcp</td>
     <td>Homepage LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;lcpMs&quot;:2140,&quot;source&quot;:&quot;reused from j4-navigation&quot;}</code></td>
+    <td class="details"><code>{&quot;lcpMs&quot;:1948,&quot;source&quot;:&quot;reused from j4-navigation&quot;}</code></td>
   </tr><tr class="row-pass">
     <td><span class="pill small pass">pass</span></td>
     <td class="check-id">plp-lcp</td>
     <td>PLP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;lcpMs&quot;:50,&quot;url&quot;:&quot;https://sa.revibe.me/collections/all&quot;}</code></td>
-  </tr><tr class="row-skip">
-    <td><span class="pill small skip">skip</span></td>
-    <td class="check-id">pdp-lcp</td>
-    <td>PDP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;todo&quot;:&quot;pdp-lcp not captured by earlier journey&quot;}</code></td>
+    <td class="details"><code>{&quot;lcpMs&quot;:53,&quot;url&quot;:&quot;https://sa.revibe.me/collections/all&quot;}</code></td>
   </tr><tr class="row-pass">
     <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">pdp-lcp</td>
+    <td>PDP LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
+    <td class="details"><code>{&quot;lcpMs&quot;:480,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
+  </tr><tr class="row-skip">
+    <td><span class="pill small skip">skip</span></td>
     <td class="check-id">cart-lcp</td>
     <td>Cart LCP under thresholds (pass &lt;2.5s, warn 2.5-4s, fail &gt;4s)</td>
-    <td class="details"><code>{&quot;lcpMs&quot;:756,&quot;source&quot;:&quot;reused from j3-cart&quot;}</code></td>
+    <td class="details"><code>{&quot;todo&quot;:&quot;cart-lcp not captured by earlier journey&quot;}</code></td>
   </tr><tr class="row-skip">
     <td><span class="pill small skip">skip</span></td>
     <td class="check-id">checkout-lcp</td>
     <td>Checkout LCP under thresholds</td>
     <td class="details"><code>{&quot;todo&quot;:&quot;Checkout LCP not captured (cart unpopulated or external redirect)&quot;}</code></td>
+  </tr><tr class="row-pass">
+    <td><span class="pill small pass">pass</span></td>
+    <td class="check-id">homepage-cls</td>
+    <td>Homepage CLS under thresholds (pass &lt;0.1, warn 0.1-0.25, fail &gt;0.25)</td>
+    <td class="details"><code>{&quot;cls&quot;:0.052,&quot;source&quot;:&quot;reused from j4-navigation&quot;}</code></td>
+  </tr><tr class="row-fail">
+    <td><span class="pill small fail">fail</span></td>
+    <td class="check-id">pdp-cls</td>
+    <td>PDP CLS under thresholds (pass &lt;0.1, warn 0.1-0.25, fail &gt;0.25)</td>
+    <td class="details"><code>{&quot;cls&quot;:0.732,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
   </tr>
     </tbody>
   </table>
@@ -830,15 +1040,85 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
 </article>
 </section>
   <section class="failures">
-  <h2>Open failures (1)</h2>
+  <h2>Open failures (15)</h2>
   <table>
     <thead><tr><th>Site</th><th>Journey</th><th>Check</th><th>Details</th></tr></thead>
     <tbody>
       <tr>
+        <td>revibe.co.za</td>
+        <td>j2-pdp</td>
+        <td class="check-id">pdp-related-products-count</td>
+        <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;count&quot;:0}</code></td>
+      </tr><tr>
+        <td>revibe.co.za</td>
+        <td>j2-pdp</td>
+        <td class="check-id">pdp-tech-spec-present</td>
+        <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;present&quot;:false,&quot;length&quot;:0}</code></td>
+      </tr><tr>
+        <td>revibe.co.za</td>
+        <td>j2-pdp</td>
+        <td class="check-id">pdp-usp-icons-all-four</td>
+        <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.co.za/products/iphone-11&quot;,&quot;items&quot;:{&quot;certified&quot;:false,&quot;unlocked&quot;:false,&quot;warranty12&quot;:true,&quot;freeDelivery&quot;:true},&quot;count&quot;:2}</code></td>
+      </tr><tr>
+        <td>revibe.co.za</td>
+        <td>j3-cart</td>
+        <td class="check-id">cart-multi-product-add</td>
+        <td class="details"><code>{&quot;attempted&quot;:5,&quot;added&quot;:[],&quot;cartVids&quot;:[],&quot;allPresent&quot;:false,&quot;itemCount&quot;:0}</code></td>
+      </tr><tr>
+        <td>revibe.co.za</td>
+        <td>j5-speed</td>
+        <td class="check-id">pdp-cls</td>
+        <td class="details"><code>{&quot;cls&quot;:0.85,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
+      </tr><tr>
         <td>revibe.me</td>
         <td>j2-pdp</td>
-        <td class="check-id">pdp-loads</td>
-        <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;status&quot;:403}</code></td>
+        <td class="check-id">pdp-related-products-count</td>
+        <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;count&quot;:0}</code></td>
+      </tr><tr>
+        <td>revibe.me</td>
+        <td>j2-pdp</td>
+        <td class="check-id">pdp-tech-spec-present</td>
+        <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;present&quot;:false,&quot;length&quot;:0}</code></td>
+      </tr><tr>
+        <td>revibe.me</td>
+        <td>j2-pdp</td>
+        <td class="check-id">pdp-usp-icons-all-four</td>
+        <td class="details"><code>{&quot;url&quot;:&quot;https://revibe.me/products/iphone-12-pro&quot;,&quot;items&quot;:{&quot;certified&quot;:false,&quot;unlocked&quot;:false,&quot;warranty12&quot;:true,&quot;freeDelivery&quot;:true},&quot;count&quot;:2}</code></td>
+      </tr><tr>
+        <td>revibe.me</td>
+        <td>j3-cart</td>
+        <td class="check-id">cart-multi-product-add</td>
+        <td class="details"><code>{&quot;attempted&quot;:5,&quot;added&quot;:[],&quot;cartVids&quot;:[],&quot;allPresent&quot;:false,&quot;itemCount&quot;:0}</code></td>
+      </tr><tr>
+        <td>revibe.me</td>
+        <td>j5-speed</td>
+        <td class="check-id">pdp-cls</td>
+        <td class="details"><code>{&quot;cls&quot;:0.685,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
+      </tr><tr>
+        <td>sa.revibe.me</td>
+        <td>j2-pdp</td>
+        <td class="check-id">pdp-related-products-count</td>
+        <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;count&quot;:0}</code></td>
+      </tr><tr>
+        <td>sa.revibe.me</td>
+        <td>j2-pdp</td>
+        <td class="check-id">pdp-tech-spec-present</td>
+        <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;present&quot;:false,&quot;length&quot;:0}</code></td>
+      </tr><tr>
+        <td>sa.revibe.me</td>
+        <td>j2-pdp</td>
+        <td class="check-id">pdp-usp-icons-all-four</td>
+        <td class="details"><code>{&quot;url&quot;:&quot;https://sa.revibe.me/products/iphone-12-pro-max&quot;,&quot;items&quot;:{&quot;certified&quot;:false,&quot;unlocked&quot;:false,&quot;warranty12&quot;:true,&quot;freeDelivery&quot;:true},&quot;count&quot;:2}</code></td>
+      </tr><tr>
+        <td>sa.revibe.me</td>
+        <td>j3-cart</td>
+        <td class="check-id">cart-multi-product-add</td>
+        <td class="details"><code>{&quot;attempted&quot;:5,&quot;added&quot;:[],&quot;cartVids&quot;:[],&quot;allPresent&quot;:false,&quot;itemCount&quot;:0}</code></td>
+      </tr><tr>
+        <td>sa.revibe.me</td>
+        <td>j5-speed</td>
+        <td class="check-id">pdp-cls</td>
+        <td class="details"><code>{&quot;cls&quot;:0.732,&quot;source&quot;:&quot;reused from j2-pdp&quot;}</code></td>
       </tr>
     </tbody>
   </table>
@@ -866,8 +1146,8 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--line
     </div></div>
 </section>
   <footer>
-    <span>Generated 2026-05-20T09:59:22.701Z</span>
-    <span>Run time 4m 37s</span>
+    <span>Generated 2026-05-20T10:27:39.550Z</span>
+    <span>Run time 4m 48s</span>
   </footer>
 </main>
 </body>
