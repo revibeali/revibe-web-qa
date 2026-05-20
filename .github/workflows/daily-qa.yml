@@ -94,8 +94,10 @@ jobs:
               if echo "$SUMMARY" | grep -q ":warning:"; then OVERALL=":warning:"; fi
             fi
             HEADER="*Daily QA - ${DATE} - ${OVERALL}*"
+            # Regression diff line (since previous run)
+            DIFF_LINE=$(jq -r '(.diff // {}) | if .hasBaseline then ("Since " + .baselineDate + ": " + ((.newlyBroken|length)|tostring) + " newly broken, " + ((.newlyFixed|length)|tostring) + " newly fixed") else "First run - no baseline" end' "$REPORT")
             FOOTER="<https://revibeali.github.io/revibe-web-qa/|Dashboard> - <${RUN_URL}|Run #${RUN_NUMBER}>"
-            TEXT=$(printf '%s\n%s\n%s' "$HEADER" "$SUMMARY" "$FOOTER")
+            TEXT=$(printf '%s\n_%s_\n%s\n%s' "$HEADER" "$DIFF_LINE" "$SUMMARY" "$FOOTER")
           else
             HEADER="*Daily QA - ${DATE} - :x:*"
             FOOTER="<${RUN_URL}|See run logs>"
