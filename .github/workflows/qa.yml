@@ -1,8 +1,9 @@
+# Schedule re-registration nudge — 2026-05-20
 name: Daily QA
 
 on:
   schedule:
-    - cron: '45 8 * * *'
+    - cron: '30 9 * * *'
   workflow_dispatch:
 
 permissions:
