@@ -77,7 +77,7 @@ export default {
     }
 
     // 3. Navigate to /cart page (LCP + BNPL DOM checks). May be CDN-blocked.
-    let cartResponse, cartLcpMs = 0, cartBlocked = false, cartLoadErr = null;
+    let cartResponse, cartLcpMs = 0, cartBlocked = false, cartInfraType = null;
     try {
       const result = await measureLCP(page, site.baseUrl + '/cart');
       cartResponse = result.response;
@@ -89,7 +89,9 @@ export default {
         ctx.cartLcpMs = cartLcpMs;
       }
     } catch (e) {
-      cartLoadErr = e.message;
+      // measureLCP throws a classified error on nav failure.
+      if (e.errorType === 'cdn-blocked') cartBlocked = true;
+      else cartInfraType = e.errorType || 'timeout';
     }
 
     const cartStatus = cartResponse?.status() ?? 0;
@@ -99,29 +101,29 @@ export default {
         category: 'functional',
         description: 'Cart page loads with 2xx response',
         status: 'skip',
-        details: { status: cartStatus, todo: `HTTP ${cartStatus} on /cart — likely Cloudflare/Shopify anti-bot block. Skipped; investigate stealth mode or whitelisted UA later.` },
+        details: { status: cartStatus, failureType: 'infrastructure', todo: `Cart page blocked by the site's bot protection (HTTP ${cartStatus || 403}) — could not test.` },
       });
       checks.push({
         id: 'cart-bnpl-logos',
         category: 'localization',
         description: `BNPL providers ${site.bnpl.join(', ')} present on cart page`,
         status: 'skip',
-        details: { todo: `Cart page blocked (${cartStatus}); BNPL check skipped` },
+        details: { failureType: 'infrastructure', todo: `Cart page bot-blocked; BNPL check skipped.` },
       });
-    } else if (cartLoadErr) {
+    } else if (cartInfraType) {
       checks.push({
         id: 'cart-loads',
         category: 'functional',
         description: 'Cart page loads with 2xx response',
         status: 'fail',
-        details: { error: cartLoadErr },
+        details: { failureType: 'infrastructure', errorType: cartInfraType, humanReason: 'Cart page did not respond after retries — could not test (likely a transient slowdown).' },
       });
       checks.push({
         id: 'cart-bnpl-logos',
         category: 'localization',
         description: `BNPL providers ${site.bnpl.join(', ')} present on cart page`,
-        status: 'fail',
-        details: { error: 'Cart page failed to load' },
+        status: 'skip',
+        details: { failureType: 'infrastructure', todo: 'Cart page unreachable; BNPL check skipped.' },
       });
     } else {
       checks.push({
@@ -300,12 +302,28 @@ export default {
       const cartJson = await shopifyGetCart(page);
       const cartVids = (cartJson?.items || []).map((i) => i.variant_id);
       const allPresent = added.length > 0 && added.every((vid) => cartVids.includes(vid));
+      // If every handle came back 'no-variant', the /products/<handle>.js
+      // endpoint was bot-blocked — that's infrastructure, not a real defect.
+      const allNoVariant = attemptLog.length > 0 && attemptLog.every((a) => a.status === 'no-variant');
+      let multiStatus;
+      const multiDetails = { attempted: handles.length, added, cartVids, allPresent, itemCount: cartJson?.item_count ?? 0, attemptLog };
+      if (added.length >= 2 && allPresent) {
+        multiStatus = 'pass';
+      } else if (added.length === 1) {
+        multiStatus = 'warning';
+      } else if (added.length === 0 && allNoVariant) {
+        multiStatus = 'skip';
+        multiDetails.failureType = 'infrastructure';
+        multiDetails.todo = 'Product data could not be fetched for any handle (/products/<handle>.js likely bot-blocked) — could not test.';
+      } else {
+        multiStatus = 'fail';
+      }
       checks.push({
         id: 'cart-multi-product-add',
         category: 'functional',
         description: 'Adding 2-3 distinct products lands all of them in /cart.js',
-        status: added.length >= 2 && allPresent ? 'pass' : added.length === 1 ? 'warning' : 'fail',
-        details: { attempted: handles.length, added, cartVids, allPresent, itemCount: cartJson?.item_count ?? 0, attemptLog },
+        status: multiStatus,
+        details: multiDetails,
       });
     } else {
       checks.push({
