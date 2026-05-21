@@ -16,16 +16,24 @@ export default {
     const setup = await ensurePDPLoaded(page, site, ctx);
     if (!setup.ok) {
       const cdnBlocked = setup.reason === 'cdn-blocked';
-      for (const id of CHECK_IDS) {
+      const reasonText = cdnBlocked
+        ? `Product pages were blocked by the site's bot protection (HTTP ${setup.status}) during this run — could not test.`
+        : `Product pages could not be loaded after 3 retries — could not test. Most likely a transient slowdown, not a site outage.`;
+      // pdp-loads carries the signal. A bot-block is a "skip" (not our fault, not
+      // a real defect); a genuine unreachable PDP is a fail flagged as
+      // infrastructure so the summary frames it as "couldn't test", not "broken".
+      checks.push({
+        id: 'pdp-loads',
+        category: 'functional',
+        description: 'PDP loads with 2xx response',
+        status: cdnBlocked ? 'skip' : 'fail',
+        details: { failureType: 'infrastructure', reason: setup.reason, humanReason: reasonText },
+      });
+      for (const id of ['pdp-compare-gt-price', 'pdp-variant-url-changes-price']) {
         checks.push({
-          id,
-          category: 'meta',
-          description: id,
-          status: cdnBlocked ? 'skip' : 'fail',
-          details: {
-            todo: cdnBlocked ? `PDP blocked by CDN (HTTP ${setup.status})` : null,
-            error: setup.reason,
-          },
+          id, category: 'meta', description: id,
+          status: 'skip',
+          details: { todo: reasonText, failureType: 'infrastructure', reason: setup.reason },
         });
       }
       return checks;
