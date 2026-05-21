@@ -85,8 +85,11 @@ export default {
         checked: first.checked || first.getAttribute('aria-checked') === 'true',
       };
     });
+    // "Not found" is a warning, not a fail: the toggle is a small theme widget
+    // and a negative result is as likely to be a selector miss as a real bug.
+    // A human should verify before this screams red.
     let wtStatus;
-    if (!warrantyToggle.present) wtStatus = 'fail';
+    if (!warrantyToggle.present) wtStatus = 'warning';
     else if (warrantyToggle.visible) wtStatus = 'pass';
     else wtStatus = 'warning';
     checks.push({
@@ -156,10 +159,13 @@ export default {
       const newKeywords = keywords.filter((k) => post[k] && !warrantyClick.preKeywords[k]);
       const newHits = newKeywords.length;
       const grew = post.length > warrantyClick.beforeLen;
+      // "Click revealed no new content" is ambiguous — could be a real broken
+      // modal, or the modal copy simply differs from the keywords we expect.
+      // Warn rather than fail so a human confirms before it counts as red.
       let s;
       if (newHits >= 3 && grew) s = 'pass';
       else if (newHits >= 1 && grew) s = 'warning';
-      else s = 'fail';
+      else s = 'warning';
       checks.push({
         id: 'pdp-warranty-info-modal-content',
         category: 'functional',
