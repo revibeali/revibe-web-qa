@@ -2,7 +2,46 @@
 // Shopify cart/product utilities, warranty math, Arabic detection.
 // Designed to work on any page (homepage, PLP, PDP, cart, checkout).
 
-export async function measureLCP(page, url, { timeout = 30000, idleTimeout = 15000 } = {}) {
+// Classifies a navigation failure so callers can tell a transient/
+// infrastructure problem ("couldn't test") apart from a real defect.
+// Returns one of: 'timeout' | 'network' | 'cdn-blocked' | 'http-error' | null.
+export function classifyNavError(err) {
+  const msg = String(err?.message || err || '').toLowerCase();
+  if (msg.includes('timeout') || msg.includes('exceeded')) return 'timeout';
+  if (msg.includes('err_') || msg.includes('net::') || msg.includes('dns') || msg.includes('connection')) return 'network';
+  return 'network';
+}
+
+export function isInfraReason(reason) {
+  return ['timeout', 'network', 'cdn-blocked', 'pdp-nav-error', 'no-product-path', 'homepage-nav-error', 'plp-nav-error'].includes(reason);
+}
+
+// page.goto with retry. A single 30s timeout is almost always transient
+// (cold CDN cache, a slow runner, a brief network blip), so we retry up to
+// `retries` times with escalating timeouts before declaring failure.
+// Returns { ok, response, status, errorType, error, attempts }.
+export async function safeGoto(page, url, { retries = 3, baseTimeout = 30000, waitUntil = 'load' } = {}) {
+  let lastErr = null;
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      const response = await page.goto(url, { waitUntil, timeout: baseTimeout + (attempt - 1) * 8000 });
+      const status = response?.status() ?? 0;
+      if (status === 403 || status === 429) {
+        return { ok: false, response, status, errorType: 'cdn-blocked', attempts: attempt };
+      }
+      if (status >= 400) {
+        return { ok: false, response, status, errorType: 'http-error', attempts: attempt };
+      }
+      return { ok: true, response, status, errorType: null, attempts: attempt };
+    } catch (err) {
+      lastErr = err;
+      if (attempt < retries) await new Promise((r) => setTimeout(r, 2000 * attempt));
+    }
+  }
+  return { ok: false, response: null, status: 0, errorType: classifyNavError(lastErr), error: lastErr?.message || String(lastErr), attempts: retries };
+}
+
+export async function measureLCP(page, url, { timeout = 30000, idleTimeout = 15000, retries = 3 } = {}) {
   await page.addInitScript(() => {
     window.__lcp = 0;
     window.__cls = 0;
@@ -27,10 +66,17 @@ export async function measureLCP(page, url, { timeout = 30000, idleTimeout = 150
       // CLS not supported; __cls stays 0.
     }
   });
-  const response = await page.goto(url, { waitUntil: 'load', timeout });
+  const nav = await safeGoto(page, url, { retries, baseTimeout: timeout });
+  if (!nav.ok) {
+    // Surface a classified failure instead of throwing a raw Playwright error.
+    const e = new Error(`Navigation failed (${nav.errorType}) after ${nav.attempts} attempts`);
+    e.errorType = nav.errorType;
+    e.navStatus = nav.status;
+    throw e;
+  }
   await page.waitForLoadState('networkidle', { timeout: idleTimeout }).catch(() => {});
   const m = await page.evaluate(() => ({ lcp: window.__lcp || 0, cls: window.__cls || 0 }));
-  return { lcpMs: Math.round(m.lcp), cls: Math.round(m.cls * 1000) / 1000, response };
+  return { lcpMs: Math.round(m.lcp), cls: Math.round(m.cls * 1000) / 1000, response: nav.response };
 }
 
 export function lcpStatus(lcpMs) {
@@ -248,18 +294,20 @@ export async function ensurePDPLoaded(page, site, ctx) {
   }
   // Fall back to grabbing a PLP product handle if upstream j06 didn't capture it.
   if (!ctx.plpFirstProductPath) {
-    try {
-      await page.goto(site.baseUrl + site.plpPath, { waitUntil: 'domcontentloaded', timeout: 30000 });
+    const nav = await safeGoto(page, site.baseUrl + site.plpPath, { waitUntil: 'domcontentloaded' });
+    if (nav.ok) {
       await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
       ctx.plpFirstProductPath = await page.evaluate(() => {
         const a = document.querySelector('a[href*="/products/"]');
         if (!a) return null;
         try { return new URL(a.href).pathname; } catch (_) { return null; }
       });
-    } catch (_) {}
+    } else if (nav.errorType === 'cdn-blocked') {
+      return { ok: false, reason: 'cdn-blocked', errorType: 'cdn-blocked', status: nav.status };
+    }
   }
   if (!ctx.plpFirstProductPath) {
-    return { ok: false, reason: 'no-product-path' };
+    return { ok: false, reason: 'no-product-path', errorType: 'timeout' };
   }
   const pdpUrl = site.baseUrl + ctx.plpFirstProductPath;
   let response, lcpMs = 0, cls = 0;
@@ -271,7 +319,7 @@ export async function ensurePDPLoaded(page, site, ctx) {
     ctx.pdpLcpMs = lcpMs;
     ctx.pdpCls = cls;
   } catch (err) {
-    return { ok: false, reason: 'pdp-nav-error', error: err.message };
+    return { ok: false, reason: 'pdp-nav-error', errorType: err.errorType || 'timeout', error: err.message };
   }
   const status = response?.status() ?? 0;
   if (status === 403 || status === 429) {
