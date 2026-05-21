@@ -1,7 +1,7 @@
 {
   "date": "2026-05-21",
-  "timestamp": "2026-05-21T04:49:08.597Z",
-  "runTimeMs": 244101,
+  "timestamp": "2026-05-21T12:35:58.888Z",
+  "runTimeMs": 220144,
   "filter": {
     "frequency": [],
     "priority": [],
@@ -16,57 +16,15 @@
     "newlyBroken": [
       {
         "site": "revibe.co.za",
-        "id": "cart-loads",
-        "description": "Cart page loads with 2xx response",
-        "was": "skip"
-      },
-      {
-        "site": "revibe.co.za",
-        "id": "cart-bnpl-logos",
-        "description": "BNPL providers FLOAT, PAYFLEX, HAPPYPAY present on cart page",
-        "was": "skip"
-      },
-      {
-        "site": "revibe.co.za",
         "id": "plp-lcp",
         "description": "PLP LCP under thresholds",
         "was": "pass"
       },
       {
         "site": "revibe.me",
-        "id": "cart-loads",
-        "description": "Cart page loads with 2xx response",
-        "was": "skip"
-      },
-      {
-        "site": "revibe.me",
-        "id": "cart-bnpl-logos",
-        "description": "BNPL providers Tabby, Tamara present on cart page",
-        "was": "skip"
-      },
-      {
-        "site": "revibe.me",
         "id": "plp-lcp",
         "description": "PLP LCP under thresholds",
         "was": "pass"
-      },
-      {
-        "site": "revibe.me",
-        "id": "pdp-cls",
-        "description": "PDP CLS under thresholds (pass <0.1, warn 0.1-0.25, fail >0.25)",
-        "was": "pass"
-      },
-      {
-        "site": "sa.revibe.me",
-        "id": "cart-loads",
-        "description": "Cart page loads with 2xx response",
-        "was": "skip"
-      },
-      {
-        "site": "sa.revibe.me",
-        "id": "cart-bnpl-logos",
-        "description": "BNPL providers Tabby, Tamara, Baseeta present on cart page",
-        "was": "skip"
       },
       {
         "site": "sa.revibe.me",
@@ -167,6 +125,24 @@
         "now": "pass"
       },
       {
+        "site": "revibe.co.za",
+        "id": "pdp-warranty-toggle-present",
+        "description": "Warranty toggle exists near the warranty card on PDP",
+        "now": "warning"
+      },
+      {
+        "site": "revibe.co.za",
+        "id": "pdp-warranty-info-modal-content",
+        "description": "Clicking the warranty (i) icon reveals NEW Revibe Care+ content (Full Protection / Accidental Damage / Express Replacement / 24/7 Support / Revibe Care+)",
+        "now": "warning"
+      },
+      {
+        "site": "revibe.co.za",
+        "id": "cart-multi-product-add",
+        "description": "Adding 2-3 distinct products lands all of them in /cart.js",
+        "now": "skip"
+      },
+      {
         "site": "revibe.me",
         "id": "homepage-loads",
         "description": "Homepage loads with 2xx response",
@@ -257,6 +233,24 @@
         "now": "pass"
       },
       {
+        "site": "revibe.me",
+        "id": "pdp-warranty-toggle-present",
+        "description": "Warranty toggle exists near the warranty card on PDP",
+        "now": "warning"
+      },
+      {
+        "site": "revibe.me",
+        "id": "pdp-warranty-info-modal-content",
+        "description": "Clicking the warranty (i) icon reveals NEW Revibe Care+ content (Full Protection / Accidental Damage / Express Replacement / 24/7 Support / Revibe Care+)",
+        "now": "warning"
+      },
+      {
+        "site": "revibe.me",
+        "id": "cart-multi-product-add",
+        "description": "Adding 2-3 distinct products lands all of them in /cart.js",
+        "now": "skip"
+      },
+      {
         "site": "sa.revibe.me",
         "id": "homepage-loads",
         "description": "Homepage loads with 2xx response",
@@ -345,58 +339,31 @@
         "id": "pdp-cashback-visible",
         "description": "Cashback element is actually rendered (not display:none / zero-sized)",
         "now": "pass"
+      },
+      {
+        "site": "sa.revibe.me",
+        "id": "pdp-warranty-toggle-present",
+        "description": "Warranty toggle exists near the warranty card on PDP",
+        "now": "warning"
+      },
+      {
+        "site": "sa.revibe.me",
+        "id": "pdp-warranty-info-modal-content",
+        "description": "Clicking the warranty (i) icon reveals NEW Revibe Care+ content (Full Protection / Accidental Damage / Express Replacement / 24/7 Support / Revibe Care+)",
+        "now": "warning"
+      },
+      {
+        "site": "sa.revibe.me",
+        "id": "cart-multi-product-add",
+        "description": "Adding 2-3 distinct products lands all of them in /cart.js",
+        "now": "skip"
       }
     ],
     "stillBroken": [
       {
         "site": "revibe.co.za",
-        "id": "pdp-warranty-toggle-present",
-        "description": "Warranty toggle exists near the warranty card on PDP"
-      },
-      {
-        "site": "revibe.co.za",
-        "id": "pdp-warranty-info-modal-content",
-        "description": "Clicking the warranty (i) icon reveals NEW Revibe Care+ content (Full Protection / Accidental Damage / Express Replacement / 24/7 Support / Revibe Care+)"
-      },
-      {
-        "site": "revibe.co.za",
-        "id": "cart-multi-product-add",
-        "description": "Adding 2-3 distinct products lands all of them in /cart.js"
-      },
-      {
-        "site": "revibe.co.za",
         "id": "pdp-cls",
         "description": "PDP CLS under thresholds (pass <0.1, warn 0.1-0.25, fail >0.25)"
-      },
-      {
-        "site": "revibe.me",
-        "id": "pdp-warranty-toggle-present",
-        "description": "Warranty toggle exists near the warranty card on PDP"
-      },
-      {
-        "site": "revibe.me",
-        "id": "pdp-warranty-info-modal-content",
-        "description": "Clicking the warranty (i) icon reveals NEW Revibe Care+ content (Full Protection / Accidental Damage / Express Replacement / 24/7 Support / Revibe Care+)"
-      },
-      {
-        "site": "revibe.me",
-        "id": "cart-multi-product-add",
-        "description": "Adding 2-3 distinct products lands all of them in /cart.js"
-      },
-      {
-        "site": "sa.revibe.me",
-        "id": "pdp-warranty-toggle-present",
-        "description": "Warranty toggle exists near the warranty card on PDP"
-      },
-      {
-        "site": "sa.revibe.me",
-        "id": "pdp-warranty-info-modal-content",
-        "description": "Clicking the warranty (i) icon reveals NEW Revibe Care+ content (Full Protection / Accidental Damage / Express Replacement / 24/7 Support / Revibe Care+)"
-      },
-      {
-        "site": "sa.revibe.me",
-        "id": "cart-multi-product-add",
-        "description": "Adding 2-3 distinct products lands all of them in /cart.js"
       },
       {
         "site": "sa.revibe.me",
@@ -413,10 +380,10 @@
       "summary": {
         "total": 52,
         "pass": 30,
-        "warning": 0,
-        "fail": 7,
-        "skip": 15,
-        "passRate": 81,
+        "warning": 2,
+        "fail": 2,
+        "skip": 18,
+        "passRate": 88,
         "status": "fail"
       },
       "checks": [
@@ -925,12 +892,11 @@
           "id": "pdp-warranty-toggle-present",
           "category": "functional",
           "description": "Warranty toggle exists near the warranty card on PDP",
-          "status": "fail",
+          "status": "warning",
           "details": {
             "url": "https://revibe.co.za/products/iphone-11",
             "present": false,
-            "reason": "no toggle near warranty card",
-            "screenshot": "screenshots/2026-05-21/za/j10-atc-warranty-flow.png"
+            "reason": "no toggle near warranty card"
           },
           "journey": "j10-atc-warranty-flow",
           "journeyName": "Add-to-Cart & Warranty Flow",
@@ -942,7 +908,7 @@
           "id": "pdp-warranty-info-modal-content",
           "category": "functional",
           "description": "Clicking the warranty (i) icon reveals NEW Revibe Care+ content (Full Protection / Accidental Damage / Express Replacement / 24/7 Support / Revibe Care+)",
-          "status": "fail",
+          "status": "warning",
           "details": {
             "url": "https://revibe.co.za/products/iphone-11",
             "newKeywords": [],
@@ -952,8 +918,7 @@
             "postClickKeywords": [
               "fullProtection"
             ],
-            "textGrewBy": 261,
-            "screenshot": "screenshots/2026-05-21/za/j10-atc-warranty-flow.png"
+            "textGrewBy": 261
           },
           "journey": "j10-atc-warranty-flow",
           "journeyName": "Add-to-Cart & Warranty Flow",
@@ -1060,10 +1025,11 @@
           "id": "cart-loads",
           "category": "functional",
           "description": "Cart page loads with 2xx response",
-          "status": "fail",
+          "status": "skip",
           "details": {
-            "error": "Navigation failed (cdn-blocked) after 1 attempts",
-            "screenshot": "screenshots/2026-05-21/za/j11-cart-checkout-deep.png"
+            "status": 0,
+            "failureType": "infrastructure",
+            "todo": "Cart page blocked by the site's bot protection (HTTP 403) — could not test."
           },
           "journey": "j11-cart-checkout-deep",
           "journeyName": "Cart",
@@ -1075,10 +1041,10 @@
           "id": "cart-bnpl-logos",
           "category": "localization",
           "description": "BNPL providers FLOAT, PAYFLEX, HAPPYPAY present on cart page",
-          "status": "fail",
+          "status": "skip",
           "details": {
-            "error": "Cart page failed to load",
-            "screenshot": "screenshots/2026-05-21/za/j11-cart-checkout-deep.png"
+            "failureType": "infrastructure",
+            "todo": "Cart page bot-blocked; BNPL check skipped."
           },
           "journey": "j11-cart-checkout-deep",
           "journeyName": "Cart",
@@ -1146,7 +1112,7 @@
           "id": "cart-multi-product-add",
           "category": "functional",
           "description": "Adding 2-3 distinct products lands all of them in /cart.js",
-          "status": "fail",
+          "status": "skip",
           "details": {
             "attempted": 5,
             "added": [],
@@ -1180,7 +1146,8 @@
                 "status": "no-variant"
               }
             ],
-            "screenshot": "screenshots/2026-05-21/za/j11-cart-checkout-deep.png"
+            "failureType": "infrastructure",
+            "todo": "Product data could not be fetched for any handle (/products/<handle>.js likely bot-blocked) — could not test."
           },
           "journey": "j11-cart-checkout-deep",
           "journeyName": "Cart",
@@ -1194,7 +1161,7 @@
           "description": "Homepage LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 888,
+            "lcpMs": 2060,
             "source": "reused from j4-navigation"
           },
           "journey": "j03-performance",
@@ -1224,7 +1191,7 @@
           "description": "PDP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 824,
+            "lcpMs": 668,
             "source": "reused from j2-pdp"
           },
           "journey": "j03-performance",
@@ -1282,7 +1249,7 @@
           "description": "PDP CLS under thresholds (pass <0.1, warn 0.1-0.25, fail >0.25)",
           "status": "fail",
           "details": {
-            "cls": 0.764,
+            "cls": 0.842,
             "source": "reused from j2-pdp",
             "screenshot": "screenshots/2026-05-21/za/j03-performance.png"
           },
@@ -1400,11 +1367,11 @@
       "region": "United Arab Emirates",
       "summary": {
         "total": 52,
-        "pass": 32,
-        "warning": 0,
-        "fail": 7,
-        "skip": 13,
-        "passRate": 82,
+        "pass": 33,
+        "warning": 2,
+        "fail": 1,
+        "skip": 16,
+        "passRate": 92,
         "status": "fail"
       },
       "checks": [
@@ -1917,12 +1884,11 @@
           "id": "pdp-warranty-toggle-present",
           "category": "functional",
           "description": "Warranty toggle exists near the warranty card on PDP",
-          "status": "fail",
+          "status": "warning",
           "details": {
             "url": "https://revibe.me/products/iphone-12-pro",
             "present": false,
-            "reason": "no toggle near warranty card",
-            "screenshot": "screenshots/2026-05-21/ae/j10-atc-warranty-flow.png"
+            "reason": "no toggle near warranty card"
           },
           "journey": "j10-atc-warranty-flow",
           "journeyName": "Add-to-Cart & Warranty Flow",
@@ -1934,7 +1900,7 @@
           "id": "pdp-warranty-info-modal-content",
           "category": "functional",
           "description": "Clicking the warranty (i) icon reveals NEW Revibe Care+ content (Full Protection / Accidental Damage / Express Replacement / 24/7 Support / Revibe Care+)",
-          "status": "fail",
+          "status": "warning",
           "details": {
             "url": "https://revibe.me/products/iphone-12-pro",
             "newKeywords": [],
@@ -1944,8 +1910,7 @@
             "postClickKeywords": [
               "fullProtection"
             ],
-            "textGrewBy": 261,
-            "screenshot": "screenshots/2026-05-21/ae/j10-atc-warranty-flow.png"
+            "textGrewBy": 261
           },
           "journey": "j10-atc-warranty-flow",
           "journeyName": "Add-to-Cart & Warranty Flow",
@@ -2050,10 +2015,11 @@
           "id": "cart-loads",
           "category": "functional",
           "description": "Cart page loads with 2xx response",
-          "status": "fail",
+          "status": "skip",
           "details": {
-            "error": "Navigation failed (cdn-blocked) after 1 attempts",
-            "screenshot": "screenshots/2026-05-21/ae/j11-cart-checkout-deep.png"
+            "status": 0,
+            "failureType": "infrastructure",
+            "todo": "Cart page blocked by the site's bot protection (HTTP 403) — could not test."
           },
           "journey": "j11-cart-checkout-deep",
           "journeyName": "Cart",
@@ -2065,10 +2031,10 @@
           "id": "cart-bnpl-logos",
           "category": "localization",
           "description": "BNPL providers Tabby, Tamara present on cart page",
-          "status": "fail",
+          "status": "skip",
           "details": {
-            "error": "Cart page failed to load",
-            "screenshot": "screenshots/2026-05-21/ae/j11-cart-checkout-deep.png"
+            "failureType": "infrastructure",
+            "todo": "Cart page bot-blocked; BNPL check skipped."
           },
           "journey": "j11-cart-checkout-deep",
           "journeyName": "Cart",
@@ -2136,7 +2102,7 @@
           "id": "cart-multi-product-add",
           "category": "functional",
           "description": "Adding 2-3 distinct products lands all of them in /cart.js",
-          "status": "fail",
+          "status": "skip",
           "details": {
             "attempted": 5,
             "added": [],
@@ -2170,7 +2136,8 @@
                 "status": "no-variant"
               }
             ],
-            "screenshot": "screenshots/2026-05-21/ae/j11-cart-checkout-deep.png"
+            "failureType": "infrastructure",
+            "todo": "Product data could not be fetched for any handle (/products/<handle>.js likely bot-blocked) — could not test."
           },
           "journey": "j11-cart-checkout-deep",
           "journeyName": "Cart",
@@ -2184,7 +2151,7 @@
           "description": "Homepage LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 496,
+            "lcpMs": 620,
             "source": "reused from j4-navigation"
           },
           "journey": "j03-performance",
@@ -2214,7 +2181,7 @@
           "description": "PDP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 1160,
+            "lcpMs": 852,
             "source": "reused from j2-pdp"
           },
           "journey": "j03-performance",
@@ -2270,11 +2237,10 @@
           "id": "pdp-cls",
           "category": "performance",
           "description": "PDP CLS under thresholds (pass <0.1, warn 0.1-0.25, fail >0.25)",
-          "status": "fail",
+          "status": "pass",
           "details": {
-            "cls": 0.685,
-            "source": "reused from j2-pdp",
-            "screenshot": "screenshots/2026-05-21/ae/j03-performance.png"
+            "cls": 0.013,
+            "source": "reused from j2-pdp"
           },
           "journey": "j03-performance",
           "journeyName": "Page Speed (LCP across journeys)",
@@ -2396,11 +2362,11 @@
       "region": "Saudi Arabia",
       "summary": {
         "total": 52,
-        "pass": 31,
-        "warning": 0,
-        "fail": 7,
-        "skip": 14,
-        "passRate": 82,
+        "pass": 32,
+        "warning": 2,
+        "fail": 2,
+        "skip": 16,
+        "passRate": 89,
         "status": "fail"
       },
       "checks": [
@@ -2862,13 +2828,13 @@
           "id": "pdp-whats-included-smartphone",
           "category": "content",
           "description": "\"What's Included\" lists Charger AND Mobile/Phone for smartphone PDPs",
-          "status": "skip",
+          "status": "pass",
           "details": {
             "url": "https://sa.revibe.me/products/iphone-12-pro-max",
-            "sectionPresent": false,
+            "sectionPresent": true,
             "hasCharger": true,
             "hasMobile": true,
-            "todo": "'What's Included' section not found"
+            "todo": null
           },
           "journey": "j09-pdp-content-spec",
           "journeyName": "PDP Content & Spec",
@@ -2915,12 +2881,11 @@
           "id": "pdp-warranty-toggle-present",
           "category": "functional",
           "description": "Warranty toggle exists near the warranty card on PDP",
-          "status": "fail",
+          "status": "warning",
           "details": {
             "url": "https://sa.revibe.me/products/iphone-12-pro-max",
             "present": false,
-            "reason": "no toggle near warranty card",
-            "screenshot": "screenshots/2026-05-21/sa/j10-atc-warranty-flow.png"
+            "reason": "no toggle near warranty card"
           },
           "journey": "j10-atc-warranty-flow",
           "journeyName": "Add-to-Cart & Warranty Flow",
@@ -2932,7 +2897,7 @@
           "id": "pdp-warranty-info-modal-content",
           "category": "functional",
           "description": "Clicking the warranty (i) icon reveals NEW Revibe Care+ content (Full Protection / Accidental Damage / Express Replacement / 24/7 Support / Revibe Care+)",
-          "status": "fail",
+          "status": "warning",
           "details": {
             "url": "https://sa.revibe.me/products/iphone-12-pro-max",
             "newKeywords": [],
@@ -2942,8 +2907,7 @@
             "postClickKeywords": [
               "fullProtection"
             ],
-            "textGrewBy": 261,
-            "screenshot": "screenshots/2026-05-21/sa/j10-atc-warranty-flow.png"
+            "textGrewBy": 261
           },
           "journey": "j10-atc-warranty-flow",
           "journeyName": "Add-to-Cart & Warranty Flow",
@@ -3050,10 +3014,11 @@
           "id": "cart-loads",
           "category": "functional",
           "description": "Cart page loads with 2xx response",
-          "status": "fail",
+          "status": "skip",
           "details": {
-            "error": "Navigation failed (cdn-blocked) after 1 attempts",
-            "screenshot": "screenshots/2026-05-21/sa/j11-cart-checkout-deep.png"
+            "status": 0,
+            "failureType": "infrastructure",
+            "todo": "Cart page blocked by the site's bot protection (HTTP 403) — could not test."
           },
           "journey": "j11-cart-checkout-deep",
           "journeyName": "Cart",
@@ -3065,10 +3030,10 @@
           "id": "cart-bnpl-logos",
           "category": "localization",
           "description": "BNPL providers Tabby, Tamara, Baseeta present on cart page",
-          "status": "fail",
+          "status": "skip",
           "details": {
-            "error": "Cart page failed to load",
-            "screenshot": "screenshots/2026-05-21/sa/j11-cart-checkout-deep.png"
+            "failureType": "infrastructure",
+            "todo": "Cart page bot-blocked; BNPL check skipped."
           },
           "journey": "j11-cart-checkout-deep",
           "journeyName": "Cart",
@@ -3136,7 +3101,7 @@
           "id": "cart-multi-product-add",
           "category": "functional",
           "description": "Adding 2-3 distinct products lands all of them in /cart.js",
-          "status": "fail",
+          "status": "skip",
           "details": {
             "attempted": 5,
             "added": [],
@@ -3170,7 +3135,8 @@
                 "status": "no-variant"
               }
             ],
-            "screenshot": "screenshots/2026-05-21/sa/j11-cart-checkout-deep.png"
+            "failureType": "infrastructure",
+            "todo": "Product data could not be fetched for any handle (/products/<handle>.js likely bot-blocked) — could not test."
           },
           "journey": "j11-cart-checkout-deep",
           "journeyName": "Cart",
@@ -3184,7 +3150,7 @@
           "description": "Homepage LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 1164,
+            "lcpMs": 1904,
             "source": "reused from j4-navigation"
           },
           "journey": "j03-performance",
@@ -3214,7 +3180,7 @@
           "description": "PDP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
           "status": "pass",
           "details": {
-            "lcpMs": 884,
+            "lcpMs": 804,
             "source": "reused from j2-pdp"
           },
           "journey": "j03-performance",
@@ -3257,7 +3223,7 @@
           "description": "Homepage CLS under thresholds (pass <0.1, warn 0.1-0.25, fail >0.25)",
           "status": "pass",
           "details": {
-            "cls": 0.052,
+            "cls": 0,
             "source": "reused from j4-navigation"
           },
           "journey": "j03-performance",
