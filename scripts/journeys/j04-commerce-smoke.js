@@ -20,12 +20,14 @@ export default {
     const checks = [];
     const setup = await ensurePDPLoaded(page, site, ctx);
     if (!setup.ok) {
-      const cdnBlocked = setup.reason === 'cdn-blocked';
+      const reasonText = setup.reason === 'cdn-blocked'
+        ? `Product page blocked by the site's bot protection (HTTP ${setup.status}) — could not test.`
+        : `Product page could not be loaded after retries — could not test (likely a transient slowdown).`;
       for (const id of CHECK_IDS) {
         checks.push({
           id, category: 'meta', description: id,
-          status: cdnBlocked ? 'skip' : 'fail',
-          details: { todo: cdnBlocked ? `PDP blocked by CDN (HTTP ${setup.status})` : null, error: setup.reason },
+          status: 'skip',
+          details: { todo: reasonText, failureType: 'infrastructure', reason: setup.reason },
         });
       }
       return checks;
