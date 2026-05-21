@@ -8,6 +8,7 @@ const STATUS_LABEL = { pass: 'pass', warning: 'warn', fail: 'fail', skip: 'skip'
 export function renderHTML(report) {
   const t = aggregateTotals(report);
   const failures = collectFailures(report);
+  const realFailures = failures.filter((f) => (f.details && f.details.failureType) !== 'infrastructure');
   const warnings = collectByStatus(report, 'warning');
   const skips = collectByStatus(report, 'skip');
   const skipReasons = groupSkipReasons(skips);
@@ -23,7 +24,7 @@ export function renderHTML(report) {
 <body>
 <main>
   ${renderHeader(report, t)}
-  ${renderTabNav(t, failures.length)}
+  ${renderTabNav(t, realFailures.length)}
 
   <section class="panel" id="panel-summary">
     ${renderSummary(report, t, failures, warnings, skipReasons)}
@@ -72,13 +73,35 @@ function renderTabNav(t, failCount) {
 // ============================================================
 
 function renderSummary(report, t, failures, warnings, skipReasons) {
+  const realFailures = failures.filter((f) => (f.details && f.details.failureType) !== 'infrastructure');
+  const infraFailures = failures.filter((f) => (f.details && f.details.failureType) === 'infrastructure');
   return `
-${renderHero(report, t, failures, warnings)}
+${renderHero(report, t, realFailures, infraFailures, warnings)}
 ${renderRegressionBanner(report)}
 ${renderSiteCards(report)}
-${renderIssuesNarrative(failures, warnings)}
+${renderIssuesNarrative(realFailures, warnings)}
+${renderInfraSection(infraFailures)}
 ${renderSkipReasons(skipReasons)}
 `;
+}
+
+// Infrastructure failures = "couldn't test", framed as not-a-defect.
+function renderInfraSection(infraFailures) {
+  if (infraFailures.length === 0) return '';
+  const byCheckId = groupByCheckId(infraFailures);
+  const items = Array.from(byCheckId.entries()).map(([checkId, group]) => {
+    const sites = group.map((i) => shortSiteName(i.site)).join(', ');
+    const reason = group[0].details?.humanReason || humanReadableFailure(group[0]) || 'Could not be tested this run.';
+    return `<li class="issue-item infra">
+      <div class="issue-head"><span class="issue-id">${escape(checkId)}</span> <span class="issue-sites">${escape(sites)}</span></div>
+      <div class="issue-detail">${escape(reason)}</div>
+    </li>`;
+  }).join('');
+  return `<section class="narrative">
+    <h2>Couldn't test (${infraFailures.length})</h2>
+    <p class="muted">Not defects — a page or site was unreachable or bot-blocked when the harness tried. Usually transient; the next run normally clears them.</p>
+    <ul class="issues">${items}</ul>
+  </section>`;
 }
 
 function renderRegressionBanner(report) {
@@ -108,21 +131,30 @@ function renderRegressionBanner(report) {
   </div>`;
 }
 
-function renderHero(report, t, failures, warnings) {
+function renderHero(report, t, realFailures, infraFailures, warnings) {
   const passRate = t.scoreable > 0 ? Math.round((t.pass / t.scoreable) * 100) : 0;
-  const allPass = report.sites.every((s) => s.summary.status === 'pass');
-  const headline = allPass
-    ? `All ${report.sites.length} sites are passing today.`
-    : failures.length > 0
-      ? `${failures.length} check${failures.length === 1 ? '' : 's'} failed across the storefront${warnings.length > 0 ? `, with ${warnings.length} additional warning${warnings.length === 1 ? '' : 's'}` : ''}.`
-      : `${warnings.length} warning${warnings.length === 1 ? '' : 's'} surfaced — worth a glance.`;
+  const couldntTest = infraFailures.length + t.skip;
+  let headline;
+  if (realFailures.length > 0) {
+    headline = `${realFailures.length} real issue${realFailures.length === 1 ? '' : 's'} need attention`
+      + (infraFailures.length > 0
+        ? `. A further ${infraFailures.length} check${infraFailures.length === 1 ? '' : 's'} couldn't run (a page was briefly unreachable) — not defects.`
+        : `.`);
+  } else if (infraFailures.length > 0) {
+    headline = `No defects found. ${infraFailures.length} check${infraFailures.length === 1 ? '' : 's'} couldn't run this time `
+      + `because a page or site was briefly unreachable — normally clears on the next run.`;
+  } else if (warnings.length > 0) {
+    headline = `No defects — ${warnings.length} minor warning${warnings.length === 1 ? '' : 's'} worth a glance.`;
+  } else {
+    headline = `All ${report.sites.length} sites passing cleanly.`;
+  }
   return `<div class="hero">
   <p class="hero-headline">${escape(headline)}</p>
   <div class="hero-stats">
     <div class="hero-stat"><div class="hero-stat-value">${passRate}%</div><div class="hero-stat-label">pass rate</div></div>
     <div class="hero-stat"><div class="hero-stat-value">${t.pass}</div><div class="hero-stat-label">passing</div></div>
-    <div class="hero-stat"><div class="hero-stat-value ${failures.length > 0 ? 'alert' : ''}">${failures.length}</div><div class="hero-stat-label">failing</div></div>
-    <div class="hero-stat"><div class="hero-stat-value subtle">${t.skip}</div><div class="hero-stat-label">skipped</div></div>
+    <div class="hero-stat"><div class="hero-stat-value ${realFailures.length > 0 ? 'alert' : ''}">${realFailures.length}</div><div class="hero-stat-label">real issues</div></div>
+    <div class="hero-stat"><div class="hero-stat-value subtle">${couldntTest}</div><div class="hero-stat-label">couldn't test</div></div>
   </div>
 </div>`;
 }
@@ -366,17 +398,44 @@ function countByStatus(checks) {
   return c;
 }
 
+// Plain-language failure explanation for the Summary tab.
+// NEVER returns raw Playwright errors / "Call log" text — those go to the
+// Technical tab's JSON detail only. A director should be able to read this.
 function humanReadableFailure(check) {
   const d = check.details || {};
-  if (d.error) return `Error: ${String(d.error).slice(0, 200)}`;
-  if (d.lcpMs) return `LCP measured at ${d.lcpMs}ms (over the 4s threshold).`;
-  if (d.expectedWarranty != null && d.displayedWarranty != null) {
-    return `Expected ${d.expectedWarranty}, page shows ${d.displayedWarranty}.`;
+  if (d.humanReason) return d.humanReason;
+
+  // Infrastructure / transient problems
+  if (d.failureType === 'infrastructure' || d.errorType) {
+    const t = d.errorType || 'timeout';
+    if (t === 'timeout') return 'The page did not respond in time after several retries — most likely a brief slowdown, not an outage.';
+    if (t === 'cdn-blocked') return "Blocked by the site's bot protection — could not be tested (not a real fault).";
+    if (t === 'network') return 'A network error stopped the page from loading.';
+    return 'The page could not be reached this run.';
   }
-  if (d.missingProviders?.length > 0) return `Missing: ${d.missingProviders.join(', ')}.`;
-  if (d.missingPhrases?.length > 0) return `Missing copy: ${d.missingPhrases.slice(0, 2).join('; ')}.`;
-  if (typeof d.status === 'number' && d.status >= 400) return `HTTP ${d.status}.`;
-  if (typeof d.count === 'number') return `Count: ${d.count}.`;
+  if (d.error) {
+    const e = String(d.error);
+    if (/timeout|exceeded/i.test(e)) return 'The page did not respond in time (timed out).';
+    if (/net::|err_|\bdns\b/i.test(e)) return 'A network error stopped the page from loading.';
+    // Strip Playwright "Call log" noise — keep only the first clean line.
+    return e.split('\n')[0].replace(/^Error:\s*/i, '').slice(0, 160);
+  }
+
+  // Real, assertion-level findings — phrased for a non-technical reader
+  if (typeof d.lcpMs === 'number' && d.lcpMs > 0) {
+    return `The page took ${(d.lcpMs / 1000).toFixed(1)}s to show its main content (target: under 4s).`;
+  }
+  if (typeof d.cls === 'number') {
+    return `The page layout shifts by ${d.cls} as it loads (target: under 0.25) — content visibly jumps around.`;
+  }
+  if (d.expectedWarranty != null && d.displayedWarranty != null) {
+    return `Warranty price is wrong: expected ${d.expectedWarranty}, the page shows ${d.displayedWarranty}.`;
+  }
+  if (d.missingProviders?.length > 0) return `Payment options missing from the page: ${d.missingProviders.join(', ')}.`;
+  if (d.missingPhrases?.length > 0) return `Expected text not found: "${d.missingPhrases.slice(0, 2).join('", "')}".`;
+  if (typeof d.status === 'number' && d.status >= 400) return `The page returned an error (HTTP ${d.status}).`;
+  if (typeof d.count === 'number') return `Only ${d.count} found where more were expected.`;
+  if (d.reason) return String(d.reason).replace(/-/g, ' ').slice(0, 160);
   return null;
 }
 
@@ -481,6 +540,8 @@ nav.tabs { display: flex; gap: 4px; border-bottom: 0.5px solid var(--line); marg
 .issue-item { background: var(--card-bg); border: 0.5px solid var(--line); border-left: 3px solid var(--grey); border-radius: 4px; padding: 10px 12px; }
 .issue-item.fail { border-left-color: var(--rose); }
 .issue-item.warn { border-left-color: var(--amber); }
+.issue-item.infra { border-left-color: var(--grey); }
+.issue-item.infra .issue-id { color: var(--grey); }
 .issue-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
 .issue-id { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; font-weight: 500; color: var(--rose); word-break: break-all; }
 .issue-item.warn .issue-id { color: var(--amber); }
