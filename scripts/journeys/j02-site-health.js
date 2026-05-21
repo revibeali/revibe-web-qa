@@ -22,13 +22,27 @@ export default {
       ctx.homepageLcpMs = lcpMs;
       ctx.homepageCls = result.cls;
     } catch (err) {
-      for (const id of ['homepage-loads', 'currency-present', 'homepage-broken-images', 'internal-links-no-4xx', 'header-nav-multi-items']) {
+      // Homepage didn't load after 3 retries (~100s total). Treat as an
+      // infrastructure problem, not a wall of red: homepage-loads carries the
+      // single fail signal; the 4 checks that depend on the homepage skip.
+      const cdnBlocked = err.errorType === 'cdn-blocked';
+      const reasonText = cdnBlocked
+        ? `Homepage was blocked by the site's bot protection during this run — could not test.`
+        : `Homepage did not respond after 3 retries (~100s). Most likely a transient slowdown rather than an outage; the next run usually clears it.`;
+      checks.push({
+        id: 'homepage-loads',
+        category: 'functional',
+        description: 'Homepage loads with 2xx response',
+        status: cdnBlocked ? 'skip' : 'fail',
+        details: { failureType: 'infrastructure', errorType: err.errorType || 'timeout', humanReason: reasonText },
+      });
+      for (const id of ['currency-present', 'homepage-broken-images', 'internal-links-no-4xx', 'header-nav-multi-items']) {
         checks.push({
           id,
           category: 'meta',
           description: id,
-          status: 'fail',
-          details: { error: `Homepage failed to load: ${err.message}` },
+          status: 'skip',
+          details: { todo: reasonText, failureType: 'infrastructure' },
         });
       }
       return checks;
