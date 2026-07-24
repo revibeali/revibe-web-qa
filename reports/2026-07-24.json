@@ -1,0 +1,2461 @@
+{
+  "date": "2026-07-24",
+  "timestamp": "2026-07-24T11:26:16.220Z",
+  "runTimeMs": 231699,
+  "filter": {
+    "frequency": [],
+    "priority": [],
+    "journey": [],
+    "applied": false,
+    "journeysMatched": 11,
+    "journeysTotal": 11
+  },
+  "diff": {
+    "hasBaseline": true,
+    "baselineDate": "2026-07-23",
+    "newlyBroken": [
+      {
+        "site": "sa.revibe.me",
+        "id": "pdp-cls",
+        "description": "PDP CLS under thresholds (pass <0.1, warn 0.1-0.25, fail >0.25)",
+        "was": "pass"
+      }
+    ],
+    "newlyFixed": [],
+    "stillBroken": [
+      {
+        "site": "revibe.co.za",
+        "id": "plp-banner-text",
+        "description": "PLP banner sub-text \"Certified renewed devices - Inspected by Experts - Up to 70% cheaper than new\" present"
+      },
+      {
+        "site": "revibe.co.za",
+        "id": "plp-bnpl-logos",
+        "description": "BNPL providers FLOAT, PAYFLEX, HAPPYPAY present on PLP"
+      },
+      {
+        "site": "revibe.co.za",
+        "id": "j11-cart-checkout-deep-error",
+        "description": "Journey j11-cart-checkout-deep threw an error during execution"
+      },
+      {
+        "site": "revibe.me",
+        "id": "plp-banner-text",
+        "description": "PLP banner sub-text \"Certified renewed devices - Inspected by Experts - Up to 70% cheaper than new\" present"
+      },
+      {
+        "site": "revibe.me",
+        "id": "plp-bnpl-logos",
+        "description": "BNPL providers Tabby, Tamara present on PLP"
+      },
+      {
+        "site": "revibe.me",
+        "id": "j11-cart-checkout-deep-error",
+        "description": "Journey j11-cart-checkout-deep threw an error during execution"
+      },
+      {
+        "site": "revibe.me",
+        "id": "pdp-cls",
+        "description": "PDP CLS under thresholds (pass <0.1, warn 0.1-0.25, fail >0.25)"
+      },
+      {
+        "site": "sa.revibe.me",
+        "id": "plp-banner-text",
+        "description": "PLP banner sub-text \"Certified renewed devices - Inspected by Experts - Up to 70% cheaper than new\" present"
+      },
+      {
+        "site": "sa.revibe.me",
+        "id": "plp-bnpl-logos",
+        "description": "BNPL providers Tabby, Tamara, Baseeta present on PLP"
+      },
+      {
+        "site": "sa.revibe.me",
+        "id": "j11-cart-checkout-deep-error",
+        "description": "Journey j11-cart-checkout-deep threw an error during execution"
+      }
+    ]
+  },
+  "sites": [
+    {
+      "id": "za",
+      "name": "revibe.co.za",
+      "region": "South Africa",
+      "summary": {
+        "total": 42,
+        "pass": 23,
+        "warning": 3,
+        "fail": 3,
+        "skip": 13,
+        "passRate": 79,
+        "status": "fail"
+      },
+      "checks": [
+        {
+          "id": "homepage-loads",
+          "category": "functional",
+          "description": "Homepage loads with 2xx response",
+          "status": "skip",
+          "details": {
+            "failureType": "infrastructure",
+            "errorType": "cdn-blocked",
+            "humanReason": "Homepage was blocked by the site's bot protection during this run — could not test."
+          },
+          "journey": "j02-site-health",
+          "journeyName": "Navigation & Page Health",
+          "journeyCode": "J02",
+          "journeyFrequency": "daily",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "currency-present",
+          "category": "meta",
+          "description": "currency-present",
+          "status": "skip",
+          "details": {
+            "todo": "Homepage was blocked by the site's bot protection during this run — could not test.",
+            "failureType": "infrastructure"
+          },
+          "journey": "j02-site-health",
+          "journeyName": "Navigation & Page Health",
+          "journeyCode": "J02",
+          "journeyFrequency": "daily",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "homepage-broken-images",
+          "category": "meta",
+          "description": "homepage-broken-images",
+          "status": "skip",
+          "details": {
+            "todo": "Homepage was blocked by the site's bot protection during this run — could not test.",
+            "failureType": "infrastructure"
+          },
+          "journey": "j02-site-health",
+          "journeyName": "Navigation & Page Health",
+          "journeyCode": "J02",
+          "journeyFrequency": "daily",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "internal-links-no-4xx",
+          "category": "meta",
+          "description": "internal-links-no-4xx",
+          "status": "skip",
+          "details": {
+            "todo": "Homepage was blocked by the site's bot protection during this run — could not test.",
+            "failureType": "infrastructure"
+          },
+          "journey": "j02-site-health",
+          "journeyName": "Navigation & Page Health",
+          "journeyCode": "J02",
+          "journeyFrequency": "daily",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "header-nav-multi-items",
+          "category": "meta",
+          "description": "header-nav-multi-items",
+          "status": "skip",
+          "details": {
+            "todo": "Homepage was blocked by the site's bot protection during this run — could not test.",
+            "failureType": "infrastructure"
+          },
+          "journey": "j02-site-health",
+          "journeyName": "Navigation & Page Health",
+          "journeyCode": "J02",
+          "journeyFrequency": "daily",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "plp-banner-text",
+          "category": "content",
+          "description": "PLP banner sub-text \"Certified renewed devices - Inspected by Experts - Up to 70% cheaper than new\" present",
+          "status": "fail",
+          "details": {
+            "url": "https://revibe.co.za/collections/all",
+            "expectedPhrases": [
+              "certified renewed devices",
+              "inspected by experts",
+              "up to 70% cheaper than new"
+            ],
+            "missingPhrases": [
+              "certified renewed devices",
+              "inspected by experts",
+              "up to 70% cheaper than new"
+            ],
+            "screenshot": "screenshots/2026-07-24/za/j06-plp-deep.png"
+          },
+          "journey": "j06-plp-deep",
+          "journeyName": "PLP",
+          "journeyCode": "J06",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "plp-bnpl-logos",
+          "category": "localization",
+          "description": "BNPL providers FLOAT, PAYFLEX, HAPPYPAY present on PLP",
+          "status": "fail",
+          "details": {
+            "url": "https://revibe.co.za/collections/all",
+            "expected": [
+              "FLOAT",
+              "PAYFLEX",
+              "HAPPYPAY"
+            ],
+            "found": [],
+            "missing": [
+              "FLOAT",
+              "PAYFLEX",
+              "HAPPYPAY"
+            ],
+            "screenshot": "screenshots/2026-07-24/za/j06-plp-deep.png"
+          },
+          "journey": "j06-plp-deep",
+          "journeyName": "PLP",
+          "journeyCode": "J06",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "plp-empty-state",
+          "category": "content",
+          "description": "Empty-state message \"No products found...\" appears on impossible filter combination",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.co.za/collections/all?filter.v.price.gte=999999999",
+            "expectedSubstring": "No products found",
+            "found": true
+          },
+          "journey": "j06-plp-deep",
+          "journeyName": "PLP",
+          "journeyCode": "J06",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "plp-search-samsung",
+          "category": "functional",
+          "description": "Search \"Samsung\" returns >=1 product card AND heading mentions \"Samsung\"",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.co.za/search?q=Samsung",
+            "productCardCount": 20,
+            "h1": "Search results for Samsung",
+            "headingMentionsQuery": true
+          },
+          "journey": "j06-plp-deep",
+          "journeyName": "PLP",
+          "journeyCode": "J06",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "plp-sort-price-asc",
+          "category": "functional",
+          "description": "Sort by price low-to-high changes product card order",
+          "status": "pass",
+          "details": {
+            "defaultCount": 8,
+            "sortedCount": 8,
+            "defaultFirst3": [
+              "/products/iphone-11",
+              "/products/iphone-12",
+              "/products/iphone-13"
+            ],
+            "sortedFirst3": [
+              "/products/samsung-s8-plus",
+              "/products/iphone-14-pro",
+              "/products/iphone-14-pro-max"
+            ],
+            "orderChanged": true
+          },
+          "journey": "j06-plp-deep",
+          "journeyName": "PLP",
+          "journeyCode": "J06",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "pdp-loads",
+          "category": "functional",
+          "description": "PDP loads with 2xx response",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.co.za/products/iphone-11",
+            "status": 200
+          },
+          "journey": "j07-pdp-variant-pricing",
+          "journeyName": "PDP Variant & Pricing",
+          "journeyCode": "J07",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-compare-gt-price",
+          "category": "math",
+          "description": "PDP compare-at price is greater than actual price",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.co.za/products/iphone-11",
+            "title": "iPhone 11",
+            "price": 4199,
+            "compare": 10000,
+            "currency": "ZAR"
+          },
+          "journey": "j07-pdp-variant-pricing",
+          "journeyName": "PDP Variant & Pricing",
+          "journeyCode": "J07",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-variant-url-changes-price",
+          "category": "functional",
+          "description": "Navigating ?variant=<id> shows that variant's price",
+          "status": "skip",
+          "details": {
+            "todo": "Product has only one variant"
+          },
+          "journey": "j07-pdp-variant-pricing",
+          "journeyName": "PDP Variant & Pricing",
+          "journeyCode": "J07",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-warranty-heading",
+          "category": "content",
+          "description": "Warranty card heading \"Get full protection and warranty for 24 months\" present on PDP",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.co.za/products/iphone-11",
+            "found": true
+          },
+          "journey": "j08-pdp-widgets-trust",
+          "journeyName": "PDP Widgets & Trust",
+          "journeyCode": "J08",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-warranty-tier-math",
+          "category": "math",
+          "description": "Displayed warranty price matches canonical tier for product price",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.co.za/products/iphone-11",
+            "productPrice": 4199,
+            "expectedWarranty": 400,
+            "displayedWarranty": 400,
+            "currency": "ZAR",
+            "match": true,
+            "tierHandle": "2-years-extended-warranty-plan-2",
+            "tierProductId": 49083439841568,
+            "cardSnippet": "Color: Black\n \n \n \n \n \nStorage: 64 GB\n64 GB\n128 GB\n256 GB\nCondition: Good\nCondition Guide\nGood\nR 4,199\nVery Good\nR 4,599\nExcellent\nR 4,699\nGet full protection and warranty for 24 months\nFull protection (incl. misuse) - Protect against any damage or accident and extend your warranty for 2 years\nR 400\nShop Now, Pay Later!\n   \nAdd to Cart\n\n12 months warranty\n\nR 800 Cashback \n\n10 days free return\nno q"
+          },
+          "journey": "j08-pdp-widgets-trust",
+          "journeyName": "PDP Widgets & Trust",
+          "journeyCode": "J08",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-cashback-reasonable",
+          "category": "content",
+          "description": "Cashback widget present AND amount > 0 (skipped while feature On Hold per QA doc)",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.co.za/products/iphone-11",
+            "todo": null,
+            "present": true,
+            "amount": 800,
+            "snippet": "R WITH CODE MIDYEARSALE AND ENJOY R 800 CASHBACK AT CHECKOUT!\niPhone 11\nAdd to wishlist\nPre-owned\n-58% vs new\n What is Pre-owned from Revibe"
+          },
+          "journey": "j08-pdp-widgets-trust",
+          "journeyName": "PDP Widgets & Trust",
+          "journeyCode": "J08",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-trustpilot-present",
+          "category": "content",
+          "description": "Trustpilot widget rendered with non-zero review count",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.co.za/products/iphone-11",
+            "hasHeading": true,
+            "hasText": true,
+            "widgetUrl": false,
+            "count": 1,
+            "todo": null
+          },
+          "journey": "j08-pdp-widgets-trust",
+          "journeyName": "PDP Widgets & Trust",
+          "journeyCode": "J08",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-usp-icons-all-four",
+          "category": "content",
+          "description": "PDP USP strip mentions Certified · Unlocked · 12 Months Warranty · Free Delivery (≥3 of 4)",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.co.za/products/iphone-11",
+            "items": {
+              "certified": true,
+              "unlocked": true,
+              "warranty12": true,
+              "freeDelivery": true
+            },
+            "count": 4
+          },
+          "journey": "j08-pdp-widgets-trust",
+          "journeyName": "PDP Widgets & Trust",
+          "journeyCode": "J08",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-supplier-click-resolves",
+          "category": "functional",
+          "description": "Supplier widget present and clicking it opens a real page",
+          "status": "skip",
+          "details": {
+            "url": "https://revibe.co.za/products/iphone-11",
+            "todo": "No supplier widget detected on PDP"
+          },
+          "journey": "j08-pdp-widgets-trust",
+          "journeyName": "PDP Widgets & Trust",
+          "journeyCode": "J08",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-cashback-visible",
+          "category": "visual",
+          "description": "Cashback element is actually rendered (not display:none / zero-sized)",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.co.za/products/iphone-11",
+            "todo": null,
+            "nodeCount": 58,
+            "visible": true,
+            "smallestVisibleArea": 5366
+          },
+          "journey": "j08-pdp-widgets-trust",
+          "journeyName": "PDP Widgets & Trust",
+          "journeyCode": "J08",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-related-products-count",
+          "category": "content",
+          "description": "Recommended/Related section has ≥3 product cards (or PDP shows ≥3 other product links)",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.co.za/products/iphone-11",
+            "source": "heading",
+            "count": 0,
+            "totalOther": 8,
+            "effectiveCount": 8
+          },
+          "journey": "j09-pdp-content-spec",
+          "journeyName": "PDP Content & Spec",
+          "journeyCode": "J09",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "minor"
+        },
+        {
+          "id": "pdp-whats-included-smartphone",
+          "category": "content",
+          "description": "\"What's Included\" lists Charger AND Mobile/Phone for smartphone PDPs",
+          "status": "skip",
+          "details": {
+            "url": "https://revibe.co.za/products/iphone-11",
+            "sectionPresent": false,
+            "hasCharger": true,
+            "hasMobile": true,
+            "todo": "'What's Included' section not found"
+          },
+          "journey": "j09-pdp-content-spec",
+          "journeyName": "PDP Content & Spec",
+          "journeyCode": "J09",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "minor"
+        },
+        {
+          "id": "pdp-tech-spec-present",
+          "category": "content",
+          "description": "Technical Specification section present and non-empty",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.co.za/products/iphone-11",
+            "present": true,
+            "length": 2000,
+            "headingText": "Technical Specifications"
+          },
+          "journey": "j09-pdp-content-spec",
+          "journeyName": "PDP Content & Spec",
+          "journeyCode": "J09",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "minor"
+        },
+        {
+          "id": "pdp-atc-button-present",
+          "category": "functional",
+          "description": "Add-to-Cart button is present, visible, and enabled on PDP",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.co.za/products/iphone-11",
+            "present": true,
+            "visible": true,
+            "text": "Add to Cart",
+            "disabled": false
+          },
+          "journey": "j10-atc-warranty-flow",
+          "journeyName": "Add-to-Cart & Warranty Flow",
+          "journeyCode": "J10",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-warranty-toggle-present",
+          "category": "functional",
+          "description": "Warranty toggle exists near the warranty card on PDP",
+          "status": "warning",
+          "details": {
+            "url": "https://revibe.co.za/products/iphone-11",
+            "present": false,
+            "reason": "no toggle near warranty card"
+          },
+          "journey": "j10-atc-warranty-flow",
+          "journeyName": "Add-to-Cart & Warranty Flow",
+          "journeyCode": "J10",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-warranty-info-modal-content",
+          "category": "functional",
+          "description": "Clicking the warranty (i) icon reveals NEW Revibe Care+ content (Full Protection / Accidental Damage / Express Replacement / 24/7 Support / Revibe Care+)",
+          "status": "warning",
+          "details": {
+            "url": "https://revibe.co.za/products/iphone-11",
+            "newKeywords": [],
+            "preClickKeywords": [
+              "fullProtection"
+            ],
+            "postClickKeywords": [
+              "fullProtection"
+            ],
+            "textGrewBy": 261
+          },
+          "journey": "j10-atc-warranty-flow",
+          "journeyName": "Add-to-Cart & Warranty Flow",
+          "journeyCode": "J10",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "j04-atc-button-clickable",
+          "category": "functional",
+          "description": "PDP Add-to-Cart button present, visible, and clickable",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.co.za/products/iphone-11",
+            "present": true,
+            "visible": true,
+            "disabled": false,
+            "text": "Add to Cart"
+          },
+          "journey": "j04-commerce-smoke",
+          "journeyName": "Commerce Smoke",
+          "journeyCode": "J04",
+          "journeyFrequency": "daily",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "j04-bnpl-providers-on-pdp",
+          "category": "localization",
+          "description": "BNPL providers FLOAT, PAYFLEX, HAPPYPAY all present on PDP",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.co.za/products/iphone-11",
+            "expected": [
+              "FLOAT",
+              "PAYFLEX",
+              "HAPPYPAY"
+            ],
+            "found": [
+              "FLOAT",
+              "PAYFLEX",
+              "HAPPYPAY"
+            ],
+            "missing": []
+          },
+          "journey": "j04-commerce-smoke",
+          "journeyName": "Commerce Smoke",
+          "journeyCode": "J04",
+          "journeyFrequency": "daily",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "j04-currency-on-pdp",
+          "category": "localization",
+          "description": "Currency ZAR renders on PDP",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.co.za/products/iphone-11",
+            "expectedSymbols": [
+              "R",
+              "ZAR"
+            ],
+            "foundSymbol": "R"
+          },
+          "journey": "j04-commerce-smoke",
+          "journeyName": "Commerce Smoke",
+          "journeyCode": "J04",
+          "journeyFrequency": "daily",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "j11-cart-checkout-deep-error",
+          "category": "meta",
+          "description": "Journey j11-cart-checkout-deep threw an error during execution",
+          "status": "fail",
+          "details": {
+            "error": "cartLoadErr is not defined",
+            "stack": "ReferenceError: cartLoadErr is not defined\n    at Object.run (file:///home/runner/work/revibe-web-qa/revibe-web-qa/scripts/journeys/j11-cart-checkout-deep.js:196:26)\n    at async runSite (file:///home/runner/work/revibe-web-qa/revibe-web-qa/scripts/run-qa.js:218:23)\n    at async main (file:///home/runner/work/revibe-web-qa/revibe-web-qa/scripts/run-qa.js:67:22)",
+            "screenshot": "screenshots/2026-07-24/za/j11-cart-checkout-deep.png"
+          },
+          "journey": "j11-cart-checkout-deep",
+          "journeyName": "Cart",
+          "journeyCode": "J11",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "homepage-lcp",
+          "category": "performance",
+          "description": "Homepage LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
+          "status": "skip",
+          "details": {
+            "todo": "homepage-lcp not captured by earlier journey"
+          },
+          "journey": "j03-performance",
+          "journeyName": "Page Speed (LCP across journeys)",
+          "journeyCode": "J03",
+          "journeyFrequency": "daily",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "plp-lcp",
+          "category": "performance",
+          "description": "PLP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
+          "status": "pass",
+          "details": {
+            "lcpMs": 1424,
+            "url": "https://revibe.co.za/collections/all"
+          },
+          "journey": "j03-performance",
+          "journeyName": "Page Speed (LCP across journeys)",
+          "journeyCode": "J03",
+          "journeyFrequency": "daily",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "pdp-lcp",
+          "category": "performance",
+          "description": "PDP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
+          "status": "pass",
+          "details": {
+            "lcpMs": 1224,
+            "source": "reused from j2-pdp"
+          },
+          "journey": "j03-performance",
+          "journeyName": "Page Speed (LCP across journeys)",
+          "journeyCode": "J03",
+          "journeyFrequency": "daily",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "cart-lcp",
+          "category": "performance",
+          "description": "Cart LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
+          "status": "pass",
+          "details": {
+            "lcpMs": 568,
+            "source": "reused from j3-cart"
+          },
+          "journey": "j03-performance",
+          "journeyName": "Page Speed (LCP across journeys)",
+          "journeyCode": "J03",
+          "journeyFrequency": "daily",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "checkout-lcp",
+          "category": "performance",
+          "description": "Checkout LCP under thresholds",
+          "status": "warning",
+          "details": {
+            "lcpMs": 2860,
+            "source": "reused from j3-cart"
+          },
+          "journey": "j03-performance",
+          "journeyName": "Page Speed (LCP across journeys)",
+          "journeyCode": "J03",
+          "journeyFrequency": "daily",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "homepage-cls",
+          "category": "performance",
+          "description": "Homepage CLS under thresholds (pass <0.1, warn 0.1-0.25, fail >0.25)",
+          "status": "skip",
+          "details": {
+            "todo": "homepage-cls not captured by earlier journey"
+          },
+          "journey": "j03-performance",
+          "journeyName": "Page Speed (LCP across journeys)",
+          "journeyCode": "J03",
+          "journeyFrequency": "daily",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "pdp-cls",
+          "category": "performance",
+          "description": "PDP CLS under thresholds (pass <0.1, warn 0.1-0.25, fail >0.25)",
+          "status": "pass",
+          "details": {
+            "cls": 0.024,
+            "source": "reused from j2-pdp"
+          },
+          "journey": "j03-performance",
+          "journeyName": "Page Speed (LCP across journeys)",
+          "journeyCode": "J03",
+          "journeyFrequency": "daily",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "arabic-page-loads",
+          "category": "localization",
+          "description": "arabic-page-loads (not applicable to ZA — English-only per QA doc)",
+          "status": "skip",
+          "details": {
+            "reason": "revibe.co.za is English-only per QA doc"
+          },
+          "journey": "j12-localization",
+          "journeyName": "Localization (Arabic + BNPL consistency)",
+          "journeyCode": "J12",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "arabic-contains-rtl-text",
+          "category": "localization",
+          "description": "arabic-contains-rtl-text (not applicable to ZA — English-only per QA doc)",
+          "status": "skip",
+          "details": {
+            "reason": "revibe.co.za is English-only per QA doc"
+          },
+          "journey": "j12-localization",
+          "journeyName": "Localization (Arabic + BNPL consistency)",
+          "journeyCode": "J12",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "arabic-no-english-leak-in-h1",
+          "category": "localization",
+          "description": "arabic-no-english-leak-in-h1 (not applicable to ZA — English-only per QA doc)",
+          "status": "skip",
+          "details": {
+            "reason": "revibe.co.za is English-only per QA doc"
+          },
+          "journey": "j12-localization",
+          "journeyName": "Localization (Arabic + BNPL consistency)",
+          "journeyCode": "J12",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "j01-critical-path-chained",
+          "category": "functional",
+          "description": "Critical path: homepage → PLP → PDP → /cart/add → /checkout all return 2xx",
+          "status": "pass",
+          "details": {
+            "steps": [
+              {
+                "step": "homepage",
+                "ok": true,
+                "status": 200
+              },
+              {
+                "step": "plp",
+                "ok": true,
+                "status": 200,
+                "productFound": true
+              },
+              {
+                "step": "pdp",
+                "ok": true,
+                "status": 200,
+                "variantId": 49083455471904
+              },
+              {
+                "step": "cart-add",
+                "ok": true,
+                "status": 200
+              },
+              {
+                "step": "checkout",
+                "ok": true,
+                "status": 200
+              }
+            ],
+            "allOk": true,
+            "todo": null
+          },
+          "journey": "j01-critical-path-smoke",
+          "journeyName": "Critical Path Smoke",
+          "journeyCode": "J01",
+          "journeyFrequency": "per-deploy",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "image-network-ok",
+          "journey": "meta",
+          "journeyName": "Cross-journey",
+          "journeyCode": null,
+          "journeyFrequency": null,
+          "journeyPriority": null,
+          "category": "visual",
+          "description": "All image network requests returned 2xx/3xx across this session",
+          "status": "pass",
+          "details": {
+            "failedCount": 0,
+            "samples": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "ae",
+      "name": "revibe.me",
+      "region": "United Arab Emirates",
+      "summary": {
+        "total": 42,
+        "pass": 24,
+        "warning": 4,
+        "fail": 4,
+        "skip": 10,
+        "passRate": 75,
+        "status": "fail"
+      },
+      "checks": [
+        {
+          "id": "homepage-loads",
+          "category": "functional",
+          "description": "Homepage loads with 2xx response",
+          "status": "skip",
+          "details": {
+            "failureType": "infrastructure",
+            "errorType": "cdn-blocked",
+            "humanReason": "Homepage was blocked by the site's bot protection during this run — could not test."
+          },
+          "journey": "j02-site-health",
+          "journeyName": "Navigation & Page Health",
+          "journeyCode": "J02",
+          "journeyFrequency": "daily",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "currency-present",
+          "category": "meta",
+          "description": "currency-present",
+          "status": "skip",
+          "details": {
+            "todo": "Homepage was blocked by the site's bot protection during this run — could not test.",
+            "failureType": "infrastructure"
+          },
+          "journey": "j02-site-health",
+          "journeyName": "Navigation & Page Health",
+          "journeyCode": "J02",
+          "journeyFrequency": "daily",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "homepage-broken-images",
+          "category": "meta",
+          "description": "homepage-broken-images",
+          "status": "skip",
+          "details": {
+            "todo": "Homepage was blocked by the site's bot protection during this run — could not test.",
+            "failureType": "infrastructure"
+          },
+          "journey": "j02-site-health",
+          "journeyName": "Navigation & Page Health",
+          "journeyCode": "J02",
+          "journeyFrequency": "daily",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "internal-links-no-4xx",
+          "category": "meta",
+          "description": "internal-links-no-4xx",
+          "status": "skip",
+          "details": {
+            "todo": "Homepage was blocked by the site's bot protection during this run — could not test.",
+            "failureType": "infrastructure"
+          },
+          "journey": "j02-site-health",
+          "journeyName": "Navigation & Page Health",
+          "journeyCode": "J02",
+          "journeyFrequency": "daily",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "header-nav-multi-items",
+          "category": "meta",
+          "description": "header-nav-multi-items",
+          "status": "skip",
+          "details": {
+            "todo": "Homepage was blocked by the site's bot protection during this run — could not test.",
+            "failureType": "infrastructure"
+          },
+          "journey": "j02-site-health",
+          "journeyName": "Navigation & Page Health",
+          "journeyCode": "J02",
+          "journeyFrequency": "daily",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "plp-banner-text",
+          "category": "content",
+          "description": "PLP banner sub-text \"Certified renewed devices - Inspected by Experts - Up to 70% cheaper than new\" present",
+          "status": "fail",
+          "details": {
+            "url": "https://revibe.me/collections/all",
+            "expectedPhrases": [
+              "certified renewed devices",
+              "inspected by experts",
+              "up to 70% cheaper than new"
+            ],
+            "missingPhrases": [
+              "certified renewed devices",
+              "inspected by experts",
+              "up to 70% cheaper than new"
+            ],
+            "screenshot": "screenshots/2026-07-24/ae/j06-plp-deep.png"
+          },
+          "journey": "j06-plp-deep",
+          "journeyName": "PLP",
+          "journeyCode": "J06",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "plp-bnpl-logos",
+          "category": "localization",
+          "description": "BNPL providers Tabby, Tamara present on PLP",
+          "status": "fail",
+          "details": {
+            "url": "https://revibe.me/collections/all",
+            "expected": [
+              "Tabby",
+              "Tamara"
+            ],
+            "found": [],
+            "missing": [
+              "Tabby",
+              "Tamara"
+            ],
+            "screenshot": "screenshots/2026-07-24/ae/j06-plp-deep.png"
+          },
+          "journey": "j06-plp-deep",
+          "journeyName": "PLP",
+          "journeyCode": "J06",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "plp-empty-state",
+          "category": "content",
+          "description": "Empty-state message \"No products found...\" appears on impossible filter combination",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.me/collections/all?filter.v.price.gte=999999999",
+            "expectedSubstring": "No products found",
+            "found": true
+          },
+          "journey": "j06-plp-deep",
+          "journeyName": "PLP",
+          "journeyCode": "J06",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "plp-search-samsung",
+          "category": "functional",
+          "description": "Search \"Samsung\" returns >=1 product card AND heading mentions \"Samsung\"",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.me/search?q=Samsung",
+            "productCardCount": 18,
+            "h1": "Search results for Samsung",
+            "headingMentionsQuery": true
+          },
+          "journey": "j06-plp-deep",
+          "journeyName": "PLP",
+          "journeyCode": "J06",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "plp-sort-price-asc",
+          "category": "functional",
+          "description": "Sort by price low-to-high changes product card order",
+          "status": "pass",
+          "details": {
+            "defaultCount": 8,
+            "sortedCount": 8,
+            "defaultFirst3": [
+              "/products/iphone-12-pro",
+              "/products/iphone-13-pro-max",
+              "/products/iphone-12-pro-max"
+            ],
+            "sortedFirst3": [
+              "/products/ipad-5th-gen-2017-wi-fi-cellular",
+              "/products/ipad-6th-gen-2018-wi-fi",
+              "/products/awei-h25-smartwatch"
+            ],
+            "orderChanged": true
+          },
+          "journey": "j06-plp-deep",
+          "journeyName": "PLP",
+          "journeyCode": "J06",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "pdp-loads",
+          "category": "functional",
+          "description": "PDP loads with 2xx response",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.me/products/iphone-12-pro",
+            "status": 200
+          },
+          "journey": "j07-pdp-variant-pricing",
+          "journeyName": "PDP Variant & Pricing",
+          "journeyCode": "J07",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-compare-gt-price",
+          "category": "math",
+          "description": "PDP compare-at price is greater than actual price",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.me/products/iphone-12-pro",
+            "title": "iPhone 12 Pro",
+            "price": 1019,
+            "compare": 1540,
+            "currency": "AED"
+          },
+          "journey": "j07-pdp-variant-pricing",
+          "journeyName": "PDP Variant & Pricing",
+          "journeyCode": "J07",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-variant-url-changes-price",
+          "category": "functional",
+          "description": "Navigating ?variant=<id> shows that variant's price",
+          "status": "skip",
+          "details": {
+            "todo": "Product has only one variant"
+          },
+          "journey": "j07-pdp-variant-pricing",
+          "journeyName": "PDP Variant & Pricing",
+          "journeyCode": "J07",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-warranty-heading",
+          "category": "content",
+          "description": "Warranty card heading \"Get full protection and warranty for 24 months\" present on PDP",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.me/products/iphone-12-pro",
+            "found": true
+          },
+          "journey": "j08-pdp-widgets-trust",
+          "journeyName": "PDP Widgets & Trust",
+          "journeyCode": "J08",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-warranty-tier-math",
+          "category": "math",
+          "description": "Displayed warranty price matches canonical tier for product price",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.me/products/iphone-12-pro",
+            "productPrice": 1019,
+            "expectedWarranty": 95,
+            "displayedWarranty": 95,
+            "currency": "AED",
+            "match": true,
+            "tierHandle": "2-years-extended-warranty-plan",
+            "tierProductId": 44780777144639,
+            "cardSnippet": "Color: Graphite\n \n \n \nStorage: 128 GB\n128 GB\n256 GB\n512 GB\nCondition: Good\nCondition Guide\nGood\nAED 1,019\n200 AED Cashback\nVery Good\nAED 1,079\nExcellent\nAED 1,109\nGet full protection and warranty for 24 months\nFull protection (incl. misuse) - Protect against any damage or accident and extend your warranty for 2 years\nAED 95\nShop Now, Pay Later!\n \n 200 AED Cashback\nAdd to Cart\n\nPrices are inclusive"
+          },
+          "journey": "j08-pdp-widgets-trust",
+          "journeyName": "PDP Widgets & Trust",
+          "journeyCode": "J08",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-cashback-reasonable",
+          "category": "content",
+          "description": "Cashback widget present AND amount > 0 (skipped while feature On Hold per QA doc)",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.me/products/iphone-12-pro",
+            "todo": null,
+            "present": true,
+            "amount": 200,
+            "snippet": "ER WITH CODE TABBYDAY AND ENJOY 200 AED CASHBACK AT CHECKOUT!\n150,000+ Customers\nExcellent\niPhone 12 Pro\nAdd to wishlist\nRenewed\n-34% vs new"
+          },
+          "journey": "j08-pdp-widgets-trust",
+          "journeyName": "PDP Widgets & Trust",
+          "journeyCode": "J08",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-trustpilot-present",
+          "category": "content",
+          "description": "Trustpilot widget rendered with non-zero review count",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.me/products/iphone-12-pro",
+            "hasHeading": true,
+            "hasText": true,
+            "widgetUrl": false,
+            "count": 1,
+            "todo": null
+          },
+          "journey": "j08-pdp-widgets-trust",
+          "journeyName": "PDP Widgets & Trust",
+          "journeyCode": "J08",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-usp-icons-all-four",
+          "category": "content",
+          "description": "PDP USP strip mentions Certified · Unlocked · 12 Months Warranty · Free Delivery (≥3 of 4)",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.me/products/iphone-12-pro",
+            "items": {
+              "certified": true,
+              "unlocked": true,
+              "warranty12": true,
+              "freeDelivery": true
+            },
+            "count": 4
+          },
+          "journey": "j08-pdp-widgets-trust",
+          "journeyName": "PDP Widgets & Trust",
+          "journeyCode": "J08",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-supplier-click-resolves",
+          "category": "functional",
+          "description": "Supplier widget present and clicking it opens a real page",
+          "status": "skip",
+          "details": {
+            "url": "https://revibe.me/products/iphone-12-pro",
+            "todo": "No supplier widget detected on PDP"
+          },
+          "journey": "j08-pdp-widgets-trust",
+          "journeyName": "PDP Widgets & Trust",
+          "journeyCode": "J08",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-cashback-visible",
+          "category": "visual",
+          "description": "Cashback element is actually rendered (not display:none / zero-sized)",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.me/products/iphone-12-pro",
+            "todo": null,
+            "nodeCount": 55,
+            "visible": true,
+            "smallestVisibleArea": 3248
+          },
+          "journey": "j08-pdp-widgets-trust",
+          "journeyName": "PDP Widgets & Trust",
+          "journeyCode": "J08",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-related-products-count",
+          "category": "content",
+          "description": "Recommended/Related section has ≥3 product cards (or PDP shows ≥3 other product links)",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.me/products/iphone-12-pro",
+            "source": "heading",
+            "count": 0,
+            "totalOther": 9,
+            "effectiveCount": 9
+          },
+          "journey": "j09-pdp-content-spec",
+          "journeyName": "PDP Content & Spec",
+          "journeyCode": "J09",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "minor"
+        },
+        {
+          "id": "pdp-whats-included-smartphone",
+          "category": "content",
+          "description": "\"What's Included\" lists Charger AND Mobile/Phone for smartphone PDPs",
+          "status": "skip",
+          "details": {
+            "url": "https://revibe.me/products/iphone-12-pro",
+            "sectionPresent": false,
+            "hasCharger": true,
+            "hasMobile": true,
+            "todo": "'What's Included' section not found"
+          },
+          "journey": "j09-pdp-content-spec",
+          "journeyName": "PDP Content & Spec",
+          "journeyCode": "J09",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "minor"
+        },
+        {
+          "id": "pdp-tech-spec-present",
+          "category": "content",
+          "description": "Technical Specification section present and non-empty",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.me/products/iphone-12-pro",
+            "present": true,
+            "length": 2000,
+            "headingText": "Technical specifications"
+          },
+          "journey": "j09-pdp-content-spec",
+          "journeyName": "PDP Content & Spec",
+          "journeyCode": "J09",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "minor"
+        },
+        {
+          "id": "pdp-atc-button-present",
+          "category": "functional",
+          "description": "Add-to-Cart button is present, visible, and enabled on PDP",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.me/products/iphone-12-pro",
+            "present": true,
+            "visible": true,
+            "text": "Add to Cart",
+            "disabled": false
+          },
+          "journey": "j10-atc-warranty-flow",
+          "journeyName": "Add-to-Cart & Warranty Flow",
+          "journeyCode": "J10",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-warranty-toggle-present",
+          "category": "functional",
+          "description": "Warranty toggle exists near the warranty card on PDP",
+          "status": "warning",
+          "details": {
+            "url": "https://revibe.me/products/iphone-12-pro",
+            "present": false,
+            "reason": "no toggle near warranty card"
+          },
+          "journey": "j10-atc-warranty-flow",
+          "journeyName": "Add-to-Cart & Warranty Flow",
+          "journeyCode": "J10",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-warranty-info-modal-content",
+          "category": "functional",
+          "description": "Clicking the warranty (i) icon reveals NEW Revibe Care+ content (Full Protection / Accidental Damage / Express Replacement / 24/7 Support / Revibe Care+)",
+          "status": "warning",
+          "details": {
+            "url": "https://revibe.me/products/iphone-12-pro",
+            "newKeywords": [],
+            "preClickKeywords": [
+              "fullProtection"
+            ],
+            "postClickKeywords": [
+              "fullProtection"
+            ],
+            "textGrewBy": 261
+          },
+          "journey": "j10-atc-warranty-flow",
+          "journeyName": "Add-to-Cart & Warranty Flow",
+          "journeyCode": "J10",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "j04-atc-button-clickable",
+          "category": "functional",
+          "description": "PDP Add-to-Cart button present, visible, and clickable",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.me/products/iphone-12-pro",
+            "present": true,
+            "visible": true,
+            "disabled": false,
+            "text": "Add to Cart"
+          },
+          "journey": "j04-commerce-smoke",
+          "journeyName": "Commerce Smoke",
+          "journeyCode": "J04",
+          "journeyFrequency": "daily",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "j04-bnpl-providers-on-pdp",
+          "category": "localization",
+          "description": "BNPL providers Tabby, Tamara all present on PDP",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.me/products/iphone-12-pro",
+            "expected": [
+              "Tabby",
+              "Tamara"
+            ],
+            "found": [
+              "Tabby",
+              "Tamara"
+            ],
+            "missing": []
+          },
+          "journey": "j04-commerce-smoke",
+          "journeyName": "Commerce Smoke",
+          "journeyCode": "J04",
+          "journeyFrequency": "daily",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "j04-currency-on-pdp",
+          "category": "localization",
+          "description": "Currency AED renders on PDP",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.me/products/iphone-12-pro",
+            "expectedSymbols": [
+              "AED",
+              "د.إ"
+            ],
+            "foundSymbol": "AED"
+          },
+          "journey": "j04-commerce-smoke",
+          "journeyName": "Commerce Smoke",
+          "journeyCode": "J04",
+          "journeyFrequency": "daily",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "j11-cart-checkout-deep-error",
+          "category": "meta",
+          "description": "Journey j11-cart-checkout-deep threw an error during execution",
+          "status": "fail",
+          "details": {
+            "error": "cartLoadErr is not defined",
+            "stack": "ReferenceError: cartLoadErr is not defined\n    at Object.run (file:///home/runner/work/revibe-web-qa/revibe-web-qa/scripts/journeys/j11-cart-checkout-deep.js:196:26)\n    at async runSite (file:///home/runner/work/revibe-web-qa/revibe-web-qa/scripts/run-qa.js:218:23)\n    at async main (file:///home/runner/work/revibe-web-qa/revibe-web-qa/scripts/run-qa.js:67:22)",
+            "screenshot": "screenshots/2026-07-24/ae/j11-cart-checkout-deep.png"
+          },
+          "journey": "j11-cart-checkout-deep",
+          "journeyName": "Cart",
+          "journeyCode": "J11",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "homepage-lcp",
+          "category": "performance",
+          "description": "Homepage LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
+          "status": "skip",
+          "details": {
+            "todo": "homepage-lcp not captured by earlier journey"
+          },
+          "journey": "j03-performance",
+          "journeyName": "Page Speed (LCP across journeys)",
+          "journeyCode": "J03",
+          "journeyFrequency": "daily",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "plp-lcp",
+          "category": "performance",
+          "description": "PLP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
+          "status": "pass",
+          "details": {
+            "lcpMs": 1504,
+            "url": "https://revibe.me/collections/all"
+          },
+          "journey": "j03-performance",
+          "journeyName": "Page Speed (LCP across journeys)",
+          "journeyCode": "J03",
+          "journeyFrequency": "daily",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "pdp-lcp",
+          "category": "performance",
+          "description": "PDP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
+          "status": "pass",
+          "details": {
+            "lcpMs": 732,
+            "source": "reused from j2-pdp"
+          },
+          "journey": "j03-performance",
+          "journeyName": "Page Speed (LCP across journeys)",
+          "journeyCode": "J03",
+          "journeyFrequency": "daily",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "cart-lcp",
+          "category": "performance",
+          "description": "Cart LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
+          "status": "pass",
+          "details": {
+            "lcpMs": 672,
+            "source": "reused from j3-cart"
+          },
+          "journey": "j03-performance",
+          "journeyName": "Page Speed (LCP across journeys)",
+          "journeyCode": "J03",
+          "journeyFrequency": "daily",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "checkout-lcp",
+          "category": "performance",
+          "description": "Checkout LCP under thresholds",
+          "status": "warning",
+          "details": {
+            "lcpMs": 3592,
+            "source": "reused from j3-cart"
+          },
+          "journey": "j03-performance",
+          "journeyName": "Page Speed (LCP across journeys)",
+          "journeyCode": "J03",
+          "journeyFrequency": "daily",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "homepage-cls",
+          "category": "performance",
+          "description": "Homepage CLS under thresholds (pass <0.1, warn 0.1-0.25, fail >0.25)",
+          "status": "skip",
+          "details": {
+            "todo": "homepage-cls not captured by earlier journey"
+          },
+          "journey": "j03-performance",
+          "journeyName": "Page Speed (LCP across journeys)",
+          "journeyCode": "J03",
+          "journeyFrequency": "daily",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "pdp-cls",
+          "category": "performance",
+          "description": "PDP CLS under thresholds (pass <0.1, warn 0.1-0.25, fail >0.25)",
+          "status": "fail",
+          "details": {
+            "cls": 0.685,
+            "source": "reused from j2-pdp",
+            "screenshot": "screenshots/2026-07-24/ae/j03-performance.png"
+          },
+          "journey": "j03-performance",
+          "journeyName": "Page Speed (LCP across journeys)",
+          "journeyCode": "J03",
+          "journeyFrequency": "daily",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "arabic-page-loads",
+          "category": "localization",
+          "description": "Arabic locale homepage loads (via ?locale=ar)",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.me/?locale=ar",
+            "status": 200
+          },
+          "journey": "j12-localization",
+          "journeyName": "Localization (Arabic + BNPL consistency)",
+          "journeyCode": "J12",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "arabic-contains-rtl-text",
+          "category": "localization",
+          "description": "Arabic locale page contains Arabic Unicode characters",
+          "status": "pass",
+          "details": {
+            "url": "https://revibe.me/?locale=ar",
+            "sample": "\n    \n     \n    \n\n\n\n\n\nvar warranty_products = [\n    \n        \n        {\n            product_handle: \"2-years-extended-warranty-plan-1\",\n            product_id: 45577070281023,\n            price: 45,\n "
+          },
+          "journey": "j12-localization",
+          "journeyName": "Localization (Arabic + BNPL consistency)",
+          "journeyCode": "J12",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "arabic-no-english-leak-in-h1",
+          "category": "localization",
+          "description": "Arabic h1 contains Arabic Unicode and no Latin letter leak",
+          "status": "warning",
+          "details": {
+            "url": "https://revibe.me/?locale=ar",
+            "h1": ""
+          },
+          "journey": "j12-localization",
+          "journeyName": "Localization (Arabic + BNPL consistency)",
+          "journeyCode": "J12",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "j01-critical-path-chained",
+          "category": "functional",
+          "description": "Critical path: homepage → PLP → PDP → /cart/add → /checkout all return 2xx",
+          "status": "pass",
+          "details": {
+            "steps": [
+              {
+                "step": "homepage",
+                "ok": true,
+                "status": 200
+              },
+              {
+                "step": "plp",
+                "ok": true,
+                "status": 200,
+                "productFound": true
+              },
+              {
+                "step": "pdp",
+                "ok": true,
+                "status": 200,
+                "variantId": 45726108418367
+              },
+              {
+                "step": "cart-add",
+                "ok": true,
+                "status": 200
+              },
+              {
+                "step": "checkout",
+                "ok": true,
+                "status": 200
+              }
+            ],
+            "allOk": true,
+            "todo": null
+          },
+          "journey": "j01-critical-path-smoke",
+          "journeyName": "Critical Path Smoke",
+          "journeyCode": "J01",
+          "journeyFrequency": "per-deploy",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "image-network-ok",
+          "journey": "meta",
+          "journeyName": "Cross-journey",
+          "journeyCode": null,
+          "journeyFrequency": null,
+          "journeyPriority": null,
+          "category": "visual",
+          "description": "All image network requests returned 2xx/3xx across this session",
+          "status": "pass",
+          "details": {
+            "failedCount": 0,
+            "samples": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "sa",
+      "name": "sa.revibe.me",
+      "region": "Saudi Arabia",
+      "summary": {
+        "total": 42,
+        "pass": 24,
+        "warning": 4,
+        "fail": 4,
+        "skip": 10,
+        "passRate": 75,
+        "status": "fail"
+      },
+      "checks": [
+        {
+          "id": "homepage-loads",
+          "category": "functional",
+          "description": "Homepage loads with 2xx response",
+          "status": "skip",
+          "details": {
+            "failureType": "infrastructure",
+            "errorType": "cdn-blocked",
+            "humanReason": "Homepage was blocked by the site's bot protection during this run — could not test."
+          },
+          "journey": "j02-site-health",
+          "journeyName": "Navigation & Page Health",
+          "journeyCode": "J02",
+          "journeyFrequency": "daily",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "currency-present",
+          "category": "meta",
+          "description": "currency-present",
+          "status": "skip",
+          "details": {
+            "todo": "Homepage was blocked by the site's bot protection during this run — could not test.",
+            "failureType": "infrastructure"
+          },
+          "journey": "j02-site-health",
+          "journeyName": "Navigation & Page Health",
+          "journeyCode": "J02",
+          "journeyFrequency": "daily",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "homepage-broken-images",
+          "category": "meta",
+          "description": "homepage-broken-images",
+          "status": "skip",
+          "details": {
+            "todo": "Homepage was blocked by the site's bot protection during this run — could not test.",
+            "failureType": "infrastructure"
+          },
+          "journey": "j02-site-health",
+          "journeyName": "Navigation & Page Health",
+          "journeyCode": "J02",
+          "journeyFrequency": "daily",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "internal-links-no-4xx",
+          "category": "meta",
+          "description": "internal-links-no-4xx",
+          "status": "skip",
+          "details": {
+            "todo": "Homepage was blocked by the site's bot protection during this run — could not test.",
+            "failureType": "infrastructure"
+          },
+          "journey": "j02-site-health",
+          "journeyName": "Navigation & Page Health",
+          "journeyCode": "J02",
+          "journeyFrequency": "daily",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "header-nav-multi-items",
+          "category": "meta",
+          "description": "header-nav-multi-items",
+          "status": "skip",
+          "details": {
+            "todo": "Homepage was blocked by the site's bot protection during this run — could not test.",
+            "failureType": "infrastructure"
+          },
+          "journey": "j02-site-health",
+          "journeyName": "Navigation & Page Health",
+          "journeyCode": "J02",
+          "journeyFrequency": "daily",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "plp-banner-text",
+          "category": "content",
+          "description": "PLP banner sub-text \"Certified renewed devices - Inspected by Experts - Up to 70% cheaper than new\" present",
+          "status": "fail",
+          "details": {
+            "url": "https://sa.revibe.me/collections/all",
+            "expectedPhrases": [
+              "certified renewed devices",
+              "inspected by experts",
+              "up to 70% cheaper than new"
+            ],
+            "missingPhrases": [
+              "certified renewed devices",
+              "inspected by experts",
+              "up to 70% cheaper than new"
+            ],
+            "screenshot": "screenshots/2026-07-24/sa/j06-plp-deep.png"
+          },
+          "journey": "j06-plp-deep",
+          "journeyName": "PLP",
+          "journeyCode": "J06",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "plp-bnpl-logos",
+          "category": "localization",
+          "description": "BNPL providers Tabby, Tamara, Baseeta present on PLP",
+          "status": "fail",
+          "details": {
+            "url": "https://sa.revibe.me/collections/all",
+            "expected": [
+              "Tabby",
+              "Tamara",
+              "Baseeta"
+            ],
+            "found": [],
+            "missing": [
+              "Tabby",
+              "Tamara",
+              "Baseeta"
+            ],
+            "screenshot": "screenshots/2026-07-24/sa/j06-plp-deep.png"
+          },
+          "journey": "j06-plp-deep",
+          "journeyName": "PLP",
+          "journeyCode": "J06",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "plp-empty-state",
+          "category": "content",
+          "description": "Empty-state message \"No products found...\" appears on impossible filter combination",
+          "status": "pass",
+          "details": {
+            "url": "https://sa.revibe.me/collections/all?filter.v.price.gte=999999999",
+            "expectedSubstring": "No products found",
+            "found": true
+          },
+          "journey": "j06-plp-deep",
+          "journeyName": "PLP",
+          "journeyCode": "J06",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "plp-search-samsung",
+          "category": "functional",
+          "description": "Search \"Samsung\" returns >=1 product card AND heading mentions \"Samsung\"",
+          "status": "pass",
+          "details": {
+            "url": "https://sa.revibe.me/search?q=Samsung",
+            "productCardCount": 18,
+            "h1": "Search results for Samsung",
+            "headingMentionsQuery": true
+          },
+          "journey": "j06-plp-deep",
+          "journeyName": "PLP",
+          "journeyCode": "J06",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "plp-sort-price-asc",
+          "category": "functional",
+          "description": "Sort by price low-to-high changes product card order",
+          "status": "pass",
+          "details": {
+            "defaultCount": 8,
+            "sortedCount": 8,
+            "defaultFirst3": [
+              "/products/iphone-12-pro-max",
+              "/products/iphone-12-pro",
+              "/products/iphone-11"
+            ],
+            "sortedFirst3": [
+              "/products/galaxy-note-20-ultra",
+              "/products/samsung-galaxy-s24-1",
+              "/products/samsung-galaxy-a15-6gb"
+            ],
+            "orderChanged": true
+          },
+          "journey": "j06-plp-deep",
+          "journeyName": "PLP",
+          "journeyCode": "J06",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "pdp-loads",
+          "category": "functional",
+          "description": "PDP loads with 2xx response",
+          "status": "pass",
+          "details": {
+            "url": "https://sa.revibe.me/products/iphone-12-pro-max",
+            "status": 200
+          },
+          "journey": "j07-pdp-variant-pricing",
+          "journeyName": "PDP Variant & Pricing",
+          "journeyCode": "J07",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-compare-gt-price",
+          "category": "math",
+          "description": "PDP compare-at price is greater than actual price",
+          "status": "pass",
+          "details": {
+            "url": "https://sa.revibe.me/products/iphone-12-pro-max",
+            "title": "iPhone 12 Pro Max",
+            "price": 1249,
+            "compare": 2475,
+            "currency": "SAR"
+          },
+          "journey": "j07-pdp-variant-pricing",
+          "journeyName": "PDP Variant & Pricing",
+          "journeyCode": "J07",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-variant-url-changes-price",
+          "category": "functional",
+          "description": "Navigating ?variant=<id> shows that variant's price",
+          "status": "skip",
+          "details": {
+            "todo": "Product has only one variant"
+          },
+          "journey": "j07-pdp-variant-pricing",
+          "journeyName": "PDP Variant & Pricing",
+          "journeyCode": "J07",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-warranty-heading",
+          "category": "content",
+          "description": "Warranty card heading \"Get full protection and warranty for 24 months\" present on PDP",
+          "status": "pass",
+          "details": {
+            "url": "https://sa.revibe.me/products/iphone-12-pro-max",
+            "found": true
+          },
+          "journey": "j08-pdp-widgets-trust",
+          "journeyName": "PDP Widgets & Trust",
+          "journeyCode": "J08",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-warranty-tier-math",
+          "category": "math",
+          "description": "Displayed warranty price matches canonical tier for product price",
+          "status": "pass",
+          "details": {
+            "url": "https://sa.revibe.me/products/iphone-12-pro-max",
+            "productPrice": 1249,
+            "expectedWarranty": 95,
+            "displayedWarranty": 95,
+            "currency": "SAR",
+            "match": true,
+            "tierHandle": "2-years-extended-warranty-plan",
+            "tierProductId": 45371583136065,
+            "cardSnippet": "Color: Graphite\n \n \n \nStorage: 128 GB\n128 GB\n256 GB\n512 GB\nCondition: Good\nCondition Guide\nGood\nSAR 1,249\n200 SAR Cashback\nVery Good\nSAR 1,339\nExcellent\nSAR 1,479\nGet full protection and warranty for 24 months\nFull protection (incl. misuse) - Protect against any damage or accident and extend your warranty for 2 years\nSAR 95\nShop Now, Pay Later!\n \n 200 SAR Cashback\nAdd to Cart\nAuthenticated & sold "
+          },
+          "journey": "j08-pdp-widgets-trust",
+          "journeyName": "PDP Widgets & Trust",
+          "journeyCode": "J08",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-cashback-reasonable",
+          "category": "content",
+          "description": "Cashback widget present AND amount > 0 (skipped while feature On Hold per QA doc)",
+          "status": "pass",
+          "details": {
+            "url": "https://sa.revibe.me/products/iphone-12-pro-max",
+            "todo": null,
+            "present": true,
+            "amount": 200,
+            "snippet": "ER WITH CODE TABBYDAY AND ENJOY 200 SAR CASHBACK AT CHECKOUT!\n150,000+ Customers\nExcellent\niPhone 12 Pro Max\nAdd to wishlist\nRenewed\n-50% vs"
+          },
+          "journey": "j08-pdp-widgets-trust",
+          "journeyName": "PDP Widgets & Trust",
+          "journeyCode": "J08",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-trustpilot-present",
+          "category": "content",
+          "description": "Trustpilot widget rendered with non-zero review count",
+          "status": "pass",
+          "details": {
+            "url": "https://sa.revibe.me/products/iphone-12-pro-max",
+            "hasHeading": true,
+            "hasText": true,
+            "widgetUrl": false,
+            "count": 1,
+            "todo": null
+          },
+          "journey": "j08-pdp-widgets-trust",
+          "journeyName": "PDP Widgets & Trust",
+          "journeyCode": "J08",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-usp-icons-all-four",
+          "category": "content",
+          "description": "PDP USP strip mentions Certified · Unlocked · 12 Months Warranty · Free Delivery (≥3 of 4)",
+          "status": "pass",
+          "details": {
+            "url": "https://sa.revibe.me/products/iphone-12-pro-max",
+            "items": {
+              "certified": true,
+              "unlocked": true,
+              "warranty12": true,
+              "freeDelivery": true
+            },
+            "count": 4
+          },
+          "journey": "j08-pdp-widgets-trust",
+          "journeyName": "PDP Widgets & Trust",
+          "journeyCode": "J08",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-supplier-click-resolves",
+          "category": "functional",
+          "description": "Supplier widget present and the supplier link resolves to 2xx/3xx",
+          "status": "pass",
+          "details": {
+            "url": "https://sa.revibe.me/products/iphone-12-pro-max",
+            "supplier": {
+              "name": "Skip To Content",
+              "href": "#MainContent",
+              "absHref": "https://sa.revibe.me/products/iphone-12-pro-max?variant=45685160608065#MainContent"
+            },
+            "linkStatus": 200,
+            "error": null
+          },
+          "journey": "j08-pdp-widgets-trust",
+          "journeyName": "PDP Widgets & Trust",
+          "journeyCode": "J08",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-cashback-visible",
+          "category": "visual",
+          "description": "Cashback element is actually rendered (not display:none / zero-sized)",
+          "status": "pass",
+          "details": {
+            "url": "https://sa.revibe.me/products/iphone-12-pro-max",
+            "todo": null,
+            "nodeCount": 55,
+            "visible": true,
+            "smallestVisibleArea": 3220
+          },
+          "journey": "j08-pdp-widgets-trust",
+          "journeyName": "PDP Widgets & Trust",
+          "journeyCode": "J08",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-related-products-count",
+          "category": "content",
+          "description": "Recommended/Related section has ≥3 product cards (or PDP shows ≥3 other product links)",
+          "status": "pass",
+          "details": {
+            "url": "https://sa.revibe.me/products/iphone-12-pro-max",
+            "source": "heading",
+            "count": 0,
+            "totalOther": 9,
+            "effectiveCount": 9
+          },
+          "journey": "j09-pdp-content-spec",
+          "journeyName": "PDP Content & Spec",
+          "journeyCode": "J09",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "minor"
+        },
+        {
+          "id": "pdp-whats-included-smartphone",
+          "category": "content",
+          "description": "\"What's Included\" lists Charger AND Mobile/Phone for smartphone PDPs",
+          "status": "skip",
+          "details": {
+            "url": "https://sa.revibe.me/products/iphone-12-pro-max",
+            "sectionPresent": false,
+            "hasCharger": true,
+            "hasMobile": true,
+            "todo": "'What's Included' section not found"
+          },
+          "journey": "j09-pdp-content-spec",
+          "journeyName": "PDP Content & Spec",
+          "journeyCode": "J09",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "minor"
+        },
+        {
+          "id": "pdp-tech-spec-present",
+          "category": "content",
+          "description": "Technical Specification section present and non-empty",
+          "status": "pass",
+          "details": {
+            "url": "https://sa.revibe.me/products/iphone-12-pro-max",
+            "present": true,
+            "length": 2000,
+            "headingText": "Technical Specifications"
+          },
+          "journey": "j09-pdp-content-spec",
+          "journeyName": "PDP Content & Spec",
+          "journeyCode": "J09",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "minor"
+        },
+        {
+          "id": "pdp-atc-button-present",
+          "category": "functional",
+          "description": "Add-to-Cart button is present, visible, and enabled on PDP",
+          "status": "pass",
+          "details": {
+            "url": "https://sa.revibe.me/products/iphone-12-pro-max",
+            "present": true,
+            "visible": true,
+            "text": "Add to Cart",
+            "disabled": false
+          },
+          "journey": "j10-atc-warranty-flow",
+          "journeyName": "Add-to-Cart & Warranty Flow",
+          "journeyCode": "J10",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-warranty-toggle-present",
+          "category": "functional",
+          "description": "Warranty toggle exists near the warranty card on PDP",
+          "status": "warning",
+          "details": {
+            "url": "https://sa.revibe.me/products/iphone-12-pro-max",
+            "present": false,
+            "reason": "no toggle near warranty card"
+          },
+          "journey": "j10-atc-warranty-flow",
+          "journeyName": "Add-to-Cart & Warranty Flow",
+          "journeyCode": "J10",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "pdp-warranty-info-modal-content",
+          "category": "functional",
+          "description": "Clicking the warranty (i) icon reveals NEW Revibe Care+ content (Full Protection / Accidental Damage / Express Replacement / 24/7 Support / Revibe Care+)",
+          "status": "warning",
+          "details": {
+            "url": "https://sa.revibe.me/products/iphone-12-pro-max",
+            "newKeywords": [],
+            "preClickKeywords": [
+              "fullProtection"
+            ],
+            "postClickKeywords": [
+              "fullProtection"
+            ],
+            "textGrewBy": 261
+          },
+          "journey": "j10-atc-warranty-flow",
+          "journeyName": "Add-to-Cart & Warranty Flow",
+          "journeyCode": "J10",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "j04-atc-button-clickable",
+          "category": "functional",
+          "description": "PDP Add-to-Cart button present, visible, and clickable",
+          "status": "pass",
+          "details": {
+            "url": "https://sa.revibe.me/products/iphone-12-pro-max",
+            "present": true,
+            "visible": true,
+            "disabled": false,
+            "text": "Add to Cart"
+          },
+          "journey": "j04-commerce-smoke",
+          "journeyName": "Commerce Smoke",
+          "journeyCode": "J04",
+          "journeyFrequency": "daily",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "j04-bnpl-providers-on-pdp",
+          "category": "localization",
+          "description": "BNPL providers Tabby, Tamara, Baseeta all present on PDP",
+          "status": "pass",
+          "details": {
+            "url": "https://sa.revibe.me/products/iphone-12-pro-max",
+            "expected": [
+              "Tabby",
+              "Tamara",
+              "Baseeta"
+            ],
+            "found": [
+              "Tabby",
+              "Tamara",
+              "Baseeta"
+            ],
+            "missing": []
+          },
+          "journey": "j04-commerce-smoke",
+          "journeyName": "Commerce Smoke",
+          "journeyCode": "J04",
+          "journeyFrequency": "daily",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "j04-currency-on-pdp",
+          "category": "localization",
+          "description": "Currency SAR renders on PDP",
+          "status": "pass",
+          "details": {
+            "url": "https://sa.revibe.me/products/iphone-12-pro-max",
+            "expectedSymbols": [
+              "SAR",
+              "ر.س"
+            ],
+            "foundSymbol": "SAR"
+          },
+          "journey": "j04-commerce-smoke",
+          "journeyName": "Commerce Smoke",
+          "journeyCode": "J04",
+          "journeyFrequency": "daily",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "j11-cart-checkout-deep-error",
+          "category": "meta",
+          "description": "Journey j11-cart-checkout-deep threw an error during execution",
+          "status": "fail",
+          "details": {
+            "error": "cartLoadErr is not defined",
+            "stack": "ReferenceError: cartLoadErr is not defined\n    at Object.run (file:///home/runner/work/revibe-web-qa/revibe-web-qa/scripts/journeys/j11-cart-checkout-deep.js:196:26)\n    at async runSite (file:///home/runner/work/revibe-web-qa/revibe-web-qa/scripts/run-qa.js:218:23)\n    at async main (file:///home/runner/work/revibe-web-qa/revibe-web-qa/scripts/run-qa.js:67:22)",
+            "screenshot": "screenshots/2026-07-24/sa/j11-cart-checkout-deep.png"
+          },
+          "journey": "j11-cart-checkout-deep",
+          "journeyName": "Cart",
+          "journeyCode": "J11",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "homepage-lcp",
+          "category": "performance",
+          "description": "Homepage LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
+          "status": "skip",
+          "details": {
+            "todo": "homepage-lcp not captured by earlier journey"
+          },
+          "journey": "j03-performance",
+          "journeyName": "Page Speed (LCP across journeys)",
+          "journeyCode": "J03",
+          "journeyFrequency": "daily",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "plp-lcp",
+          "category": "performance",
+          "description": "PLP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
+          "status": "pass",
+          "details": {
+            "lcpMs": 1696,
+            "url": "https://sa.revibe.me/collections/all"
+          },
+          "journey": "j03-performance",
+          "journeyName": "Page Speed (LCP across journeys)",
+          "journeyCode": "J03",
+          "journeyFrequency": "daily",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "pdp-lcp",
+          "category": "performance",
+          "description": "PDP LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
+          "status": "pass",
+          "details": {
+            "lcpMs": 696,
+            "source": "reused from j2-pdp"
+          },
+          "journey": "j03-performance",
+          "journeyName": "Page Speed (LCP across journeys)",
+          "journeyCode": "J03",
+          "journeyFrequency": "daily",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "cart-lcp",
+          "category": "performance",
+          "description": "Cart LCP under thresholds (pass <2.5s, warn 2.5-4s, fail >4s)",
+          "status": "pass",
+          "details": {
+            "lcpMs": 564,
+            "source": "reused from j3-cart"
+          },
+          "journey": "j03-performance",
+          "journeyName": "Page Speed (LCP across journeys)",
+          "journeyCode": "J03",
+          "journeyFrequency": "daily",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "checkout-lcp",
+          "category": "performance",
+          "description": "Checkout LCP under thresholds",
+          "status": "warning",
+          "details": {
+            "lcpMs": 3324,
+            "source": "reused from j3-cart"
+          },
+          "journey": "j03-performance",
+          "journeyName": "Page Speed (LCP across journeys)",
+          "journeyCode": "J03",
+          "journeyFrequency": "daily",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "homepage-cls",
+          "category": "performance",
+          "description": "Homepage CLS under thresholds (pass <0.1, warn 0.1-0.25, fail >0.25)",
+          "status": "skip",
+          "details": {
+            "todo": "homepage-cls not captured by earlier journey"
+          },
+          "journey": "j03-performance",
+          "journeyName": "Page Speed (LCP across journeys)",
+          "journeyCode": "J03",
+          "journeyFrequency": "daily",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "pdp-cls",
+          "category": "performance",
+          "description": "PDP CLS under thresholds (pass <0.1, warn 0.1-0.25, fail >0.25)",
+          "status": "fail",
+          "details": {
+            "cls": 0.682,
+            "source": "reused from j2-pdp",
+            "screenshot": "screenshots/2026-07-24/sa/j03-performance.png"
+          },
+          "journey": "j03-performance",
+          "journeyName": "Page Speed (LCP across journeys)",
+          "journeyCode": "J03",
+          "journeyFrequency": "daily",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "arabic-page-loads",
+          "category": "localization",
+          "description": "Arabic locale homepage loads (via ?locale=ar)",
+          "status": "pass",
+          "details": {
+            "url": "https://sa.revibe.me/?locale=ar",
+            "status": 200
+          },
+          "journey": "j12-localization",
+          "journeyName": "Localization (Arabic + BNPL consistency)",
+          "journeyCode": "J12",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "arabic-contains-rtl-text",
+          "category": "localization",
+          "description": "Arabic locale page contains Arabic Unicode characters",
+          "status": "pass",
+          "details": {
+            "url": "https://sa.revibe.me/?locale=ar",
+            "sample": "\n    \n     \n    \n\n\n\n\n\nvar warranty_products = [\n    \n        \n        {\n            product_handle: \"2-years-extended-warranty-plan-1\",\n            product_id: 45539094659393,\n            price: 45,\n "
+          },
+          "journey": "j12-localization",
+          "journeyName": "Localization (Arabic + BNPL consistency)",
+          "journeyCode": "J12",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "arabic-no-english-leak-in-h1",
+          "category": "localization",
+          "description": "Arabic h1 contains Arabic Unicode and no Latin letter leak",
+          "status": "warning",
+          "details": {
+            "url": "https://sa.revibe.me/?locale=ar",
+            "h1": ""
+          },
+          "journey": "j12-localization",
+          "journeyName": "Localization (Arabic + BNPL consistency)",
+          "journeyCode": "J12",
+          "journeyFrequency": "weekly",
+          "journeyPriority": "major"
+        },
+        {
+          "id": "j01-critical-path-chained",
+          "category": "functional",
+          "description": "Critical path: homepage → PLP → PDP → /cart/add → /checkout all return 2xx",
+          "status": "skip",
+          "details": {
+            "steps": [
+              {
+                "step": "homepage",
+                "ok": false,
+                "status": 429
+              },
+              {
+                "step": "plp",
+                "ok": false,
+                "status": 429,
+                "productFound": false
+              },
+              {
+                "step": "pdp",
+                "ok": false,
+                "error": "no product handle from plp"
+              },
+              {
+                "step": "cart-add",
+                "ok": false,
+                "error": "no variant id"
+              },
+              {
+                "step": "checkout",
+                "ok": false,
+                "error": "cart not populated"
+              }
+            ],
+            "allOk": false,
+            "todo": "One or more steps blocked by CDN (403/429); not a real failure"
+          },
+          "journey": "j01-critical-path-smoke",
+          "journeyName": "Critical Path Smoke",
+          "journeyCode": "J01",
+          "journeyFrequency": "per-deploy",
+          "journeyPriority": "critical"
+        },
+        {
+          "id": "image-network-ok",
+          "journey": "meta",
+          "journeyName": "Cross-journey",
+          "journeyCode": null,
+          "journeyFrequency": null,
+          "journeyPriority": null,
+          "category": "visual",
+          "description": "All image network requests returned 2xx/3xx across this session",
+          "status": "pass",
+          "details": {
+            "failedCount": 0,
+            "samples": []
+          }
+        }
+      ]
+    }
+  ],
+  "warrantyTiers": {
+    "za": [
+      {
+        "maxPrice": 2892,
+        "warranty": 210
+      },
+      {
+        "maxPrice": 4821,
+        "warranty": 400
+      },
+      {
+        "maxPrice": 9642,
+        "warranty": 445
+      },
+      {
+        "maxPrice": 14463,
+        "warranty": 675
+      },
+      {
+        "maxPrice": null,
+        "warranty": 1975
+      }
+    ],
+    "ae": [
+      {
+        "maxPrice": 600,
+        "warranty": 45
+      },
+      {
+        "maxPrice": 1000,
+        "warranty": 85
+      },
+      {
+        "maxPrice": 2000,
+        "warranty": 95
+      },
+      {
+        "maxPrice": 3000,
+        "warranty": 145
+      },
+      {
+        "maxPrice": null,
+        "warranty": 445
+      }
+    ],
+    "sa": [
+      {
+        "maxPrice": 600,
+        "warranty": 45
+      },
+      {
+        "maxPrice": 1000,
+        "warranty": 85
+      },
+      {
+        "maxPrice": 2000,
+        "warranty": 95
+      },
+      {
+        "maxPrice": 3000,
+        "warranty": 145
+      },
+      {
+        "maxPrice": null,
+        "warranty": 445
+      }
+    ]
+  }
+}
